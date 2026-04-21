@@ -1,0 +1,1763 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>heartwork — o maior hub da música no Brasil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:wght@400;500;600;700&amp;family=Alte+Haas+Grotesk&amp;display=swap" rel="stylesheet">
+<style>
+  /* ============ LOCAL FONTS (from Figma design) ============ */
+  @font-face{
+    font-family:"Mona Sans";
+    src:url("assets/fonts/Mona-Sans-ExtraBoldNarrowItalic.woff") format("woff");
+    font-weight:800;font-style:italic;font-display:swap;
+  }
+  @font-face{
+    font-family:"Sequel100";
+    src:url("assets/fonts/Sequel100Black-95.woff") format("woff");
+    font-weight:900;font-style:normal;font-display:swap;
+  }
+  @font-face{font-family:"Aspekta";src:url("assets/fonts/Aspekta-400.woff2") format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Aspekta";src:url("assets/fonts/Aspekta-450.woff2") format("woff2");font-weight:450;font-display:swap}
+  @font-face{font-family:"Aspekta";src:url("assets/fonts/Aspekta-500.woff2") format("woff2");font-weight:500;font-display:swap}
+  @font-face{font-family:"Aspekta";src:url("assets/fonts/Aspekta-550.woff2") format("woff2");font-weight:550;font-display:swap}
+  @font-face{font-family:"Aspekta";src:url("assets/fonts/Aspekta-600.woff2") format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"Aspekta";src:url("assets/fonts/Aspekta-650.woff2") format("woff2");font-weight:700;font-display:swap}
+  :root{
+    --black:#000;
+    --white:#fff;
+    --orange:#FF8D28;
+    --purple:#9E4EFF;
+    --purple-deep:#7A2FE0;
+    --pink:#FB1CE0;
+    --grey:#D9D9D9;
+    --grey-soft:#FAFBFB;
+    --ink-60:rgba(0,0,0,.6);
+    --ink-30:rgba(0,0,0,.3);
+    --line-w:rgba(255,255,255,.3);
+    /* display = Mona Sans ExtraBold Narrow Italic (band names) */
+    --display:"Mona Sans", system-ui, sans-serif;
+    /* headline = Aspekta */
+    --headline:"Aspekta", "Helvetica Neue", Arial, sans-serif;
+    /* body = Aspekta */
+    --body:"Aspekta", system-ui, sans-serif;
+    /* chunky display = Sequel100 Black (KISS CLUB, FULLSTACK MEDIA) */
+    --chunk:"Sequel100", "Aspekta", sans-serif;
+    /* small caps / ui labels */
+    --ui:"Radio Canada Big", "Aspekta", sans-serif;
+    --mono-alt:"Alte Haas Grotesk", "Aspekta", sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--black);color:var(--white);font-family:var(--body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{overflow-x:hidden}
+
+  /* ───────────────────── SCROLL SNAP (one section = one viewport) ───────────────────── */
+  html{
+    scroll-snap-type:y mandatory;
+    scroll-behavior:smooth;
+  }
+  .hero-wrap,
+  .brands-section,
+  .fullstack-dark,
+  .kissclub,
+  .services,
+  .stats,
+  .contact{
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    min-height:100vh;
+    min-height:100svh;
+  }
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+
+  /* ───────────────────── HEARTWORK WORDMARK ───────────────────── */
+  .heart-logo{display:inline-flex;align-items:center}
+  .heart-logo img{display:block;height:clamp(24px,2.2vw,38px);width:auto}
+
+  /* ───────────────────── CHIP / PILL ───────────────────── */
+  .chip{
+    display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid currentColor;border-radius:999px;
+    padding:.58em 1.1em;font-family:var(--body);font-weight:500;
+    font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;
+    line-height:1;white-space:nowrap;
+  }
+  .chip.solid-dark{background:var(--black);color:#fff;border-color:var(--black)}
+  .btn-pill{
+    display:inline-flex;align-items:center;gap:1.6rem;justify-content:space-between;
+    background:var(--black);color:#fff;border-radius:999px;
+    padding:1.3rem 1.6rem 1.3rem 1.8rem;font-family:var(--headline);
+    font-weight:500;letter-spacing:.02em;text-transform:uppercase;font-size:1.05rem;
+    transition:transform .2s ease, background .2s ease;
+  }
+  .btn-pill:hover{transform:translateY(-2px);background:#111}
+  .btn-pill .arrow{width:1.4em;height:1.4em;display:grid;place-items:center}
+  .btn-pill .arrow svg{width:100%;height:100%}
+  .nav-pill{
+    display:inline-flex;align-items:center;border-radius:999px;padding:.8em 1.3em;
+    background:var(--black);color:#fff;font-family:var(--body);font-weight:500;
+    text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;
+  }
+  .nav-pill.inv{background:#fff;color:#000}
+
+  /* ───────────────────── SECTION: HERO (purple) ───────────────────── */
+  .hero-wrap{
+    position:relative;padding:clamp(12px,1.4vw,24px);
+    background:var(--purple);
+    overflow:hidden;
+  }
+  .hero{
+    position:relative;border-radius:clamp(16px,1.8vw,30px);
+    border:2px solid rgba(0,0,0,.8);
+    background:transparent;
+    overflow:visible;
+    min-height:min(92vh,980px);
+    padding:clamp(6px,0.7vw,10px) clamp(20px,2.2vw,40px) clamp(20px,2.2vw,40px);
+    display:grid;
+    grid-template-rows:auto 1fr auto auto;
+    align-items:start;
+  }
+  /* decorative orange blobs behind artist */
+  .hero-blobs{
+    position:absolute;inset:11% -4% 0 -4%;
+    display:flex;justify-content:center;align-items:flex-start;
+    pointer-events:none;z-index:0;
+  }
+  .hero-blobs .blob{
+    width:clamp(500px,56vw,900px);aspect-ratio:1/1;
+    background:radial-gradient(closest-side,rgba(255,141,40,.0) 38%, var(--orange) 40% 62%, rgba(255,141,40,0) 66%);
+    filter:blur(.2px);
+    transform:translateY(-8%);
+  }
+  .hero-drip{
+    position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse 28% 42% at 30% 55%, var(--orange) 0%, rgba(255,141,40,0) 70%),
+      radial-gradient(ellipse 34% 56% at 62% 50%, var(--orange) 0%, rgba(255,141,40,0) 65%),
+      radial-gradient(ellipse 20% 64% at 48% 42%, var(--orange) 0%, rgba(255,141,40,0) 70%);
+    mix-blend-mode:normal;opacity:.95;
+  }
+  .hero-artist{
+    position:absolute;
+    left:50%;bottom:0;top:12%;
+    transform:translateX(-50%);
+    width:clamp(360px, 50vw, 820px);
+    background:url("assets/hero-guitarist.png") no-repeat center bottom;
+    background-size:contain;
+    z-index:1;pointer-events:none;
+  }
+  .hero-top{
+    position:relative;z-index:2;
+    display:flex;justify-content:space-between;align-items:flex-start;gap:24px;
+    flex-wrap:wrap;
+  }
+  .hero-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .hero-nav .link{
+    font-family:var(--body);font-weight:500;font-size:.95rem;
+    padding:.65em 1em;opacity:.85;color:#000;
+  }
+  .hero-body{
+    position:relative;z-index:2;
+    padding-top:clamp(60px,8vh,140px);
+    max-width:860px;
+  }
+  .hero-kicker{
+    display:inline-block;border:1px solid #000;border-radius:999px;
+    padding:.6em 1em;font-family:var(--ui);font-weight:500;
+    text-transform:uppercase;letter-spacing:.04em;color:#000;font-size:.82rem;
+    margin-bottom:clamp(18px,2.2vh,28px);
+  }
+  .hero-title{
+    font-family:var(--chunk);letter-spacing:-.005em;line-height:.92;
+    font-size:clamp(18px, 2.9vw, 44px);
+    color:#000;font-weight:900;text-transform:uppercase;
+  }
+  .hero-title .outline{
+    color:transparent;-webkit-text-stroke:1.5px #000;
+    display:block;
+  }
+  .hero-cta{margin-top:clamp(24px,3.5vh,44px)}
+  .hero-meta{
+    position:relative;z-index:2;
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-top:clamp(32px,6vh,72px);flex-wrap:wrap;gap:24px;color:#000;
+  }
+  .hero-meta .label{
+    font-family:var(--body);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;
+    margin-bottom:.4em;opacity:.75;
+  }
+  .hero-meta .big{
+    font-family:var(--headline);font-weight:700;font-size:clamp(24px,3vw,44px);
+    letter-spacing:-.02em;line-height:1;color:#000;
+  }
+  .hero-meta .right{text-align:right}
+
+  /* hero hub-shapes svg background */
+  .hero-shapes{
+    position:absolute;inset:0;z-index:0;pointer-events:none;
+    display:block;width:100%;height:100%;
+    color:var(--orange);
+  }
+  .hero-shapes svg{width:100%;height:100%;display:block;color:var(--orange)}
+  .hero-shapes svg path{fill:var(--orange)}
+
+  /* ───────────────────── STICKY NAV (black pill) ───────────────────── */
+  .sticky-nav-wrap{
+    position:fixed;top:clamp(8px,1vw,16px);left:0;right:0;z-index:80;
+    padding:0 clamp(12px,1.4vw,24px);
+    transform:translateY(-130%);
+    transition:transform .45s cubic-bezier(.2,.8,.2,1), opacity .3s ease;
+    opacity:0;pointer-events:none;
+  }
+  .sticky-nav-wrap.visible{transform:translateY(0);opacity:1;pointer-events:auto}
+  .sticky-nav{
+    background:#000;color:#fff;border-radius:20px;
+    padding:1.1rem 1.3rem;
+    display:flex;align-items:center;gap:16px;
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+  }
+  .sticky-nav .links{display:flex;gap:6px;align-items:center;margin-left:auto}
+  .sticky-nav .links a{
+    padding:.7em 1em;font-size:.9rem;opacity:.85;text-transform:uppercase;letter-spacing:.04em;font-weight:500;
+  }
+  .sticky-nav .links a:hover{opacity:1}
+  .sticky-nav .heart-logo img{height:clamp(22px,2vw,32px)}
+  .nav-toggle{display:none}
+
+  /* ───────────────────── ORANGE MARQUEE SECTION ───────────────────── */
+  .brands-section{
+    background:var(--orange);color:#000;
+    padding:clamp(40px,6vw,90px) 0;
+    overflow:hidden;
+  }
+  .brands-section .eyebrow{
+    text-align:center;font-family:var(--body);text-transform:uppercase;
+    font-size:.82rem;letter-spacing:.12em;opacity:.7;margin-bottom:1rem;
+  }
+  .brands-section h2{
+    text-align:center;font-family:var(--headline);font-weight:500;
+    font-size:clamp(28px,4.2vw,60px);letter-spacing:-.02em;line-height:1.05;
+    padding:0 clamp(20px,4vw,80px);
+  }
+  .brands-section .tag{
+    text-align:center;font-family:var(--body);font-size:.82rem;
+    text-transform:uppercase;letter-spacing:.12em;margin-top:2rem;opacity:.7;
+  }
+
+  .marquee{
+    display:flex;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+    padding:clamp(2px,0.3vw,6px) 0;
+  }
+  .marquee__track{
+    display:flex;gap:clamp(30px,3.2vw,56px);flex-shrink:0;align-items:center;
+    animation:marquee 42s linear infinite;
+    padding-right:clamp(30px,3.2vw,56px);
+    will-change:transform;
+  }
+  .marquee.rev .marquee__track{animation-direction:reverse;animation-duration:50s}
+  .marquee.slow .marquee__track{animation-duration:56s}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .band-name{
+    font-family:var(--display);font-style:italic;font-weight:900;
+    font-size:clamp(48px,8.5vw,130px);letter-spacing:-.02em;line-height:.98;
+    color:#000;white-space:nowrap;text-transform:uppercase;
+  }
+  .band-pill{
+    flex:0 0 auto;height:clamp(70px,8vw,110px);width:clamp(120px,13vw,195px);
+    border-radius:90px;background:var(--grey);overflow:hidden;
+    background-size:cover;background-position:center;
+  }
+  .band-pill.wide{width:clamp(210px,22vw,340px)}
+
+  /* ───────────────────── FULLSTACK DARK SECTION ───────────────────── */
+  .fullstack-dark{
+    position:relative;background:#000;color:#fff;overflow:hidden;
+    padding:clamp(80px,10vw,160px) clamp(20px,4vw,80px) clamp(60px,8vw,120px);
+    display:flex;flex-direction:column;
+  }
+  .fullstack-dark .inner{
+    display:flex;flex-direction:column;
+    flex:1 1 auto;
+  }
+  .fullstack-dark .logos-marquee{
+    margin-top:auto !important;
+    mask-image:none !important;
+    -webkit-mask-image:none !important;
+  }
+  .fullstack-dark .bg{
+    position:absolute;inset:0;z-index:0;opacity:.85;pointer-events:none;
+    background:
+      radial-gradient(ellipse 55% 80% at -10% 50%, var(--orange) 0%, rgba(255,141,40,0) 55%),
+      radial-gradient(ellipse 70% 90% at 110% 50%, var(--orange) 0%, rgba(255,141,40,0) 50%);
+    filter:blur(30px);
+  }
+  .fullstack-dark .inner{position:relative;z-index:1;max-width:1400px;margin:0 auto}
+  .fullstack-dark .eyebrow{
+    font-family:var(--body);text-transform:uppercase;font-size:.82rem;
+    letter-spacing:.12em;opacity:.6;margin-bottom:1.5rem;
+  }
+  .fullstack-dark h2{
+    font-family:var(--headline);font-weight:500;letter-spacing:-.02em;line-height:1.05;
+    font-size:clamp(28px,4.2vw,60px);max-width:100%;width:100%;color:#fff;
+    text-transform:uppercase;
+    overflow-wrap:break-word;word-break:normal;min-width:0;
+    box-sizing:border-box;
+  }
+  .fullstack-dark .inner{min-width:0;max-width:100%;width:100%;box-sizing:border-box}
+  .logos-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    column-gap:clamp(40px,6vw,120px);
+    row-gap:clamp(40px,5vw,80px);
+    margin-top:clamp(20px,2.5vw,40px);
+    padding-top:0;
+    border-top:0;
+    align-items:center;justify-items:center;
+  }
+  .logos-row .logo{
+    flex:0 1 auto;height:clamp(17px,2.1vw,34px);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;opacity:.9;
+    font-family:var(--headline);font-weight:700;font-size:clamp(16px,1.6vw,24px);
+    letter-spacing:.02em;
+    width:100%;
+  }
+  .logos-row .logo.logo-lg{height:clamp(34px,4.2vw,67px)}
+  .logos-row .logo img{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;filter:none}
+  .logos-row .logo:last-child:nth-child(odd){grid-column:1 / -1}
+
+  /* Logos marquee (scrolling row of brand logos) */
+  .logos-marquee{margin-top:clamp(24px,3vw,48px);padding:clamp(8px,1vw,16px) 0}
+  .logos-marquee .marquee__track{
+    gap:clamp(40px,5vw,100px);
+    padding-right:clamp(40px,5vw,100px);
+    animation-duration:32s;
+    align-items:center;
+  }
+  .logos-marquee .logo{
+    flex:0 0 auto;
+    height:clamp(40px,5vw,72px);
+    display:flex;align-items:center;justify-content:center;
+    opacity:.9;
+  }
+  .logos-marquee .logo img{
+    max-height:100%;height:auto;width:auto;max-width:none;
+    object-fit:contain;filter:none;
+  }
+  .logos-marquee .logo.logo-kiss,
+  .logos-marquee .logo.logo-monsters{height:clamp(52px,6.5vw,94px)}
+  .logos-marquee .logo.logo-roland{height:clamp(28px,3.5vw,50px)}
+  .logos-row .logo.box{padding:0 clamp(12px,1.2vw,18px);border:1.5px solid currentColor;border-radius:6px;color:#fff}
+  .logos-row .logo .kit{font-family:var(--chunk);font-weight:900;color:#fff;background:#e4002b;padding:.25em .6em;border-radius:4px;font-size:.9em;letter-spacing:.05em}
+  .logos-row .logo svg{height:100%;width:auto}
+
+  /* ───────────────────── KISS CLUB (purple) ───────────────────── */
+  .kissclub{
+    position:relative;background:var(--purple);overflow:hidden;
+    min-height:min(82vh,900px);
+  }
+  .kissclub .art{
+    position:absolute;inset:0;
+    background:url("assets/kiss-club.png") no-repeat center;
+    background-size:cover;
+    mix-blend-mode:normal;
+  }
+  .kissclub .art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.35) 100%)}
+  .kissclub .copy{
+    position:absolute;left:clamp(20px,4vw,80px);bottom:clamp(40px,6vw,120px);
+    z-index:2;color:#fff;
+  }
+  .kissclub .name{
+    font-family:var(--chunk);font-weight:900;
+    font-size:clamp(60px,11vw,170px);letter-spacing:-.01em;line-height:1;
+    color:#fff;text-transform:uppercase;
+  }
+  .kissclub .meta{display:flex;gap:clamp(24px,3vw,48px);margin-top:1.2rem;flex-wrap:wrap}
+  .kissclub .meta span{
+    font-family:var(--headline);font-weight:700;font-size:clamp(20px,1.8vw,32px);
+    letter-spacing:.02em;text-transform:uppercase;
+  }
+
+  /* ───────────────────── GIANT FULLSTACK MEDIA strip ───────────────────── */
+  .fullstack-strip{
+    position:relative;background:url("assets/fullstack-strip-bg.png") center/cover no-repeat, var(--pink);overflow:hidden;
+    padding:clamp(8px,1.2vw,20px) 0;border-bottom:1px solid rgba(0,0,0,.2);
+  }
+  .fullstack-strip .track{
+    display:flex;gap:0;white-space:nowrap;animation:marquee 1.8s linear infinite;
+    will-change:transform;
+  }
+  .fullstack-strip .track span{
+    font-family:var(--chunk);letter-spacing:-.01em;
+    font-size:clamp(100px,16vw,220px);line-height:1.1;font-weight:900;
+    color:#000;padding-right:.3em;text-transform:uppercase;
+  }
+  .fullstack-strip::after{
+    content:"";display:none;
+  }
+
+  /* ───────────────────── SERVICES ───────────────────── */
+  .services{background:#000;padding:clamp(30px,4vw,60px) 0}
+  .service{
+    display:grid;
+    grid-template-columns:clamp(40px,4vw,90px) 1fr;
+    gap:clamp(20px,3vw,48px);
+    align-items:start;
+    padding:clamp(30px,4vw,60px) clamp(20px,4vw,80px);
+    border-bottom:1px solid var(--line-w);
+    position:relative;
+  }
+  .service:first-of-type{border-top:1px solid var(--line-w)}
+  .service .num{
+    font-family:var(--body);font-weight:700;font-size:1.1rem;
+    color:rgba(255,255,255,.55);line-height:1.2;padding-top:.6em;
+    letter-spacing:.04em;
+  }
+  .service-body{
+    display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(20px,3vw,48px);align-items:start;
+  }
+  .service h3{
+    font-family:var(--headline);font-weight:700;letter-spacing:-.025em;line-height:1.02;
+    font-size:clamp(42px,7vw,128px);text-transform:uppercase;color:#fff;
+  }
+  .service h3.lg{font-size:clamp(42px,7vw,128px)}
+  .service p{
+    font-family:var(--body);font-weight:500;line-height:1.2;
+    font-size:clamp(15px,1.1vw,18px);color:var(--grey);max-width:42ch;
+    opacity:.85;align-self:center;
+  }
+  .service:first-of-type p{font-size:clamp(18px,2vw,32px);max-width:22ch;line-height:1.15;color:#fff;opacity:.85}
+  .service:first-of-type h3{font-size:clamp(46px,8vw,128px)}
+
+  /* ───────────────────── STATS ───────────────────── */
+  .stats{
+    background:#000;color:#fff;
+    padding:clamp(60px,8vw,120px) clamp(20px,4vw,80px);
+    display:grid;grid-template-columns:minmax(240px,1fr) 2fr;gap:clamp(30px,4vw,80px);
+    align-items:end;border-bottom:1px solid var(--line-w);
+  }
+  .stats .kicker{
+    font-family:var(--body);font-weight:500;font-size:.95rem;color:var(--grey);
+    max-width:32ch;line-height:1.2;
+  }
+  .stats h2{
+    font-family:var(--headline);font-weight:500;letter-spacing:-.02em;line-height:1.05;
+    font-size:clamp(30px,3.5vw,48px);text-transform:uppercase;
+  }
+  .stats-row{grid-column:1/-1;display:flex;flex-direction:column;align-items:flex-start;gap:clamp(20px,2.5vw,40px);margin-top:clamp(30px,4vw,60px);border-top:1px solid var(--line-w);padding-top:clamp(30px,4vw,60px);width:50%;margin-left:auto}
+  .stat{display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;text-align:left}
+  .stat .num{
+    font-family:var(--chunk);font-weight:900;letter-spacing:-.02em;
+    font-size:clamp(56px,8vw,128px);color:#fff;line-height:1;
+  }
+  .stat .lab{font-family:var(--body);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--grey);line-height:1.2}
+
+  /* ───────────────────── CONTACT / FOOTER (orange) ───────────────────── */
+  .contact{
+    position:relative;background:var(--orange);color:#000;overflow:hidden;
+    padding:clamp(48px,6vw,90px) clamp(20px,4vw,80px) 0;
+    min-height:calc(100vh + 80px);
+    min-height:calc(100svh + 80px);
+  }
+  .contact .bg{
+    position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.7;
+    background:
+      radial-gradient(ellipse 45% 65% at 8% 40%, var(--purple-deep) 0%, rgba(122,47,224,0) 55%),
+      radial-gradient(ellipse 60% 80% at 95% 55%, var(--purple-deep) 0%, rgba(122,47,224,0) 50%);
+    filter:blur(30px);
+  }
+  .contact .inner{position:relative;z-index:1}
+  .contact h2{
+    font-family:var(--headline);font-weight:500;letter-spacing:-.025em;line-height:1.08;
+    font-size:clamp(40px,5.2vw,74px);max-width:18ch;color:#000;
+  }
+  .contact-email{
+    display:block;margin:clamp(40px,5vw,80px) 0 clamp(24px,3vw,48px);
+    font-family:var(--headline);font-weight:500;letter-spacing:-.02em;
+    font-size:clamp(28px,6vw,90px);color:#000;text-decoration:underline;
+    text-underline-offset:.08em;word-break:break-word;line-height:1.05;
+    text-align:right;
+  }
+  .contact-foot{
+    display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,48px);align-items:start;
+    padding-top:clamp(24px,3vw,48px);border-top:1px solid rgba(0,0,0,.2);
+  }
+  .contact-foot .fine{
+    font-family:var(--headline);font-weight:500;font-size:clamp(14px,1.1vw,18px);max-width:42ch;color:#000;line-height:1.2;
+  }
+  .contact-foot .heart-logo img{height:clamp(28px,2.6vw,42px)}
+
+  /* giant footer wordmark */
+  .mega-wordmark{
+    margin-top:clamp(30px,4vw,60px);position:relative;
+    display:flex;align-items:center;gap:clamp(16px,1.6vw,28px);
+    overflow:hidden;padding-top:clamp(20px,2vw,40px);
+  }
+  .mega-wordmark svg{flex:0 0 auto;height:clamp(90px,13vw,260px);width:auto;color:var(--purple)}
+  .mega-wordmark .word{
+    font-family:var(--headline);font-weight:500;letter-spacing:-.02em;line-height:.9;
+    font-size:clamp(140px,23vw,440px);color:var(--purple);white-space:nowrap;
+    transform:translateY(8%);
+  }
+
+  /* ───────────────────── RESPONSIVE ───────────────────── */
+  @media (max-width:980px){
+    .sticky-nav .links{display:none}
+    .sticky-nav.expand .links{display:flex;flex-direction:column;align-items:stretch;gap:2px;position:absolute;top:calc(100% + 10px);left:0;right:0;background:#000;border-radius:16px;padding:12px}
+    .nav-toggle{display:inline-flex}
+    .service-body{grid-template-columns:1fr}
+    .service h3{font-size:clamp(40px,10vw,72px) !important}
+    .service:first-of-type h3{font-size:clamp(46px,12vw,84px) !important}
+    .service:first-of-type p{font-size:clamp(16px,3.6vw,22px);max-width:40ch}
+    .stats{grid-template-columns:1fr}
+    .stats-row{grid-template-columns:1fr;gap:24px;width:100%;margin-left:0}
+    .contact-foot{grid-template-columns:1fr}
+    .contact-email{font-size:clamp(28px,9vw,60px);text-align:left}
+    .kissclub{min-height:70vh}
+    .hero-artist{width:72%;right:-8%;top:18%}
+    .hero-nav{display:none}
+    .hero-nav.open{display:flex;flex-direction:column;background:rgba(0,0,0,.9);padding:12px;border-radius:14px;position:absolute;right:0;top:100%;z-index:5}
+  }
+  /* ─────────────────────────────────────────────────────────────
+     MOBILE REDESIGN — Figma "Heartwork - mobile.fig" (402px reference)
+     Applied at ≤640px OR .sim-mobile (simulator).
+     All rules use :where(html.sim-mobile), (max-width:640px){} duplication
+     so tweak simulator and real mobile stay in sync.
+     ───────────────────────────────────────────────────────────── */
+</style>
+<style id="mobile-redesign">
+/* Shared rules — apply both in @media and .sim-mobile via :is() */
+@media (max-width:640px){
+  html:not(.sim-mobile){ --m:1; }
+}
+
+/* ============ 1. HERO (purple, 878h @ 402w ≈ 218% of width) ============ */
+@media (max-width:640px){
+  body{padding-top:0 !important}
+  .sticky-nav-wrap{display:none !important}
+  .hero-wrap{
+    min-height:100vh !important;
+    min-height:100svh !important;
+    display:flex !important;
+    flex-direction:column !important;
+  }
+
+  .hero{
+    padding:22px 25px 0 !important;
+    height:auto !important; min-height:0 !important;
+    flex:1 1 auto !important;
+    display:flex !important; flex-direction:column !important;
+    overflow:visible !important;
+    background:transparent !important;
+  }
+
+  /* Orange organic blobs — behind black outline of the hero, follows artist anchor */
+  .hero-shapes{
+    display:block !important;
+    top:auto !important; bottom:200px !important;
+    left:50% !important;
+    width:100% !important; height:430px !important;
+    transform:translateX(-50%) !important;
+    background:url('assets/hub-shapes-inline.svg') no-repeat center / cover !important;
+    opacity:1 !important; mix-blend-mode:normal !important;
+    z-index:0 !important;
+  }
+
+  /* Artist photo — anchored to bottom of viewport, above CTA */
+  .hero-artist{
+    position:absolute !important; z-index:2 !important;
+    left:50% !important; right:auto !important;
+    top:auto !important; bottom:0 !important;
+    transform:translateX(-50%) !important;
+    width:clamp(360px, 108vw, 480px) !important;
+    height:clamp(460px, 140vw, 620px) !important;
+    background-image:url('assets/mobile/hero-artist.png') !important;
+    background-size:contain !important;
+    background-position:center bottom !important;
+    background-repeat:no-repeat !important;
+    filter:none !important;
+  }
+
+  /* Header row — logo left, burger button top-right */
+  .hero-top{
+    position:relative !important; z-index:5 !important;
+    display:flex !important; flex-direction:row !important;
+    justify-content:space-between !important; align-items:center !important;
+    background:transparent !important; border-radius:0 !important;
+    padding:0 !important; gap:16px !important;
+    height:auto !important; min-height:40px !important;
+    flex:0 0 auto !important;
+    flex-wrap:nowrap !important;
+  }
+  .hero-top .heart-logo{display:inline-flex !important;align-items:center !important}
+  .hero-top .heart-logo img{height:28px !important; width:auto !important; filter:none !important}
+  .hero-top .hero-nav{display:none !important}
+  .hero-top .nav-toggle{
+    display:inline-flex !important;
+    align-items:center !important; justify-content:center !important;
+    position:absolute !important;
+    top:0 !important; right:0 !important;
+    width:auto !important; height:auto !important;
+    padding:8px !important;
+    margin:0 !important;
+    background:transparent !important;
+    border:0 !important;
+    border-radius:0 !important;
+    color:#000 !important;
+    z-index:100 !important;
+  }
+  .hero-top .nav-toggle .burger-icon{
+    width:28px !important; height:20px !important;
+    display:block !important; color:#000 !important;
+  }
+  .hero-nav.open{
+    display:flex !important; flex-direction:column !important;
+    position:absolute !important; top:calc(100% + 10px) !important;
+    right:0 !important; left:0 !important;
+    background:#000 !important; color:#fff !important;
+    border-radius:18px !important; padding:14px !important; gap:2px !important;
+    z-index:10 !important;
+  }
+  .hero-nav.open a{color:#fff !important;padding:10px 12px !important;font-size:14px !important}
+
+  /* Text block — tag pill + title */
+  .hero-body{
+    position:relative !important;
+    z-index:3 !important;
+    width:auto !important; margin:31px 0 0 !important; padding:0 !important;
+    flex:1 1 auto !important; min-height:0 !important;
+  }
+  .hero-kicker{
+    display:inline-flex !important; align-items:center !important;
+    padding:6px 12px !important;
+    border:0.5px solid #000 !important; border-radius:62px !important;
+    background:transparent !important;
+    font-family:'Radio Canada Big',var(--body) !important;
+    font-size:10px !important; letter-spacing:.02em !important;
+    font-weight:500 !important; text-transform:uppercase !important;
+    color:#000 !important; margin-bottom:20px !important;
+    line-height:.9 !important;
+  }
+  .hero-title{
+    font-family:var(--chunk) !important;
+    font-weight:900 !important; font-style:normal !important;
+    font-size:36.2px !important;
+    line-height:.91 !important; letter-spacing:-.01em !important;
+    height:auto !important; width:100% !important; max-width:362px !important;
+    margin:0 !important; display:block !important; color:#000 !important;
+    text-align:left !important; text-transform:uppercase !important;
+  }
+  .hero-title span{display:block !important; color:#000 !important}
+  .hero-title .outline{
+    color:transparent !important;
+    -webkit-text-stroke:1px #000 !important;
+  }
+
+  /* CTA — orange pill, centered text + tiny arrow, anchored to bottom of viewport */
+  .hero-cta{
+    position:absolute !important;
+    left:25px !important; right:25px !important;
+    bottom:28px !important;
+    margin:0 !important; z-index:5 !important;
+    display:flex !important; justify-content:center !important;
+  }
+  .hero-cta .btn-pill{
+    width:100% !important; max-width:none !important;
+    background:var(--orange) !important; color:#000 !important;
+    border-radius:75px !important;
+    padding:21px 24px !important; height:auto !important;
+    font-family:var(--body) !important;
+    font-size:15.5px !important; font-weight:500 !important;
+    letter-spacing:0 !important; text-transform:uppercase !important;
+    white-space:nowrap !important;
+    justify-content:center !important;
+    display:flex !important; align-items:center !important; gap:12px !important;
+  }
+  .hero-cta .btn-pill .arrow{
+    width:22px !important; height:22px !important;
+    background:transparent !important; color:#000 !important; border-radius:0 !important;
+    display:inline-flex !important; align-items:center !important; justify-content:center !important;
+    flex:0 0 auto !important;
+  }
+  .hero-cta .btn-pill .arrow svg{width:18px !important; height:20px !important}
+
+  .hero-meta{display:none !important}
+}
+
+/* ============ 2. BRANDS / ARTISTAS (orange) ============ */
+@media (max-width:640px){
+  .brands-section{
+    padding:88px 0 100px !important;
+    background:var(--orange) url('assets/artistas-bg.svg') center/cover no-repeat !important;
+    position:relative !important; overflow:hidden !important;
+    min-height:100vh !important;
+    min-height:100svh !important;
+    display:flex !important; flex-direction:column !important;
+    justify-content:center !important;
+  }
+  .brands-section::before{
+    content:"" !important; position:absolute !important;
+    inset:0 !important; background:
+      radial-gradient(ellipse 60% 70% at -15% 50%, rgba(0,0,0,.08), transparent 60%),
+      radial-gradient(ellipse 80% 90% at 115% 50%, rgba(0,0,0,.06), transparent 60%) !important;
+    pointer-events:none !important;
+  }
+  .brands-section > *{position:relative; z-index:1}
+  .brands-section .eyebrow{
+    text-align:left !important; padding:0 25px !important;
+    font-family:'Aeonik',var(--body) !important;
+    font-size:14px !important; letter-spacing:.02em !important;
+    font-weight:700 !important; color:rgba(0,0,0,.6) !important;
+    text-transform:lowercase !important;
+    margin:-150px 0 16px !important; opacity:1 !important;
+  }
+  .brands-section h2{
+    text-align:left !important; padding:0 25px !important;
+    font-family:'Aspekta',var(--body) !important;
+    font-weight:500 !important;
+    font-size:40px !important;
+    line-height:1.1 !important; letter-spacing:-.02em !important;
+    margin:0 0 60px !important; max-width:none !important;
+    color:#000 !important; text-transform:none !important;
+  }
+  .brands-section .marquee:first-of-type{margin-top:80px !important}
+  .marquee{margin-top:16px !important}
+  .marquee__track{gap:9px !important}
+  .band-pill{
+    height:61px !important; border-radius:48px !important;
+    background-color:rgba(217,217,217,1) !important;
+    background-size:cover !important;
+    background-position:center !important;
+    background-repeat:no-repeat !important;
+  }
+  .band-pill.wide{width:109px !important}
+  .band-name{
+    font-family:var(--display) !important;
+    font-size:70px !important; letter-spacing:-.02em !important;
+    font-weight:900 !important; font-style:italic !important;
+    line-height:.98 !important; text-transform:uppercase !important;
+    color:#000 !important;
+  }
+}
+
+/* ============ 3. FULLSTACK DARK — logos grid ============ */
+@media (max-width:640px){
+  .fullstack-dark{
+    padding:88px 25px 100px !important;
+    max-width:100vw !important;
+    overflow:hidden !important;
+    box-sizing:border-box !important;
+    background:#000 url('assets/programas-bg.svg') center/cover no-repeat !important;
+  }
+  .fullstack-dark .inner{text-align:left !important; max-width:none !important}
+  .fullstack-dark .eyebrow{display:none !important}
+  .fullstack-dark h2{
+    font-family:'Aspekta',var(--body) !important;
+    font-weight:500 !important; font-style:normal !important;
+    font-size:40px !important; line-height:1.1 !important;
+    letter-spacing:-.02em !important;
+    color:#fff !important; text-transform:uppercase !important;
+    max-width:100% !important; width:100% !important;
+    margin:0 0 40px !important;
+    text-align:left !important;
+    white-space:normal !important;
+    overflow-wrap:break-word !important;
+    word-break:normal !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+  }
+  /* Split title: h2 text contains "Fullstack Media Hub: Produção…" — style via ::before/::after?
+     Simpler: override h2 to render two lines via a mobile-only data attribute injected by JS. */
+  .logos-row{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    column-gap:40px !important; row-gap:60px !important;
+    margin:0 !important;
+    place-items:center !important;
+    align-items:center !important;
+  }
+  .logos-row .logo{
+    height:auto !important; max-height:32px !important;
+    width:100% !important;
+    display:flex !important; align-items:center !important; justify-content:center !important;
+    font-size:inherit !important;
+  }
+  .logos-row .logo.logo-lg{max-height:63px !important}
+  .logos-row .logo img{
+    max-height:32px !important; max-width:100% !important;
+    height:auto !important; width:auto !important;
+    filter:none !important;
+  }
+  .logos-row .logo.logo-lg img{max-height:63px !important}
+  .logos-row .logo:last-child:nth-child(odd){grid-column:1 / -1 !important}
+  .logos-marquee{margin-top:24px !important;padding:8px 0 !important}
+  .logos-marquee .marquee__track{gap:40px !important;padding-right:40px !important;animation-duration:20s !important}
+  .logos-marquee .logo{height:40px !important;max-height:40px !important;width:auto !important;flex:0 0 auto !important}
+  .logos-marquee .logo img{max-height:40px !important;height:auto !important;width:auto !important;max-width:none !important;filter:none !important}
+  .logos-marquee .logo.logo-kiss,
+  .logos-marquee .logo.logo-monsters{height:52px !important;max-height:52px !important}
+  .logos-marquee .logo.logo-kiss img,
+  .logos-marquee .logo.logo-monsters img{max-height:52px !important}
+  .logos-marquee .logo.logo-roland{height:28px !important;max-height:28px !important}
+  .logos-marquee .logo.logo-roland img{max-height:28px !important}
+}
+
+/* ============ 4. KISS CLUB — fullbleed photo section ============ */
+@media (max-width:640px){
+  .kissclub{
+    min-height:100vh !important;
+    min-height:100svh !important;
+    aspect-ratio:auto !important;
+    padding:0 !important; position:relative !important;
+    display:block !important;
+    background:#000 !important;
+  }
+  .kissclub .art{
+    position:absolute !important; inset:0 !important;
+    background-image:url('assets/mobile/kiss-club.png') !important;
+    background-position:center !important;
+    background-size:cover !important;
+    filter:none !important;
+  }
+  .kissclub .art::after{
+    background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.45) 100%) !important;
+  }
+  .kissclub .copy{
+    position:absolute !important;
+    left:36px !important; bottom:45px !important;
+    right:auto !important; top:auto !important;
+    z-index:2 !important; color:#fff !important;
+    display:block !important;
+  }
+  .kissclub .name{
+    font-family:'Mona Sans','Mona-Sans',var(--chunk) !important;
+    font-weight:800 !important; font-style:italic !important;
+    font-size:77px !important; line-height:1.2 !important;
+    letter-spacing:-.02em !important;
+    margin:0 !important; color:#fff !important;
+    text-transform:uppercase !important; display:block !important;
+  }
+  .kissclub .meta{
+    margin:0 !important; display:block !important;
+    flex-direction:row !important; gap:0 !important;
+  }
+  .kissclub .meta span:first-child{
+    font-family:'Aeonik',var(--body) !important;
+    font-size:32px !important; font-weight:500 !important;
+    letter-spacing:-.02em !important; line-height:1.1 !important;
+    text-transform:uppercase !important;
+    opacity:1 !important; color:#fff !important;
+    display:block !important;
+  }
+  .kissclub .meta span:nth-child(n+2){display:none !important}
+}
+
+/* ============ Fullstack Media strip (large italic band) ============ */
+@media (max-width:640px){
+  .fullstack-strip{
+    padding:0 !important;
+    background-color:var(--pink) !important;
+    background-image:url('assets/mobile/fullstack-strip-bg.png') !important;
+    background-size:cover !important;
+    overflow:hidden !important;
+  }
+  .fullstack-strip .track{padding:0 !important}
+  .fullstack-strip .track span{
+    font-family:var(--chunk) !important;
+    font-weight:900 !important;
+    font-size:70px !important; line-height:1.2 !important;
+    letter-spacing:-.02em !important;
+    color:#000 !important; text-transform:uppercase !important;
+    padding:0 20px !important;
+  }
+}
+
+/* ============ 5. SHOWS & EVENTOS — stacked service cards ============ */
+@media (max-width:640px){
+  .services{
+    padding:0 !important; background:#000 !important;
+    display:flex !important; flex-direction:column !important; gap:0 !important;
+  }
+  .service{
+    padding:35px 25px 35px !important; border-radius:0 !important;
+    background:#000 !important;
+    border-top:0 !important; border-bottom:1px solid rgba(255,255,255,.2) !important;
+    position:relative !important;
+  }
+  .service .num{
+    font-family:'Aeonik',var(--body) !important;
+    font-weight:700 !important; font-size:16px !important;
+    letter-spacing:.02em !important; color:rgba(255,255,255,.6) !important;
+    opacity:1 !important; margin:0 0 10px !important;
+    line-height:1 !important;
+  }
+  .service-body{display:block !important; grid-template-columns:1fr !important}
+  .service h3, .service:first-of-type h3{
+    font-family:'Aspekta',var(--body) !important;
+    font-weight:500 !important; font-style:normal !important;
+    font-size:40px !important; line-height:1.2 !important;
+    letter-spacing:-.02em !important;
+    margin:0 0 90px !important;
+    color:#fff !important; text-transform:uppercase !important;
+  }
+  .service p, .service:first-of-type p{
+    font-family:'Aeonik',var(--body) !important;
+    font-size:12px !important; font-weight:500 !important;
+    letter-spacing:-.02em !important;
+    line-height:1.1 !important;
+    max-width:283px !important;
+    color:rgb(217,217,217) !important; opacity:1 !important;
+    text-transform:uppercase !important;
+    margin:0 !important;
+  }
+}
+
+/* ============ 6. STATS (black) — stacked rows with separators ============ */
+@media (max-width:640px){
+  .stats{
+    padding:70px 0 0 !important; background:#000 !important;
+    display:flex !important; flex-direction:column !important;
+    grid-template-columns:1fr !important;
+    text-align:left !important; color:#fff !important;
+  }
+  .stats h2{
+    font-family:'Aeonik',var(--body) !important;
+    font-weight:500 !important;
+    font-size:48px !important; line-height:1.1 !important;
+    letter-spacing:-.02em !important;
+    color:#fff !important;
+    text-transform:uppercase !important;
+    margin:0 0 26px !important;
+    padding:0 25px !important;
+    text-align:left !important;
+    max-width:none !important;
+    order:1 !important;
+  }
+  .stats .kicker{
+    font-family:'Aeonik',var(--body) !important;
+    font-size:12px !important; font-weight:500 !important;
+    letter-spacing:-.02em !important;
+    color:rgb(217,217,217) !important; opacity:1 !important;
+    text-transform:lowercase !important;
+    margin:0 0 122px !important;
+    padding:0 25px !important;
+    line-height:1.1 !important;
+    max-width:none !important; text-align:left !important;
+    order:2 !important;
+  }
+  .stats-row{order:3 !important}
+  .stats{border-bottom:0 !important}
+  .stats-row{
+    display:flex !important; flex-direction:column !important;
+    align-items:stretch !important;
+    grid-template-columns:1fr !important;
+    gap:0 !important; width:100% !important; margin:0 !important;
+    text-align:left !important;
+    border-top:0 !important; padding-top:0 !important;
+  }
+  .stat{
+    display:flex !important; flex-direction:row !important;
+    align-items:last baseline !important; gap:12px !important;
+    width:100% !important;
+    box-sizing:border-box !important;
+    margin:0 !important;
+    padding:18px 25px !important;
+    border-top:1px solid rgba(255,255,255,.3) !important;
+    border-bottom:0 !important;
+    text-align:left !important;
+  }
+  .stat:last-child{border-bottom:1px solid rgba(255,255,255,.3) !important}
+  .stat .num{
+    font-family:var(--chunk) !important;
+    font-weight:900 !important; font-style:normal !important;
+    font-size:48px !important; line-height:1.2 !important;
+    letter-spacing:-.02em !important;
+    color:#fff !important; flex:0 0 auto !important;
+    text-transform:uppercase !important;
+  }
+  .stat .lab{
+    font-family:'Aeonik',var(--body) !important;
+    font-size:10px !important; font-weight:500 !important;
+    letter-spacing:-.02em !important;
+    color:rgb(217,217,217) !important; opacity:1 !important;
+    text-transform:lowercase !important;
+    line-height:1.1 !important; margin-top:0 !important;
+  }
+}
+
+/* ============ 7. CONTACT (orange) + giant wordmark above ============ */
+@media (max-width:640px){
+  .contact{
+    padding:30px 25px 30px !important;
+    background-color:var(--orange) !important;
+    background-image:none !important;
+    overflow:hidden !important; min-height:auto !important;
+    position:relative !important;
+  }
+  .contact .inner{
+    padding:0 !important; max-width:none !important;
+    display:flex !important; flex-direction:column !important;
+    justify-content:flex-start !important;
+    min-height:820px !important;
+  }
+  .contact h2{
+    font-family:'Aspekta',var(--body) !important;
+    font-weight:500 !important; font-style:normal !important;
+    font-size:40px !important; line-height:1 !important;
+    letter-spacing:-.02em !important;
+    margin:0 0 121px !important;
+    max-width:none !important; color:#000 !important;
+    text-transform:none !important;
+  }
+  .contact-email{
+    display:block !important; text-align:left !important;
+    font-family:'Aspekta',var(--body) !important;
+    font-weight:500 !important;
+    font-size:27.8px !important; line-height:1.1 !important;
+    letter-spacing:-.02em !important;
+    text-decoration:underline !important;
+    text-underline-offset:3px !important;
+    word-break:break-word !important;
+    margin:0 0 auto !important; color:#000 !important;
+  }
+  .contact-foot{
+    display:flex !important; flex-direction:column !important;
+    align-items:flex-start !important;
+    grid-template-columns:1fr !important;
+    gap:25px !important;
+    padding-top:70px !important; border:0 !important;
+    margin:0 !important;
+  }
+  .contact-foot .heart-logo{display:inline-flex !important}
+  .contact-foot .heart-logo img{height:27px !important; filter:brightness(0) !important}
+  .contact-foot .fine{
+    font-family:'Aspekta',var(--body) !important;
+    font-size:20px !important; font-weight:500 !important;
+    letter-spacing:-.02em !important;
+    line-height:1.1 !important; opacity:1 !important;
+    max-width:350px !important; color:#000 !important;
+    margin:0 !important;
+  }
+  /* Giant "heartwork" wordmark pushed to base of contact section via margin-top:auto */
+  .mega-wordmark{
+    position:static !important;
+    display:block !important;
+    margin:auto 0 0 !important;
+    padding:30px 0 0 !important;
+    background:transparent !important;
+    overflow:visible !important;
+    color:var(--purple) !important;
+    text-transform:lowercase !important;
+    pointer-events:none !important;
+  }
+  .mega-wordmark .word{
+    font-family:'Aspekta','Aeonik',var(--body) !important;
+    font-weight:500 !important;
+    font-size:clamp(64px,22vw,100px) !important;
+    line-height:.85 !important;
+    letter-spacing:-.04em !important;
+    color:var(--purple) !important;
+    white-space:nowrap !important;
+    transform:none !important;
+    display:block !important;
+    width:100% !important;
+    text-align:left !important;
+  }
+}
+
+/* ============ .sim-mobile mirror (same rules, active at any viewport) ============ */
+html.sim-mobile body{padding-top:0 !important}
+html.sim-mobile .sticky-nav-wrap{display:none !important}
+html.sim-mobile .hero-wrap{min-height:100vh !important;min-height:100svh !important;display:flex !important;flex-direction:column !important}
+html.sim-mobile .hero{padding:22px 25px 0 !important;height:auto !important;min-height:0 !important;flex:1 1 auto !important;display:flex !important;flex-direction:column !important;overflow:visible !important;background:transparent !important}
+html.sim-mobile .hero-shapes{display:block !important;top:auto !important;bottom:200px !important;left:50% !important;width:100% !important;height:430px !important;transform:translateX(-50%) !important;background:url('assets/hub-shapes-inline.svg') no-repeat center / cover !important;opacity:1 !important;mix-blend-mode:normal !important;z-index:0 !important}
+html.sim-mobile .hero-artist{position:absolute !important;z-index:2 !important;left:50% !important;right:auto !important;top:auto !important;bottom:0 !important;transform:translateX(-50%) !important;width:clamp(360px,108vw,480px) !important;height:clamp(460px,140vw,620px) !important;background-image:url('assets/mobile/hero-artist.png') !important;background-size:contain !important;background-position:center bottom !important;background-repeat:no-repeat !important;filter:none !important}
+html.sim-mobile .hero-top{position:relative !important;z-index:5 !important;display:flex !important;flex-direction:row !important;justify-content:space-between !important;align-items:center !important;background:transparent !important;border-radius:0 !important;padding:0 !important;gap:16px !important;height:auto !important;min-height:40px !important;flex:0 0 auto !important;flex-wrap:nowrap !important}
+html.sim-mobile .hero-top .heart-logo{display:inline-flex !important;align-items:center !important}
+html.sim-mobile .hero-top .heart-logo img{height:28px !important;width:auto !important;filter:none !important}
+html.sim-mobile .hero-top .hero-nav{display:none !important}
+html.sim-mobile .hero-top .nav-toggle{display:inline-flex !important;align-items:center !important;justify-content:center !important;position:absolute !important;top:0 !important;right:0 !important;width:auto !important;height:auto !important;padding:8px !important;margin:0 !important;background:transparent !important;border:0 !important;border-radius:0 !important;color:#000 !important;z-index:100 !important}
+html.sim-mobile .hero-top .nav-toggle .burger-icon{width:28px !important;height:20px !important;display:block !important;color:#000 !important}
+html.sim-mobile .hero-nav.open{display:flex !important;flex-direction:column !important;position:absolute !important;top:calc(100% + 10px) !important;right:0 !important;left:0 !important;background:#000 !important;color:#fff !important;border-radius:18px !important;padding:14px !important;gap:2px !important;z-index:10 !important}
+html.sim-mobile .hero-nav.open a{color:#fff !important;padding:10px 12px !important;font-size:14px !important}
+html.sim-mobile .hero-body{position:relative !important;z-index:3 !important;width:auto !important;margin:31px 0 0 !important;padding:0 !important;flex:1 1 auto !important;min-height:0 !important}
+html.sim-mobile .hero-kicker{display:inline-flex !important;align-items:center !important;padding:6px 12px !important;border:0.5px solid #000 !important;border-radius:62px !important;background:transparent !important;font-family:'Radio Canada Big',var(--body) !important;font-size:10px !important;letter-spacing:.02em !important;font-weight:500 !important;text-transform:uppercase !important;color:#000 !important;margin-bottom:20px !important;line-height:.9 !important}
+html.sim-mobile .hero-title{font-family:var(--chunk) !important;font-weight:900 !important;font-style:normal !important;font-size:36.2px !important;line-height:.91 !important;letter-spacing:-.01em !important;height:auto !important;width:100% !important;max-width:362px !important;margin:0 !important;display:block !important;color:#000 !important;text-align:left !important;text-transform:uppercase !important}
+html.sim-mobile .hero-title span{display:block !important;color:#000 !important}
+html.sim-mobile .hero-title .outline{color:transparent !important;-webkit-text-stroke:1px #000 !important}
+html.sim-mobile .hero-cta{position:absolute !important;left:25px !important;right:25px !important;bottom:28px !important;margin:0 !important;z-index:5 !important;display:flex !important;justify-content:center !important}
+html.sim-mobile .hero-cta .btn-pill{width:100% !important;max-width:none !important;background:var(--orange) !important;color:#000 !important;border-radius:75px !important;padding:21px 24px !important;height:auto !important;font-family:var(--body) !important;font-size:15.5px !important;font-weight:500 !important;letter-spacing:0 !important;text-transform:uppercase !important;white-space:nowrap !important;justify-content:center !important;display:flex !important;align-items:center !important;gap:12px !important}
+html.sim-mobile .hero-cta .btn-pill .arrow{width:22px !important;height:22px !important;background:transparent !important;color:#000 !important;border-radius:0 !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;flex:0 0 auto !important}
+html.sim-mobile .hero-cta .btn-pill .arrow svg{width:18px !important;height:20px !important}
+html.sim-mobile .hero-meta{display:none !important}
+html.sim-mobile .brands-section{padding:88px 0 100px !important;background:var(--orange) url('assets/artistas-bg.svg') center/cover no-repeat !important;position:relative !important;overflow:hidden !important;min-height:100vh !important;min-height:100svh !important;display:flex !important;flex-direction:column !important;justify-content:center !important}
+html.sim-mobile .brands-section > *{position:relative;z-index:1}
+html.sim-mobile .brands-section .eyebrow{text-align:left !important;padding:0 25px !important;font-family:'Aeonik',var(--body) !important;font-size:14px !important;letter-spacing:.02em !important;font-weight:700 !important;color:rgba(0,0,0,.6) !important;text-transform:lowercase !important;margin:-150px 0 16px !important;opacity:1 !important}
+html.sim-mobile .brands-section h2{text-align:left !important;padding:0 25px !important;font-family:'Aspekta',var(--body) !important;font-weight:500 !important;font-size:40px !important;line-height:1.1 !important;letter-spacing:-.02em !important;margin:0 0 60px !important;max-width:none !important;color:#000 !important;text-transform:none !important}
+html.sim-mobile .brands-section .marquee:first-of-type{margin-top:80px !important}
+html.sim-mobile .marquee{margin-top:16px !important}
+html.sim-mobile .marquee__track{gap:9px !important}
+html.sim-mobile .band-pill{height:61px !important;border-radius:48px !important;background-color:rgba(217,217,217,1) !important;background-size:cover !important;background-position:center !important;background-repeat:no-repeat !important}
+html.sim-mobile .band-pill.wide{width:109px !important}
+html.sim-mobile .band-name{font-family:var(--display) !important;font-size:70px !important;letter-spacing:-.02em !important;font-weight:900 !important;font-style:italic !important;line-height:.98 !important;text-transform:uppercase !important;color:#000 !important};line-height:.98 !important;text-transform:lowercase !important;color:#000 !important}
+html.sim-mobile .fullstack-dark{padding:88px 25px 100px !important;background:#000 url('assets/programas-bg.svg') center/cover no-repeat !important;max-width:100vw !important;overflow:hidden !important;box-sizing:border-box !important}
+html.sim-mobile .fullstack-dark .inner{text-align:left !important;max-width:100% !important;width:100% !important;min-width:0 !important;box-sizing:border-box !important}
+html.sim-mobile .fullstack-dark .eyebrow{display:none !important}
+html.sim-mobile .fullstack-dark h2{font-family:'Aspekta',var(--body) !important;font-weight:500 !important;font-style:normal !important;font-size:40px !important;line-height:1.1 !important;letter-spacing:-.02em !important;color:#fff !important;text-transform:uppercase !important;max-width:100% !important;width:100% !important;margin:0 0 40px !important;text-align:left !important;white-space:normal !important;overflow-wrap:break-word !important;word-break:normal !important;min-width:0 !important;box-sizing:border-box !important}
+html.sim-mobile .logos-row{display:grid !important;grid-template-columns:1fr 1fr !important;column-gap:40px !important;row-gap:60px !important;margin:0 !important;place-items:center !important;align-items:center !important}
+html.sim-mobile .logos-row .logo{height:auto !important;max-height:32px !important;width:100% !important;display:flex !important;align-items:center !important;justify-content:center !important;font-size:inherit !important}
+html.sim-mobile .logos-row .logo.logo-lg{max-height:63px !important}
+html.sim-mobile .logos-row .logo img{max-height:32px !important;max-width:100% !important;height:auto !important;width:auto !important;filter:none !important}
+html.sim-mobile .logos-row .logo.logo-lg img{max-height:63px !important}
+html.sim-mobile .logos-row .logo:last-child:nth-child(odd){grid-column:1 / -1 !important}
+html.sim-mobile .logos-marquee{margin-top:24px !important;padding:8px 0 !important}
+html.sim-mobile .logos-marquee .marquee__track{gap:40px !important;padding-right:40px !important;animation-duration:20s !important}
+html.sim-mobile .logos-marquee .logo{height:40px !important;max-height:40px !important;width:auto !important;flex:0 0 auto !important}
+html.sim-mobile .logos-marquee .logo img{max-height:40px !important;height:auto !important;width:auto !important;max-width:none !important;filter:none !important}
+html.sim-mobile .logos-marquee .logo.logo-kiss,
+html.sim-mobile .logos-marquee .logo.logo-monsters{height:52px !important;max-height:52px !important}
+html.sim-mobile .logos-marquee .logo.logo-kiss img,
+html.sim-mobile .logos-marquee .logo.logo-monsters img{max-height:52px !important}
+html.sim-mobile .logos-marquee .logo.logo-roland{height:28px !important;max-height:28px !important}
+html.sim-mobile .logos-marquee .logo.logo-roland img{max-height:28px !important}
+html.sim-mobile .kissclub{min-height:100vh !important;min-height:100svh !important;aspect-ratio:auto !important;padding:0 !important;position:relative !important;display:block !important;background:#000 !important}
+html.sim-mobile .kissclub .art{position:absolute !important;inset:0 !important;background-image:url('assets/mobile/kiss-club.png') !important;background-position:center !important;background-size:cover !important;filter:none !important}
+html.sim-mobile .kissclub .art::after{background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.45) 100%) !important}
+html.sim-mobile .kissclub .copy{position:absolute !important;left:36px !important;bottom:45px !important;right:auto !important;top:auto !important;z-index:2 !important;color:#fff !important;display:block !important}
+html.sim-mobile .kissclub .name{font-family:'Mona Sans','Mona-Sans',var(--chunk) !important;font-weight:800 !important;font-style:italic !important;font-size:77px !important;line-height:1.2 !important;letter-spacing:-.02em !important;margin:0 !important;color:#fff !important;text-transform:uppercase !important;display:block !important}
+html.sim-mobile .kissclub .meta{margin:0 !important;display:block !important;flex-direction:row !important;gap:0 !important}
+html.sim-mobile .kissclub .meta span:first-child{font-family:'Aeonik',var(--body) !important;font-size:32px !important;font-weight:500 !important;letter-spacing:-.02em !important;line-height:1.1 !important;text-transform:uppercase !important;opacity:1 !important;color:#fff !important;display:block !important}
+html.sim-mobile .kissclub .meta span:nth-child(n+2){display:none !important}
+html.sim-mobile .fullstack-strip{padding:0 !important;background-color:var(--pink) !important;background-image:url('assets/mobile/fullstack-strip-bg.png') !important;background-size:cover !important;overflow:hidden !important}
+html.sim-mobile .fullstack-strip .track{padding:0 !important}
+html.sim-mobile .fullstack-strip .track span{font-family:var(--chunk) !important;font-weight:900 !important;font-size:70px !important;line-height:1.2 !important;letter-spacing:-.02em !important;color:#000 !important;text-transform:uppercase !important;padding:0 20px !important}
+html.sim-mobile .services{padding:0 !important;background:#000 !important;display:flex !important;flex-direction:column !important;gap:0 !important}
+html.sim-mobile .service{padding:35px 25px 35px !important;border-radius:0 !important;background:#000 !important;border-top:0 !important;border-bottom:1px solid rgba(255,255,255,.2) !important;position:relative !important}
+html.sim-mobile .service .num{font-family:'Aeonik',var(--body) !important;font-weight:700 !important;font-size:16px !important;letter-spacing:.02em !important;color:rgba(255,255,255,.6) !important;opacity:1 !important;margin:0 0 10px !important;line-height:1 !important}
+html.sim-mobile .service-body{display:block !important;grid-template-columns:1fr !important}
+html.sim-mobile .service h3, html.sim-mobile .service:first-of-type h3{font-family:'Aspekta',var(--body) !important;font-weight:500 !important;font-style:normal !important;font-size:40px !important;line-height:1.2 !important;letter-spacing:-.02em !important;margin:0 0 90px !important;color:#fff !important;text-transform:uppercase !important}
+html.sim-mobile .service p, html.sim-mobile .service:first-of-type p{font-family:'Aeonik',var(--body) !important;font-size:12px !important;font-weight:500 !important;letter-spacing:-.02em !important;line-height:1.1 !important;max-width:283px !important;color:rgb(217,217,217) !important;opacity:1 !important;text-transform:uppercase !important;margin:0 !important}
+html.sim-mobile .stats{padding:70px 0 0 !important;background:#000 !important;display:flex !important;flex-direction:column !important;grid-template-columns:1fr !important;text-align:left !important;color:#fff !important;border-bottom:0 !important}
+html.sim-mobile .stats h2{font-family:'Aeonik',var(--body) !important;font-weight:500 !important;font-size:48px !important;line-height:1.1 !important;letter-spacing:-.02em !important;color:#fff !important;text-transform:uppercase !important;margin:0 0 26px !important;padding:0 25px !important;text-align:left !important;max-width:none !important;order:1 !important}
+html.sim-mobile .stats .kicker{font-family:'Aeonik',var(--body) !important;font-size:12px !important;font-weight:500 !important;letter-spacing:-.02em !important;color:rgb(217,217,217) !important;opacity:1 !important;text-transform:lowercase !important;margin:0 0 122px !important;padding:0 25px !important;line-height:1.1 !important;max-width:none !important;text-align:left !important;order:2 !important}
+html.sim-mobile .stats-row{order:3 !important}
+html.sim-mobile .stats-row{display:flex !important;flex-direction:column !important;align-items:stretch !important;grid-template-columns:1fr !important;gap:0 !important;width:100% !important;margin:0 !important;text-align:left !important;border-top:0 !important;padding-top:0 !important}
+html.sim-mobile .stat{display:flex !important;flex-direction:row !important;align-items:last baseline !important;gap:12px !important;width:100% !important;box-sizing:border-box !important;margin:0 !important;padding:18px 25px !important;border-top:1px solid rgba(255,255,255,.3) !important;border-bottom:0 !important;text-align:left !important}
+html.sim-mobile .stat:last-child{border-bottom:1px solid rgba(255,255,255,.3) !important}
+html.sim-mobile .stat .num{font-family:var(--chunk) !important;font-weight:900 !important;font-style:normal !important;font-size:48px !important;line-height:1.2 !important;letter-spacing:-.02em !important;color:#fff !important;flex:0 0 auto !important;text-transform:uppercase !important}
+html.sim-mobile .stat .lab{font-family:'Aeonik',var(--body) !important;font-size:10px !important;font-weight:500 !important;letter-spacing:-.02em !important;color:rgb(217,217,217) !important;opacity:1 !important;text-transform:lowercase !important;line-height:1.1 !important;margin-top:0 !important}
+html.sim-mobile .contact{padding:30px 25px 30px !important;background-color:var(--orange) !important;background-image:none !important;overflow:hidden !important;min-height:auto !important;position:relative !important}
+html.sim-mobile .contact .inner{padding:0 !important;max-width:none !important;display:flex !important;flex-direction:column !important;justify-content:flex-start !important;min-height:820px !important}
+html.sim-mobile .contact h2{font-family:'Aspekta',var(--body) !important;font-weight:500 !important;font-style:normal !important;font-size:40px !important;line-height:1 !important;letter-spacing:-.02em !important;margin:0 0 121px !important;max-width:none !important;color:#000 !important;text-transform:none !important}
+html.sim-mobile .contact-email{display:block !important;text-align:left !important;font-family:'Aspekta',var(--body) !important;font-weight:500 !important;font-size:27.8px !important;line-height:1.1 !important;letter-spacing:-.02em !important;text-decoration:underline !important;text-underline-offset:3px !important;word-break:break-word !important;margin:0 0 auto !important;color:#000 !important}
+html.sim-mobile .contact-foot{display:flex !important;flex-direction:column !important;align-items:flex-start !important;grid-template-columns:1fr !important;gap:25px !important;padding-top:70px !important;border:0 !important;margin:0 !important}
+html.sim-mobile .contact-foot .heart-logo{display:inline-flex !important}
+html.sim-mobile .contact-foot .heart-logo img{height:27px !important;filter:brightness(0) !important}
+html.sim-mobile .contact-foot .fine{font-family:'Aspekta',var(--body) !important;font-size:20px !important;font-weight:500 !important;letter-spacing:-.02em !important;line-height:1.1 !important;opacity:1 !important;max-width:350px !important;color:#000 !important;margin:0 !important}
+html.sim-mobile .mega-wordmark{position:static !important;display:block !important;margin:auto 0 0 !important;padding:30px 0 0 !important;background:transparent !important;overflow:visible !important;color:var(--purple) !important;text-transform:lowercase !important;pointer-events:none !important}
+html.sim-mobile .mega-wordmark .word{font-family:'Aspekta','Aeonik',var(--body) !important;font-weight:500 !important;font-size:clamp(64px,22vw,100px) !important;line-height:.85 !important;letter-spacing:-.04em !important;color:var(--purple) !important;white-space:nowrap !important;transform:none !important;display:block !important;width:100% !important;text-align:left !important}
+<style type="text/css">:root img[width="728"][height="90"], :root [href="https://adstub.net/cina777/"], :root [href="https://adstub.net/arab777/"], :root [href="https://adstub.net/ratu89/"], :root [href="https://adstub.net/judi89/"], :root [href^="//mage98rquewz.com/"], :root [href^="//x4pollyxxpush.com/"], :root span[id^="ezoic-pub-ad-placeholder-"], :root ins.adsbygoogle[data-ad-slot], :root ins.adsbygoogle[data-ad-client], :root img[src^="https://s-img.adskeeper.com/"], :root guj-ad, :root gpt-ad, :root div[ow-ad-unit-wrapper], :root div[id^="zergnet-widget"], :root div[id^="vuukle-ad-"], :root div[id^="taboola-stream-"], :root div[id^="sticky_ad_"], :root div[id^="st"][style^="z-index: 999999999;"], :root div[id^="rc-widget-"], :root div[id^="mrec-leaderboard-"], :root div[id^="gpt_ad_"], :root div[id^="ezoic-pub-ad-"], :root div[id^="dfp-ad-"], :root div[id^="crt-"][style], :root div[id^="apn_native_ad_slot_"], :root div[id^="adspot-"], :root div[id^="adrotate_widgets-"], :root ps-connatix-module, :root div[id^="ad_position_"], :root div[id^="ad-div-"], :root div[id*="ScriptRoot"], :root div[id*="MarketGid"], :root [href="https://adstub.net/rusia777/"], :root div[data-id-advertdfpconf], :root div[data-dfp-id], :root hl-adsense, :root div[data-contentexchange-widget], :root div[data-alias="300x250 Ad 2"], :root div[data-adunit-path], :root div[data-adname], :root div[data-ad-placeholder], :root a[href^="https://osfultrbriolenai.info/"], :root div[class^="Adstyled__AdWrapper-"], :root a[href^="https://go.xlviiirdr.com"], :root div[class$="-adlabel"], :root display-ads, :root a[href^="https://go.grinsbest.com/"], :root citrus-ad-wrapper, :root a[href^="https://s.zlinkd.com/"], :root bottomadblock, :root amp-fx-flying-carpet, :root amp-embed[type="taboola"], :root amp-connatix-player, :root div[id^="google_dfp_"], :root ad-slot, :root a[href^="https://www.purevpn.com/"][href*="&utm_source=aff-"], :root a[href^="https://www.privateinternetaccess.com/"] > img, :root a[href^="https://www.onlineusershielder.com/"], :root a[href^="https://financeads.net/tc.php?"], :root a[href^="https://www.mrskin.com/tour"], :root a[href^="https://www.infowarsstore.com/"] > img, :root a[href^="https://ak.psaltauw.net/"], :root broadstreet-zone-container, :root a[href^="https://www.highperformancecpmgate.com/"], :root amp-ad, :root a[href^="https://www.highcpmrevenuenetwork.com/"], :root a[href^="https://www.get-express-vpn.com/offer/"], :root a[href^="https://lnkxt.bannerator.com/"], :root a[href^="https://www.geekbuying.com/dynamic-ads/"], :root [href^="https://groorsoa.net/"], :root a[href^="https://www.financeads.net/tc.php?"], :root a[href^="https://www.effectiveratecpm.com/"], :root [href^="https://www.herbanomic.com/"] > img, :root a[href^="https://www.dql2clk.com/"], :root a[href^="https://www.nutaku.net/signup/landing/"], :root a[href^="https://www.dating-finder.com/signup/?ai_d="], :root a[href^="https://explore-site.com/"], :root a[href^="https://www.brazzersnetwork.com/landing/"], :root [data-template-type="nativead"], :root a[href^="https://www.adultempire.com/"][href*="?partner_id="], :root a[href^="https://voluum.prom-xcams.com/"], :root a[href^="https://twinrdsyte.com/"], :root a[href^="https://twinrdsrv.com/"], :root a[href^="https://syndicate.contentsserved.com/"], :root div[data-alias="300x250 Ad 1"], :root a[href^="https://trk.nfl-online-streams.club/"], :root a[href^="https://tracking.avapartner.com/"], :root a[href^="https://track.wg-aff.com"], :root a[href^="https://track.ultravpn.com/"], :root a[href^="https://track.afcpatrk.com/"], :root a[href^="https://track.adform.net/"], :root a[href^="https://torguard.net/aff.php"] > img, :root [data-identity="adhesive-ad"], :root a[href^="https://tc.tradetracker.net/"] > img, :root a[href^="https://tatrck.com/"], :root [href^="https://zstacklife.com/"] img, :root a[href^="https://click.candyoffers.com/"], :root a[href^="https://t.aslnk.link/"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"], :root a[href^="https://t.ajump1.com/"], :root a[href^="https://t.adating.link/"], :root a[href^="https://go.trackitalltheway.com/"], :root [href^="https://track.fiverr.com/visit/"] > img, :root a[href^="https://syndication.exoclick.com/"], :root a[href^="https://syndication.dynsrvtbg.com/"], :root .gnt_em_vp_c[data-g-s="vp_dk"], :root div[data-ad-wrapper], :root a[href^="https://svb-analytics.trackerrr.com/"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"] + .ob_source, :root a[href^="http://www.iyalc.com/"], :root a[href^="https://claring-loccelkin.com/"], :root a[href^="https://stardomcoit.com/"], :root a[href^="https://track.aftrk5.com/"], :root a[href^="https://slkmis.com/"], :root a[href^="https://myclick-2.com/"], :root a[href^="https://sexynearme.com/"], :root [data-ad-manager-id], :root a[href^="https://s.zlinkr.com/"], :root [href="https://adstub.net/gaza88/"], :root a[href^="https://ad.doubleclick.net/"], :root a[href^="https://static.fleshlight.com/images/banners/"], :root a[href^="https://s.zlink7.com/"], :root a[href^="https://s.ma3ion.com/"], :root a[href^="https://s.eunow4u.com/"], :root a[href^="https://random-affiliate.atimaze.com/"], :root #kt_player > div[style$="display: block;"][style*="inset: 0px;"], :root [href$="/sexdating.php"], :root a[href^="https://quotationfirearmrevision.com/"], :root a[href^="https://pubads.g.doubleclick.net/"], :root a[href^="https://prf.hn/click/"][href*="/camref:"] > img, :root a[href^="https://serve.awmdelivery.com/"], :root a[href^="https://www.dating-finder.com/?ai_d="], :root a[href^="https://prf.hn/click/"][href*="/adref:"] > img, :root [href^="https://ap.octopuspop.com/click/"] > img, :root app-ad, :root a[href^="https://postback1win.com/"], :root a[href^="https://a.adtng.com/"], :root a[href^="https://playnano.online/offerwalls/?ref="], :root a[href^="https://mmwebhandler.aff-online.com/"], :root a[href^="https://www.bet365.com/"][href*="affiliate="], :root a[href^="https://pb-track.com/"], :root a[href^="https://pb-front.com/"], :root a[href^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://streamate.com/landing/click/"], :root a[href^="https://upsups.click/"], :root a[href^="https://ndt5.net/"], :root a[href^="https://natour.naughtyamerica.com/track/"], :root a[href^="https://mediaserver.entainpartners.com/renderBanner.do?"], :root [data-ad-name], :root a[href^="https://loboclick.com/"], :root a[href^="https://lead1.pl/"], :root a[href^="https://landing.brazzersnetwork.com/"], :root a[href^="https://juicyads.in/"], :root a[href^="https://snowdayonline.xyz/"], :root a[href^="https://join.dreamsexworld.com/"], :root a[href^="https://join.bannedsextapes.com/track/"], :root a[href^="https://jaxofuna.com/"], :root a[href^="https://italarizege.xyz/"], :root a[href^="https://identicaldrench.com/"], :root ad-shield-ads, :root a[href^="https://hot-growngames.life/"], :root a[href^="https://helmethomicidal.com/"], :root display-ad-component, :root a[href^="https://golinks.work/"], :root a[href^="https://s.zlinkn.com/"], :root a[href^="https://go.xxxvjmp.com/"], :root a[href^="https://go.xxxjmp.com"], :root a[href^="https://zirdough.net/"], :root [class^="tile-picker__CitrusBannerContainer-sc-"], :root a[href^="https://go.xxxiijmp.com"], :root a[href^="https://go.xtbaffiliates.com/"], :root [data-role="tile-ads-module"], :root a[href^="https://go.xlviirdr.com"], :root a[href^="https://go.xlivrdr.com"], :root a[href^="https://ismlks.com/"], :root [href^="https://www.mypillow.com/"] > img, :root a[href^="https://go.xlirdr.com"], :root [data-css-class="dfp-inarticle"], :root a[href^="https://go.tmrjmp.com"], :root a[href^="https://go.markets.com/visit/?bta="], :root a[href^="https://billing.purevpn.com/aff.php"] > img, :root a[href^="https://go.hpyrdr.com/"], :root a[href^="https://lijavaxa.com/"], :root a[href^="https://go.goaserv.com/"], :root app-large-ad, :root [href^="https://turtlebids.irauctions.com/"] img, :root div[data-adunit], :root a[href^="https://go.etoro.com/"] > img, :root a[href^="https://go.dmzjmp.com"], :root a[href^="https://www.bang.com/?aff="], :root #mgb-container > #mgb, :root a[href^="https://go.admjmp.com"], :root a[href^="https://get.surfshark.net/aff_c?"][href*="&aff_id="] > img, :root a[href^="https://datewhisper.life/"], :root a[href^="https://click.linksynergy.com/fs-bin/"] > img, :root a[href^="https://get-link.xyz/"], :root a[href^="https://www.mrskin.com/account/"], :root a[href^="https://www.adskeeper.com"], :root a[data-redirect^="https://paid.outbrain.com/network/redir?"], :root [href^="https://clicks.affstrack.com/"] > img, :root a[href^="https://engine.phn.doublepimp.com/"], :root a[href^="https://dl-protect.net/"], :root a[href*=".foxqck.com/"], :root a[href^="https://ctosrd.com/"], :root a[href^="https://go.bushheel.com/"], :root a[href^="https://ctjdwm.com/"], :root [href="//sexcams.plus/"], :root a[href^="https://camfapr.com/landing/click/"], :root a[href^="https://prf.hn/click/"][href*="/creativeref:"] > img, :root a[href*="&maxads="], :root a[href^="http://www.adultempire.com/unlimited/promo?"][href*="&partner_id="], :root a[href^="https://1betandgonow.com/"], :root a[href^="https://chaturbate.com/in/?"], :root a[href^="https://t.ajrkm1.com/"], :root a[href^="https://bongacams10.com/track?"], :root a[href*=".g2afse.com/"], :root a[href^="https://bodelen.com/"], :root a[href^="//hoodingluster.com/"], :root a[href^="https://black77854.com/"], :root a[href^="https://getmatchedlocally.com/"], :root app-advertisement, :root a[href^="https://rixofa.com/"], :root a[href^="https://best-experience-cool.com/"], :root [data-taboola-options], :root a[href^="https://believessway.com/"], :root a[href^="https://Click.ggpickaff.com/"], :root a[href^="https://banners.livepartners.com/"], :root a[href^="http://revolvemockerycopper.com/"], :root a[href^="https://awptjmp.com/"], :root a[href^="https://join.sexworld3d.com/track/"], :root a[href^="https://aweptjmp.com/"], :root a[href^="https://ausoafab.net/"], :root a[href^="https://clicks.pipaffiliates.com/"], :root a[href^="https://aj1070.online/"], :root a[href^="https://a.bestcontentoperation.top/"], :root a[href^="https://adultfriendfinder.com/go/"], :root a[href^="https://ads.planetwin365affiliate.com/"], :root a[href^="https://ads.leovegas.com/"], :root a[href^="https://go.xlvirdr.com"], :root img[src^="https://images.purevpnaffiliates.com"], :root a[href^="https://porntubemate.com/"], :root a[href^="https://click.dtiserv2.com/"], :root a[href^="https://clickadilla.com/"], :root a[href^="https://a.medfoodhome.com/"], :root a[href^="https://cam4com.go2cloud.org/"], :root .nya-slot[style], :root a[href^="https://a.bestcontentweb.top/"], :root atf-ad-slot, :root a[href^="https://a2.adform.net/"], :root a[href^="https://a.candyai.love/"], :root .banner-img > .pbl, :root [data-m-ad-id], :root a[href^="https://a-ads.com/"], :root a[href^="https://1winpb.com/"], :root div[id^="optidigital-adslot"], :root [href^="https://wsup.ai/"], :root a[href^="https://123-stream.org/"], :root a[href^="https://in.rabbtrk.com/"], :root a[href^="http://www.h4trck.com/"], :root [href^="https://a.acebet.com/api/click?"], :root a[href^="http://www.friendlyduck.com/AF_"], :root a[href^="http://partners.etoro.com/"], :root [href="https://chaturbate.jjgirls.com/"] > img, :root a[href^="http://cam4com.go2cloud.org/aff_c?"], :root a[href^="https://ads.betfair.com/redirect.aspx?"], :root amp-ad-custom, :root a[href^="http://trk.globwo.online/"], :root a[onclick^="window.location.replace('https://random-affiliate.atimaze.com/"], :root a[href^="https://bongacams2.com/track?"], :root a-ad, :root a[href^="https://offhandpump.com/"], :root a[href^="http://stickingrepute.com/"], :root #slashboxes > .deals-rail, :root div[aria-label="Ads"], :root [href^="http://mypillow.com/"] > img, :root a[href^="http://bongacams.com/track?"], :root a[href^="//startgaming.net/tienda/" i], :root a[href^="https://a.medfoodsafety.com/"], :root a[href^="//go.eabids.com/"], :root a[href^=" https://www.friendlyduck.com/AF_"], :root [data-cl-spot-id], :root a[href*="/jump/next.php?r="], :root a[href^="https://go.nordvpn.net/aff"] > img, :root .\[\&_\.gdprAdTransparencyCogWheelButton\]\:\!pjra-z-\[5\], :root [href^="http://clicks.totemcash.com/"], :root a[href^="https://ad.zanox.com/ppc/"] > img, :root [data-d-ad-id], :root a[href*=".engine.adglare.net/"], :root div[id^="lazyad-"], :root a[href^="http://com-1.pro/"], :root [href^="https://www.profitablegatecpm.com/"], :root a[href*=".cfm?domain="][href*="&fp="], :root a[href^="https://ab.advertiserurl.com/aff/"], :root a[data-oburl^="https://paid.outbrain.com/network/redir?"], :root [id^="section-ad-banner"], :root [id^="ad_slider"], :root a[href^="https://www.goldenfrog.com/vyprvpn?offer_id="][href*="&aff_id="], :root a[href^="https://wmctjd.com/"], :root a[href*="//jjgirls.com/sex/Chaturbate"], :root [id^="ad-wrap-"], :root [href^="https://zone.gotrackier.com/"], :root a[href^="http://sarcasmadvisor.com/"], :root [href^="https://www.restoro.com/"], :root a[href^="https://track.totalav.com/"], :root a[href^="https://ctrdwm.com/"], :root [href^="https://www.targetingpartner.com/"], :root a[href^="https://join.virtuallust3d.com/"], :root .section-subheader > .section-hotel-prices-header, :root [href^="https://www.hostg.xyz/"] > img, :root a[href^="https://bngpt.com/"], :root a[href^="https://www.sheetmusicplus.com/"][href*="?aff_id="], :root a[href^="http://adultfriendfinder.com/go/"], :root a[href^="https://fastestvpn.com/lifetime-special-deal?a_aid="], :root a[href^="https://tour.mrskin.com/"], :root div[id^="ad-position-"], :root a[href^="https://www.toprevenuegate.com/"], :root a[href^="https://bc.game/"], :root a[href^="http://join.brokestraightboys.com/track/"], :root div[id^="div-ads-"], :root [href^="https://rapidgator.net/article/premium/ref/"], :root [href^="https://join.girlsoutwest.com/"], :root a[href^="https://activate-game.com/"], :root .scroll-fixable.rail-right > .deals-rail, :root [data-wpas-zoneid], :root a[href^="https://track.aftrk3.com/"], :root [href^="https://join3.bannedsextapes.com"], :root div[data-adzone], :root div[id^="adngin-"], :root [data-rc-widget], :root span[data-ez-ph-id], :root [href^="https://track.aftrk1.com/"], :root [href^="https://join.playboyplus.com/track/"], :root a[href^="https://go.xxxijmp.com"], :root [href^="https://istlnkcl.com/"], :root a[href^="https://trk.softonixs.xyz/"], :root a[href^="https://iqbroker.com/"][href*="?aff="], :root [href^="https://rpwmct.com/"], :root [href^="https://wct.link/click?"], :root a[href^="https://t.acam.link/"], :root a[href^="https://go.strpjmp.com/"], :root [href^="https://url.totaladblock.com/"], :root a[href^="https://go.rmishe.com/"], :root [href^="https://ilovemyfreedoms.com/landing-"], :root [href="https://adstub.net/indo666/"], :root [href^="https://glersakr.com/"], :root a[href^="https://tm-offers.gamingadult.com/"], :root [href^="https://charmingdatings.life/"], :root [data-id^="div-gpt-ad"], :root a[href^="https://tracker.loropartners.com/"], :root [href^="https://awbbjmp.com/"], :root a[href^="https://www.friendlyduck.com/AF_"], :root [href^="https://ad1.adfarm1.adition.com/"], :root a[href^="https://t.ajrkm3.com/"], :root [href^="https://aads.com/campaigns/"], :root a[href^="https://fc.lc/ref/"], :root a[href^="https://go.bbrdbr.com"], :root a[href^="http://tc.tradetracker.net/"] > img, :root a[href^="https://s.zlink3.com/"], :root a[href^="http://sneakyadministration.com/"], :root [href^="https://www.brighteonstore.com/products/"] img, :root a[href^="https://bngprm.com/"], :root [href^="https://shiftnetwork.infusionsoft.com/go/"] > img, :root [href^="http://www.mypillow.com/"] > img, :root .ob_container .item-container-obpd, :root [id^="div-gpt-ad"], :root [href="https://jdrucker.com/gold"] > img, :root a[href^="https://join.virtualtaboo.com/track/"], :root [id^="ad_sky"], :root [name^="google_ads_iframe"], :root aside[id^="adrotate_widgets-"], :root a[href^="https://www.liquidfire.mobi/"], :root DFP-AD, :root .grid > .container > #aside-promotion, :root [data-type="ad-vertical"], :root [href^="https://go.xlrdr.com"], :root a[href^="https://s.cant3am.com/"], :root [data-testid^="taboola-"], :root [data-testid^="section-AdRowBillboard"], :root a[href^="https://track.1234sd123.com/"], :root zeus-ad, :root [data-testid="prism-ad-wrapper"], :root [href^="https://ad.admitad.com/"], :root [href^="https://mypillow.com/"] > img, :root [data-testid="ad_testID"], :root [data-mobile-ad-id], :root [data-dynamic-ads], :root a[href^="https://gamingadlt.com/?offer="], :root [data-desktop-ad-id], :root a[href^="https://go.rmhfrtnd.com"], :root a[href^="https://pb-imc.com/"], :root a[href^="https://www8.smartadserver.com/"], :root topadblock, :root a[href^="//s.zlinkd.com/"], :root [href^="https://mypatriotsupply.com/"] > img, :root [data-testid="adBanner-wrapper"], :root [href^="https://mylead.global/stl/"] > img, :root a[href*=".adsrv.eacdn.com/"], :root [href^="https://antiagingbed.com/discount/"] > img, :root #teaser1[style^="width:autopx;"], :root [href^="https://www.cloudways.com/en/?id"], :root [data-asg-ins], :root [data-block-type="ad"], :root [data-ad-width], :root a[href^="https://clickins.slixa.com/"], :root [onclick*="content.ad/"], :root a[href^="https://go.cmtaffiliates.com/"], :root [href^="https://optimizedelite.com/"] > img, :root div[data-ad-region], :root AMP-AD, :root [data-ad-cls], :root a[href^="https://www.adxsrve.com/"], :root a[href^="https://click.Ggpickaff.com/"], :root [data-ez-name], :root a[href^="https://go.mnaspm.com/"], :root a[href^="https://service.bv-aff-trx.com/"], :root a[href^="https://6-partner.com/"], :root [class^="s2nPlayer"], :root [href^="https://affiliate.fastcomet.com/"] > img, :root [class^="adDisplay-module"], :root a[href^="https://adclick.g.doubleclick.net/"], :root [data-freestar-ad][id], :root AD-SLOT, :root a[href^="https://combodef.com/"], :root a[href^="https://click.hoolig.app/"], :root a[href^="https://www.googleadservices.com/pagead/aclk?"] > img, :root [data-ad-module], :root a[href^="https://a.bestcontentfood.top/"], :root #kt_player > a[target="_blank"], :root a[href^="https://go.skinstrip.net"][href*="?campaignId="], :root #teaser2[style^="width:autopx;"], :root [data-revive-zoneid], :root a[href^="https://losingoldfry.com/"], :root div[id^="div-gpt-"], :root a[href^="https://gml-grp.com/"], :root .ob_dual_right > .ob_ads_header ~ .odb_div, :root div[data-ad-targeting], :root a[style="width:100%;height:100%;z-index:10000000000000000;position:absolute;top:0;left:0;"], :root [href^="https://www.avantlink.com/click.php"] img, :root [data-testid="commercial-label-taboola"], :root [class^="div-gpt-ad"], :root a[href^="https://traffdaq.com/"], :root #teaser3[style^="width:autopx;"], :root a[href^="https://go.hpyjmp.com"], :root iframe[scrolling="no"][sandbox*="allow-popups allow-modals"][style^="width: 100%; height: 100%; border: none;"], :root [href^="https://mystore.com/"] > img, :root [class^="amp-ad-"], :root a[href^="https://clixtrac.com/"], :root a[href^="https://wittered-mainging.com/"], :root #teaser3[style="width: 100%;text-align: center;display: scroll;position:fixed;bottom: 0;margin: 0 auto;z-index: 103;"] { display: none !important; }</style></head>
+<body style="cursor: crosshair; font-size: 0px;" data-cc-id="cc-20">
+
+<!-- SVG defs for heartwork 'H' monogram -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="hw-mark" viewBox="0 0 36.741 35.477">
+      <path d="M 4.749 17.944 L 3.952 23.136 L 0 23.081 L 3.071 3.681 L 7.023 3.735 L 5.045 15.762 L 8.897 15.753 L 11.176 0 L 15.127 0.054 L 10.863 27.964 L 6.911 27.91 L 8.513 17.911 L 4.749 17.944 Z"></path>
+      <path d="M 19.303 22.645 L 21.761 6.186 L 17.809 6.136 L 13.306 35.423 L 17.258 35.477 L 18.956 24.949 L 22.082 25.007 L 21.585 28.108 L 25.537 28.162 L 27.031 18.134 L 30.641 18.176 L 29.861 23.542 L 33.671 23.542 L 36.742 4.141 L 32.79 4.087 L 30.937 15.859 L 27.236 15.876 L 29.802 0.256 L 25.85 0.202 L 22.453 22.624 Z"></path>
+    </symbol>
+    <symbol id="arrow-ne" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M7 5h12v12h-2V8.41L5.41 20 4 18.59 15.59 7H7V5z"></path>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ───────────────────── HERO ───────────────────── -->
+<section class="hero-wrap" aria-label="Hero">
+  <div class="hero-shapes" aria-hidden="true"><img src="assets/hub-shapes-inline.svg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
+  <div class="hero-artist" role="img" aria-label="Guitarrista"></div>
+  <div class="hero" style="font-size:18px">
+    <div class="hero-top" style="padding:0px;gap:30px;height:51px">
+      <a class="heart-logo" href="#" aria-label="heartwork">
+        <img src="assets/heartwork-logo.svg" alt="heartwork">
+      </a>
+
+      <nav class="hero-nav" id="heroNav" aria-label="Principal" style="color:#000">
+        <a class="link" href="#sobre">SOBRE</a>
+        <a class="link" href="#programas">PROGRAMAS</a>
+        <a class="link" href="#shows">SHOWS &amp; EVENTOS</a>
+        <a class="nav-pill" href="#contato" style="background:#000;color:#fff;margin:4.92578px;letter-spacing:0.4px;gap:0px;padding:10.496px 24.0052px 10.496px 26.6029px">FALE CONOSCO</a>
+      </nav>
+
+      <button class="nav-pill nav-toggle" onclick="document.getElementById('heroNav').classList.toggle('open')" aria-label="Abrir menu" style="display:none">
+        <svg class="burger-icon" width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true"><rect x="0" y="0" width="22" height="2" rx="1" fill="currentColor"/><rect x="0" y="7" width="22" height="2" rx="1" fill="currentColor"/><rect x="0" y="14" width="22" height="2" rx="1" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="hero-body" style="padding:0px;margin:78.5973px 0px 0px;width:596px">
+      <span class="hero-kicker" style="font-size:12px;font-family:Aspekta;letter-spacing:0.2px">Amplifica é conteúdo</span>
+      <h1 class="hero-title" style="font-size:68px;height:197px;width:562px;text-align:left;line-height:1;margin:-2.83203px 2px 0px">
+        <span>BANDS AS</span>
+        <span>CONTENT</span>
+        <span class="outline">FOR BRANDS</span>
+      </h1>
+    </div>
+
+    <div class="hero-cta" style="margin:137.667px 0px 0px">
+      <a class="btn-pill" href="#shows" style="height:53px;letter-spacing:0.1px">
+        CATÁLOGO DE EVENTOS
+        <span class="arrow"><svg><use href="#arrow-ne"></use></svg></span>
+      </a>
+    </div>
+
+    <div class="hero-meta">
+      <div>
+        <div class="big">AMPLIFICA <span style="opacity:.7">1.5M</span></div>
+        <div class="label" style="margin-top:.4em;margin-bottom:0">Com Rafael Bittencourt</div>
+      </div>
+      <div class="right">
+        <div class="big">TODA TERÇA · 19H</div>
+        <div class="label" style="margin-top:.4em;margin-bottom:0">Ao vivo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────── STICKY NAV ───────────────────── -->
+<div class="sticky-nav-wrap visible">
+  <div class="sticky-nav" id="stickyNav" data-cc-id="cc-16">
+    <a class="heart-logo" href="#" aria-label="heartwork">
+      <img src="assets/heartwork-logo-white.svg" alt="heartwork">
+    </a>
+    <div class="links">
+      <a href="#sobre">Sobre</a>
+      <a href="#programas">Programas</a>
+      <a href="#shows">Shows &amp; Eventos</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a class="nav-pill inv" href="#contato" style="line-height:1.05;font-size:12px;padding:10.496px 21.5951px 10.496px 24.7513px;letter-spacing:0.3px">FALE CONOSCO</a>
+      <button class="nav-pill inv nav-toggle" onclick="document.getElementById('stickyNav').classList.toggle('expand')" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────────── ORANGE MARQUEE ───────────────────── -->
+<section class="brands-section" id="sobre" style="padding:300px 0px;margin:0px;border-width:0px;background:var(--orange) url('assets/artistas-bg.svg') center/cover no-repeat">
+  <div class="eyebrow">Já passaram pela heartwork</div>
+  <h2>O MAIOR HUB DA MÚSICA NO BRASIL</h2>
+
+  <!-- Row 1 -->
+  <div class="marquee" style="margin-top:clamp(24px,3vw,48px)" aria-hidden="true">
+    <div class="marquee__track">
+      <span class="band-name">MATANZA</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/matanza.png')"></span>
+      <span class="band-name">DOGMA</span>
+      <span class="band-pill" style="background-image:url('assets/artists/dogma.png')"></span>
+      <span class="band-name">KIKO LOUREIRO</span>
+      <span class="band-pill" style="background-image:url('assets/artists/kiko-loureiro.png')"></span>
+      <span class="band-name">JEFF SCOTT SOTO</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/jeff.png')"></span>
+      <span class="band-name">MATEUS ASSATO</span>
+      <span class="band-pill" style="background-image:url('assets/artists/mateus-assato.png')"></span>
+      <span class="band-name">ANGRA</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/angra.png')"></span>
+      <!-- duplicate -->
+      <span class="band-name">MATANZA</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/matanza.png')"></span>
+      <span class="band-name">DOGMA</span>
+      <span class="band-pill" style="background-image:url('assets/artists/dogma.png')"></span>
+      <span class="band-name">KIKO LOUREIRO</span>
+      <span class="band-pill" style="background-image:url('assets/artists/kiko-loureiro.png')"></span>
+      <span class="band-name">JEFF SCOTT SOTO</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/jeff.png')"></span>
+      <span class="band-name">MATEUS ASSATO</span>
+      <span class="band-pill" style="background-image:url('assets/artists/mateus-assato.png')"></span>
+      <span class="band-name">ANGRA</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/angra.png')"></span>
+    </div>
+  </div>
+
+  <!-- Row 2 -->
+  <div class="marquee rev" aria-hidden="true">
+    <div class="marquee__track">
+      <span class="band-name">CHEZ KANE</span>
+      <span class="band-pill" style="background-image:url('assets/artists/chez-kane.png')"></span>
+      <span class="band-name">LOBÃO</span>
+      <span class="band-pill" style="background-image:url('assets/artists/lobao.png')"></span>
+      <span class="band-name">THUNDERBIRD</span>
+      <span class="band-pill" style="background-image:url('assets/artists/thunderbird.png')"></span>
+      <span class="band-name">CACHORRO GRANDE</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/cachorro-grande.png')"></span>
+      <span class="band-name">JUNIOR GROOVADOR</span>
+      <span class="band-pill" style="background-image:url('assets/artists/junior-groovador.png')"></span>
+      <span class="band-name">ANDREAS KISSER</span>
+      <span class="band-pill" style="background-image:url('assets/artists/andreas.png')"></span>
+      <!-- duplicate -->
+      <span class="band-name">CHEZ KANE</span>
+      <span class="band-pill" style="background-image:url('assets/artists/chez-kane.png')"></span>
+      <span class="band-name">LOBÃO</span>
+      <span class="band-pill" style="background-image:url('assets/artists/lobao.png')"></span>
+      <span class="band-name">THUNDERBIRD</span>
+      <span class="band-pill" style="background-image:url('assets/artists/thunderbird.png')"></span>
+      <span class="band-name">CACHORRO GRANDE</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/cachorro-grande.png')"></span>
+      <span class="band-name">JUNIOR GROOVADOR</span>
+      <span class="band-pill" style="background-image:url('assets/artists/junior-groovador.png')"></span>
+      <span class="band-name">ANDREAS KISSER</span>
+      <span class="band-pill" style="background-image:url('assets/artists/andreas.png')"></span>
+    </div>
+  </div>
+
+  <!-- Row 3 -->
+  <div class="marquee slow" aria-hidden="true">
+    <div class="marquee__track">
+      <span class="band-name">MICHEL PIPOQUINHA</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/michel-pipoquinha.png')"></span>
+      <span class="band-name">RASTA</span>
+      <span class="band-pill" style="background-image:url('assets/artists/rasta.png')"></span>
+      <span class="band-name">MALTA</span>
+      <span class="band-pill" style="background-image:url('assets/artists/malta.png')"></span>
+      <span class="band-name">IGOR 3K</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/igor-3k.png')"></span>
+      <span class="band-name">CHIMBINHA</span>
+      <span class="band-pill" style="background-image:url('assets/artists/chimbinha.png')"></span>
+      <span class="band-name">SÉRGIO SACANI</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/sergio-sacani.png')"></span>
+      <!-- duplicate -->
+      <span class="band-name">MICHEL PIPOQUINHA</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/michel-pipoquinha.png')"></span>
+      <span class="band-name">RASTA</span>
+      <span class="band-pill" style="background-image:url('assets/artists/rasta.png')"></span>
+      <span class="band-name">MALTA</span>
+      <span class="band-pill" style="background-image:url('assets/artists/malta.png')"></span>
+      <span class="band-name">IGOR 3K</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/igor-3k.png')"></span>
+      <span class="band-name">CHIMBINHA</span>
+      <span class="band-pill" style="background-image:url('assets/artists/chimbinha.png')"></span>
+      <span class="band-name">SÉRGIO SACANI</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/sergio-sacani.png')"></span>
+    </div>
+  </div>
+
+  <!-- Row 4 -->
+  <div class="marquee rev" aria-hidden="true">
+    <div class="marquee__track">
+      <span class="band-name">MASSACRATION</span>
+      <span class="band-pill" style="background-image:url('assets/artists/massacration.png')"></span>
+      <span class="band-name">PAULO RICARDO</span>
+      <span class="band-pill" style="background-image:url('assets/artists/paulo-ricardo.png')"></span>
+      <span class="band-name">JOÃO GORDO</span>
+      <span class="band-pill" style="background-image:url('assets/artists/joao-gordo.png')"></span>
+      <span class="band-name">RICK BONADIO</span>
+      <span class="band-pill" style="background-image:url('assets/artists/rick-bonadio.png')"></span>
+      <span class="band-name">THE CALLING</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/the-calling.png')"></span>
+      <!-- duplicate -->
+      <span class="band-name">MASSACRATION</span>
+      <span class="band-pill" style="background-image:url('assets/artists/massacration.png')"></span>
+      <span class="band-name">PAULO RICARDO</span>
+      <span class="band-pill" style="background-image:url('assets/artists/paulo-ricardo.png')"></span>
+      <span class="band-name">JOÃO GORDO</span>
+      <span class="band-pill" style="background-image:url('assets/artists/joao-gordo.png')"></span>
+      <span class="band-name">RICK BONADIO</span>
+      <span class="band-pill" style="background-image:url('assets/artists/rick-bonadio.png')"></span>
+      <span class="band-name">THE CALLING</span>
+      <span class="band-pill wide" style="background-image:url('assets/artists/the-calling.png')"></span>
+    </div>
+  </div>
+
+  <div class="tag" style="display:none">já passaram por aqui</div>
+</section>
+
+<!-- ───────────────────── FULLSTACK DARK ───────────────────── -->
+<section class="fullstack-dark" id="programas" style="background:#000 url('assets/programas-bg.svg') center/cover no-repeat">
+  <div class="inner" style="text-align:left">
+    <div class="eyebrow">a heartwork</div>
+    <h2>Fullstack Media Hub: Produção de conteúdo Crossmedia, ativações e eventos.</h2>
+
+    <div class="marquee logos-marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <div class="logo logo-kiss"><img src="assets/marcas/kiss.png" alt="Kiss FM"></div>
+        <div class="logo logo-monsters"><img src="assets/marcas/monsters.png" alt="Monsters of Rock"></div>
+        <div class="logo"><img src="assets/marcas/kitkat.png" alt="KitKat"></div>
+        <div class="logo"><img src="assets/marcas/amazon.png" alt="Amazon"></div>
+        <div class="logo"><img src="assets/marcas/yamaha.png" alt="Yamaha"></div>
+        <div class="logo"><img src="assets/marcas/aria.png" alt="Aria"></div>
+        <div class="logo logo-roland"><img src="assets/marcas/roland.png" alt="Roland"></div>
+        <div class="logo"><img src="assets/marcas/destroyer.png" alt="Destroyer"></div>
+        <div class="logo"><img src="assets/marcas/freshcam.png" alt="Freshcam"></div>
+        <div class="logo"><img src="assets/marcas/mercury.png" alt="Mercury"></div>
+        <!-- duplicate for seamless loop -->
+        <div class="logo logo-kiss"><img src="assets/marcas/kiss.png" alt=""></div>
+        <div class="logo logo-monsters"><img src="assets/marcas/monsters.png" alt=""></div>
+        <div class="logo"><img src="assets/marcas/kitkat.png" alt=""></div>
+        <div class="logo"><img src="assets/marcas/amazon.png" alt=""></div>
+        <div class="logo"><img src="assets/marcas/yamaha.png" alt=""></div>
+        <div class="logo"><img src="assets/marcas/aria.png" alt=""></div>
+        <div class="logo logo-roland"><img src="assets/marcas/roland.png" alt=""></div>
+        <div class="logo"><img src="assets/marcas/destroyer.png" alt=""></div>
+        <div class="logo"><img src="assets/marcas/freshcam.png" alt=""></div>
+        <div class="logo"><img src="assets/marcas/mercury.png" alt=""></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────── KISS CLUB ───────────────────── -->
+<section class="kissclub">
+  <div class="art" aria-hidden="true" data-cc-id="cc-1"></div>
+  <div class="copy">
+    <div class="name" style="font-family:&quot;Mona Sans&quot;;font-size:188px" data-cc-id="cc-2">KISS CLUB</div>
+    <div class="meta" style="margin:-20.7063px 0px 0px" data-cc-id="cc-3">
+      <span>KISS FM</span>
+      <span style="opacity:.8">SEGUNDAS · 19H</span>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────── GIANT MARQUEE STRIP ───────────────────── -->
+<section class="fullstack-strip" aria-hidden="true" data-cc-id="cc-5">
+  <div class="track">
+    <span data-cc-id="cc-4">FULLSTACK MEDIA</span>
+    <span>FULLSTACK MEDIA</span>
+    <span>FULLSTACK MEDIA</span>
+  </div>
+</section>
+
+<!-- ───────────────────── SERVICES ───────────────────── -->
+<section class="services" id="shows" data-cc-id="cc-6">
+  <article class="service" data-cc-id="cc-13">
+    <div class="num">1</div>
+    <div class="service-body" data-cc-id="cc-14">
+      <h3 style="font-size:90px" data-cc-id="cc-7">SHOWS &amp; EVENTOS</h3>
+      <p data-cc-id="cc-15" style="font-size:24px;padding:0.0507812px;margin:-1.11719px">Sua marca nos maiores eventos do país com bandas internacionais exposta para dezenas de milhares.</p>
+    </div>
+  </article>
+  <article class="service" data-cc-id="cc-17">
+    <div class="num">2</div>
+    <div class="service-body" data-cc-id="cc-18">
+      <h3 style="font-size:90px" data-cc-id="cc-12">PRODUÇÃO A+V</h3>
+      <p data-cc-id="cc-19">O show não para. Fazemos seu evento acontecer com direito a toda produção áudio-visual da melhor qualidade.</p>
+    </div>
+  </article>
+  <article class="service" data-cc-id="cc-8">
+    <div class="num">3</div>
+    <div class="service-body">
+      <h3 style="font-size:90px">ATIVAÇÃO</h3>
+      <p>Sua marca nos maiores programas de música da internet. Traga seu projeto.</p>
+    </div>
+  </article>
+  <article class="service" data-cc-id="cc-9">
+    <div class="num">4</div>
+    <div class="service-body">
+      <h3 style="font-size:90px" data-cc-id="cc-10">ESTÚDIO</h3>
+      <p>Sala, equipamentos e infraestrutura world-class para as maiores bandas do mundo.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ───────────────────── STATS ───────────────────── -->
+<section class="stats" data-cc-id="cc-11">
+  <div class="kicker">Nossas marcas impactaram mais de 10 milhões de pessoas em 3 anos.</div>
+  <h2>Quem tem resultado, mostra.</h2>
+  <div class="stats-row">
+    <div class="stat"><span class="num">200+</span><span class="lab">episódios<br>entregues</span></div>
+    <div class="stat"><span class="num">1.76M</span><span class="lab">views<br>mensais</span></div>
+    <div class="stat"><span class="num">765K</span><span class="lab">seguidores<br>youtube + instagram</span></div>
+    <div class="stat"><span class="num">100M</span><span class="lab">lifetime<br>views</span></div>
+  </div>
+</section>
+
+<!-- ───────────────────── CONTACT / FOOTER ───────────────────── -->
+<section class="contact" id="contato" style="background:var(--orange) url('assets/contato-bg.svg') center/cover no-repeat">
+  <div class="inner">
+    <h2>Venha conhecer nosso espaço e colaborar para a personalização do seu projeto conosco.</h2>
+
+    <a class="contact-email" href="mailto:contato@heartwork.com.br">contato@heartwork.com.br</a>
+
+    <div class="contact-foot">
+      <a class="heart-logo" href="#" aria-label="heartwork">
+        <img src="assets/heartwork-logo.svg" alt="heartwork">
+      </a>
+      <p class="fine">Traga sua marca e saiba em primeira mão as oportunidades de parcerias em eventos internacionais.</p>
+    </div>
+
+    <div class="mega-wordmark" aria-hidden="true">
+      <div class="word">heartwork</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Sticky nav hidden on load — slides in on first scroll
+  const stickyWrap = document.querySelector('.sticky-nav-wrap');
+  const onScroll = () => {
+    if (window.scrollY > 40) stickyWrap.classList.add('visible');
+    else stickyWrap.classList.remove('visible');
+  };
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+</script>
+
+
+
+<!-- ═══════════════════════ TWEAKS PANEL ═══════════════════════ -->
+<style>
+  #tw-panel{position:fixed;bottom:16px;right:16px;width:320px;max-height:calc(100vh - 32px);
+    background:#111;color:#fff;border:1px solid #333;border-radius:14px;
+    font-family:-apple-system,system-ui,sans-serif;font-size:12px;z-index:999999;
+    display:none;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  #tw-panel.on{display:flex}
+  #tw-panel header{padding:12px 14px;background:#000;border-bottom:1px solid #222;
+    display:flex;justify-content:space-between;align-items:center;cursor:move;user-select:none}
+  #tw-panel header h3{font-size:13px;font-weight:600;margin:0;letter-spacing:.04em}
+  #tw-panel header .close{background:none;border:0;color:#888;font-size:18px;cursor:pointer;padding:0 4px}
+  #tw-panel .body{padding:12px 14px;overflow-y:auto;flex:1}
+  #tw-panel .group{margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #1e1e1e}
+  #tw-panel .group:last-child{border:0;margin:0;padding:0}
+  #tw-panel .group-title{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-bottom:10px}
+  #tw-panel .row{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+  #tw-panel label{display:flex;justify-content:space-between;font-size:11px;color:#bbb}
+  #tw-panel label .val{color:#fff;font-variant-numeric:tabular-nums}
+  #tw-panel input[type=range]{width:100%;accent-color:#ff5c28}
+  #tw-panel input[type=text]{background:#000;border:1px solid #333;color:#fff;padding:6px 8px;border-radius:6px;font-size:11px;font-family:monospace}
+  #tw-panel .hint{font-size:10px;color:#666;margin-top:4px}
+  #tw-panel .viewport{display:flex;gap:6px;margin-bottom:12px}
+  #tw-panel .viewport button{flex:1;padding:6px 4px;background:#000;border:1px solid #333;color:#aaa;border-radius:6px;font-size:10px;cursor:pointer}
+  #tw-panel .viewport button.active{background:#ff5c28;color:#000;border-color:#ff5c28}
+  #tw-panel .status{padding:8px 14px;background:#000;border-top:1px solid #222;font-size:10px;color:#888;text-align:center}
+  #tw-panel .status b{color:#ff5c28}
+</style>
+<div id="tw-panel">
+  <header>
+    <h3>Tweaks · Mobile</h3>
+    <button class="close" onclick="document.getElementById('tw-panel').classList.remove('on')">×</button>
+  </header>
+  <div class="body">
+    <div class="group">
+      <div class="group-title">Preview viewport</div>
+      <div class="viewport">
+        <button data-vp="375">📱 375</button>
+        <button data-vp="414">📱 414</button>
+        <button data-vp="768">📐 768</button>
+        <button data-vp="0">🖥 Auto</button>
+      </div>
+      <div class="hint">Simula largura da janela pra testar breakpoints sem abrir DevTools.</div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">Hero</div>
+      <div class="row"><label>Title size (vw) <span class="val" data-v="heroTitle">6.4</span></label>
+        <input type="range" min="4" max="14" step="0.1" data-k="heroTitle"></div>
+      <div class="row"><label>Padding <span class="val" data-v="heroPad">10 16 24</span></label>
+        <input type="text" data-k="heroPad" data-unit="px" placeholder="top right bottom"></div>
+      <div class="row"><label>Min height (vh) <span class="val" data-v="heroMin">80</span></label>
+        <input type="range" min="40" max="100" step="1" data-k="heroMin"></div>
+      <div class="row"><label>Body margin-top (px) <span class="val" data-v="heroBodyTop">40</span></label>
+        <input type="range" min="0" max="120" step="2" data-k="heroBodyTop"></div>
+      <div class="row"><label>CTA margin-top (px) <span class="val" data-v="heroCtaTop">32</span></label>
+        <input type="range" min="0" max="120" step="2" data-k="heroCtaTop"></div>
+      <div class="row"><label>Artist width (%) <span class="val" data-v="artistW">72</span></label>
+        <input type="range" min="40" max="120" step="1" data-k="artistW"></div>
+      <div class="row"><label>Artist top (%) <span class="val" data-v="artistTop">22</span></label>
+        <input type="range" min="0" max="60" step="1" data-k="artistTop"></div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">Sections</div>
+      <div class="row"><label>#sobre padding (px) <span class="val" data-v="sobrePad">80 0</span></label>
+        <input type="text" data-k="sobrePad" placeholder="vertical horizontal"></div>
+      <div class="row"><label>#contato padding (px) <span class="val" data-v="contatoPad">40 20 0</span></label>
+        <input type="text" data-k="contatoPad" placeholder="top x bottom"></div>
+      <div class="row"><label>Services padding (px) <span class="val" data-v="servicesPad">20 0</span></label>
+        <input type="text" data-k="servicesPad"></div>
+      <div class="row"><label>Service card padding (px) <span class="val" data-v="servicePad">28 20</span></label>
+        <input type="text" data-k="servicePad"></div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">Type</div>
+      <div class="row"><label>Fullstack strip size (vw) <span class="val" data-v="stripSize">22</span></label>
+        <input type="range" min="10" max="40" step="0.5" data-k="stripSize"></div>
+    </div>
+
+    <div class="group">
+      <div class="group-title">Breakpoint</div>
+      <div class="row"><label>Mobile breakpoint (px) <span class="val" data-v="bp">640</span></label>
+        <input type="range" min="480" max="900" step="10" data-k="bp"></div>
+      <div class="hint">Muda o ponto onde as regras mobile ativam.</div>
+    </div>
+  </div>
+  <div class="status">Largura atual: <b id="tw-w">—</b> · modo <b id="tw-mode">—</b></div>
+</div>
+
+<script>
+(function(){
+  const TWEAKS = /*EDITMODE-BEGIN*/{
+    "heroTitle": 7.8,
+    "heroPad": "10 16 24",
+    "heroMin": 74,
+    "heroBodyTop": 44,
+    "heroCtaTop": 44,
+    "artistW": 97,
+    "artistTop": 6,
+    "sobrePad": "80 0",
+    "contatoPad": "40 20 0",
+    "servicesPad": "20 0",
+    "servicePad": "28 20",
+    "stripSize": 22.5,
+    "bp": 640
+  }/*EDITMODE-END*/;
+
+  const state = {...TWEAKS};
+  const panel = document.getElementById('tw-panel');
+  const root = document.documentElement;
+  let bpStyle = document.createElement('style'); document.head.appendChild(bpStyle);
+
+  function parsePad(s, unit='px'){
+    return s.trim().split(/\s+/).map(n => /[a-z%]/i.test(n) ? n : n+unit).join(' ');
+  }
+
+  function apply(){
+    root.style.setProperty('--tw-hero-title-mobile', state.heroTitle+'vw');
+    root.style.setProperty('--tw-hero-pad-mobile', parsePad(state.heroPad));
+    root.style.setProperty('--tw-hero-min-mobile', state.heroMin+'vh');
+    root.style.setProperty('--tw-hero-body-margin-mobile', state.heroBodyTop+'px 0 0');
+    root.style.setProperty('--tw-hero-cta-margin-mobile', state.heroCtaTop+'px 0 0');
+    root.style.setProperty('--tw-artist-width-mobile', state.artistW+'%');
+    root.style.setProperty('--tw-artist-top-mobile', state.artistTop+'%');
+    root.style.setProperty('--tw-sobre-pad-mobile', parsePad(state.sobrePad));
+    root.style.setProperty('--tw-contato-pad-mobile', parsePad(state.contatoPad));
+    root.style.setProperty('--tw-services-pad-mobile', parsePad(state.servicesPad));
+    root.style.setProperty('--tw-service-pad-mobile', parsePad(state.servicePad));
+    root.style.setProperty('--tw-strip-size-mobile', state.stripSize+'vw');
+    // rewrite breakpoint by duplicating the rules; simpler: override via max-width media
+    bpStyle.textContent = `@media (min-width:${state.bp+1}px){
+      .hero-title{font-size:inherit}
+    }`;
+    // Actually, easier: just update a CSS variable that the stylesheet already uses? 
+    // The original CSS has @media (max-width:640px) hardcoded. To change breakpoint live,
+    // we inject an override stylesheet that applies mobile rules up to the new bp.
+    updateBreakpoint();
+    syncUI();
+  }
+
+  function updateBreakpoint(){
+    // If bp > 640, we need to EXTEND mobile rules upward.
+    // If bp < 640, we need to UNDO mobile rules between bp and 640.
+    const bp = state.bp;
+    if (bp === 640){ bpStyle.textContent=''; return; }
+    if (bp > 640){
+      bpStyle.textContent = `@media (min-width:641px) and (max-width:${bp}px){
+        .hero-title{font-size:${state.heroTitle}vw}
+        .hero-meta{flex-direction:column;align-items:flex-start}
+        .hero-meta .right{text-align:left}
+        #sobre{padding:${parsePad(state.sobrePad)} !important}
+        #contato{padding:${parsePad(state.contatoPad)} !important}
+        .hero{padding:${parsePad(state.heroPad)} !important;min-height:${state.heroMin}vh !important}
+        .hero-body{margin:${state.heroBodyTop}px 0 0 !important}
+        .hero-cta{margin:${state.heroCtaTop}px 0 0 !important}
+        .services{padding:${parsePad(state.servicesPad)} !important}
+        .service{padding:${parsePad(state.servicePad)} !important}
+        .hero-artist{width:${state.artistW}% !important;top:${state.artistTop}% !important}
+        .fullstack-strip .track span{font-size:${state.stripSize}vw !important}
+      }`;
+    } else {
+      // bp < 640: undo mobile between bp+1 and 640
+      bpStyle.textContent = `@media (min-width:${bp+1}px) and (max-width:640px){
+        .hero-title{font-size:clamp(48px,9vw,160px)}
+      }`;
+    }
+  }
+
+  function syncUI(){
+    panel.querySelectorAll('[data-v]').forEach(el=>{
+      el.textContent = state[el.dataset.v];
+    });
+    panel.querySelectorAll('input[data-k]').forEach(el=>{
+      if (el.type === 'range') el.value = state[el.dataset.k];
+      else el.value = state[el.dataset.k];
+    });
+  }
+
+  // Wire up inputs
+  panel.querySelectorAll('input[data-k]').forEach(el=>{
+    el.addEventListener('input', e=>{
+      const k = el.dataset.k;
+      state[k] = el.type === 'range' ? parseFloat(el.value) : el.value;
+      apply();
+      persist();
+    });
+  });
+
+  // Viewport buttons
+  panel.querySelectorAll('.viewport button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const w = parseInt(btn.dataset.vp);
+      panel.querySelectorAll('.viewport button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      if (w === 0){
+        document.body.style.maxWidth='';
+        document.body.style.margin='';
+        document.body.style.outline='';
+        document.documentElement.classList.remove('sim-mobile');
+      } else {
+        document.body.style.maxWidth = w+'px';
+        document.body.style.margin = '0 auto';
+        document.body.style.outline = '2px dashed #ff5c28';
+        document.documentElement.classList.toggle('sim-mobile', w <= state.bp);
+      }
+      updateStatus();
+    });
+  });
+
+  function updateStatus(){
+    const w = document.body.style.maxWidth ? document.body.style.maxWidth : window.innerWidth+'px';
+    document.getElementById('tw-w').textContent = w;
+    const num = parseInt(w);
+    const mode = num <= state.bp ? 'MOBILE' : (num <= 980 ? 'TABLET' : 'DESKTOP');
+    document.getElementById('tw-mode').textContent = mode;
+  }
+
+  function persist(){
+    try{
+      window.parent.postMessage({type:'__edit_mode_set_keys', edits:state}, '*');
+    }catch(e){}
+  }
+
+  // Host protocol
+  window.addEventListener('message', (e)=>{
+    if (e.data?.type === '__activate_edit_mode') panel.classList.add('on');
+    if (e.data?.type === '__deactivate_edit_mode') panel.classList.remove('on');
+  });
+  try{ window.parent.postMessage({type:'__edit_mode_available'},'*'); }catch(e){}
+
+  // Drag panel header
+  const hdr = panel.querySelector('header');
+  let drag=null;
+  hdr.addEventListener('mousedown', e=>{
+    if (e.target.tagName==='BUTTON') return;
+    const r = panel.getBoundingClientRect();
+    drag = {x:e.clientX-r.left, y:e.clientY-r.top};
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', e=>{
+    if(!drag) return;
+    panel.style.right='auto'; panel.style.bottom='auto';
+    panel.style.left=(e.clientX-drag.x)+'px';
+    panel.style.top=(e.clientY-drag.y)+'px';
+  });
+  document.addEventListener('mouseup', ()=>drag=null);
+
+  window.addEventListener('resize', updateStatus);
+  apply();
+  updateStatus();
+})();
+</script>
+
+</body></html>
