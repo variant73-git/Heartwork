@@ -593,6 +593,7 @@
     height:auto !important; min-height:40px !important;
     flex:0 0 auto !important;
     flex-wrap:nowrap !important;
+    width:100% !important; align-self:stretch !important;
   }
   .hero-top .heart-logo{display:inline-flex !important;align-items:center !important}
   .hero-top .heart-logo img{height:28px !important; width:auto !important; filter:none !important}
@@ -600,16 +601,16 @@
   .hero-top .nav-toggle{
     display:inline-flex !important;
     align-items:center !important; justify-content:center !important;
-    position:absolute !important;
-    top:0 !important; right:0 !important;
+    position:relative !important;
+    margin:0 -25px 0 auto !important;
     width:auto !important; height:auto !important;
-    padding:8px !important;
-    margin:0 !important;
+    padding:8px 25px 8px 12px !important;
     background:transparent !important;
     border:0 !important;
     border-radius:0 !important;
     color:#000 !important;
-    z-index:100 !important;
+    z-index:5 !important;
+    flex:0 0 auto !important;
   }
   .hero-top .nav-toggle .burger-icon{
     width:28px !important; height:20px !important;
@@ -1077,11 +1078,11 @@ html.sim-mobile .hero-wrap{min-height:100vh !important;min-height:100svh !import
 html.sim-mobile .hero{padding:22px 25px 0 !important;height:auto !important;min-height:0 !important;flex:1 1 auto !important;display:flex !important;flex-direction:column !important;overflow:visible !important;background:transparent !important}
 html.sim-mobile .hero-shapes{display:block !important;top:auto !important;bottom:200px !important;left:50% !important;width:100% !important;height:430px !important;transform:translateX(-50%) !important;background:url('assets/hub-shapes-inline.svg') no-repeat center / cover !important;opacity:1 !important;mix-blend-mode:normal !important;z-index:0 !important}
 html.sim-mobile .hero-artist{position:absolute !important;z-index:2 !important;left:50% !important;right:auto !important;top:auto !important;bottom:0 !important;transform:translateX(-50%) !important;width:clamp(360px,108vw,480px) !important;height:clamp(460px,140vw,620px) !important;background-image:url('assets/mobile/hero-artist.png') !important;background-size:contain !important;background-position:center bottom !important;background-repeat:no-repeat !important;filter:none !important}
-html.sim-mobile .hero-top{position:relative !important;z-index:5 !important;display:flex !important;flex-direction:row !important;justify-content:space-between !important;align-items:center !important;background:transparent !important;border-radius:0 !important;padding:0 !important;gap:16px !important;height:auto !important;min-height:40px !important;flex:0 0 auto !important;flex-wrap:nowrap !important}
+html.sim-mobile .hero-top{position:relative !important;z-index:5 !important;display:flex !important;flex-direction:row !important;justify-content:space-between !important;align-items:center !important;background:transparent !important;border-radius:0 !important;padding:0 !important;gap:16px !important;height:auto !important;min-height:40px !important;flex:0 0 auto !important;flex-wrap:nowrap !important;width:100% !important;align-self:stretch !important}
 html.sim-mobile .hero-top .heart-logo{display:inline-flex !important;align-items:center !important}
 html.sim-mobile .hero-top .heart-logo img{height:28px !important;width:auto !important;filter:none !important}
 html.sim-mobile .hero-top .hero-nav{display:none !important}
-html.sim-mobile .hero-top .nav-toggle{display:inline-flex !important;align-items:center !important;justify-content:center !important;position:absolute !important;top:0 !important;right:0 !important;width:auto !important;height:auto !important;padding:8px !important;margin:0 !important;background:transparent !important;border:0 !important;border-radius:0 !important;color:#000 !important;z-index:100 !important}
+html.sim-mobile .hero-top .nav-toggle{display:inline-flex !important;align-items:center !important;justify-content:center !important;position:relative !important;margin:0 -25px 0 auto !important;width:auto !important;height:auto !important;padding:8px 25px 8px 12px !important;background:transparent !important;border:0 !important;border-radius:0 !important;color:#000 !important;z-index:5 !important;flex:0 0 auto !important}
 html.sim-mobile .hero-top .nav-toggle .burger-icon{width:28px !important;height:20px !important;display:block !important;color:#000 !important}
 html.sim-mobile .hero-nav.open{display:flex !important;flex-direction:column !important;position:absolute !important;top:calc(100% + 10px) !important;right:0 !important;left:0 !important;background:#000 !important;color:#fff !important;border-radius:18px !important;padding:14px !important;gap:2px !important;z-index:10 !important}
 html.sim-mobile .hero-nav.open a{color:#fff !important;padding:10px 12px !important;font-size:14px !important}
