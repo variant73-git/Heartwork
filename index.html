@@ -1163,8 +1163,33 @@ html.sim-mobile .contact-foot .heart-logo img{height:27px !important;filter:brig
 html.sim-mobile .contact-foot .fine{font-family:'Aspekta',var(--body) !important;font-size:20px !important;font-weight:500 !important;letter-spacing:-.02em !important;line-height:1.1 !important;opacity:1 !important;max-width:350px !important;color:#000 !important;margin:0 !important}
 html.sim-mobile .mega-wordmark{position:static !important;display:block !important;margin:auto 0 0 !important;padding:30px 0 0 !important;background:transparent !important;overflow:visible !important;color:var(--purple) !important;text-transform:lowercase !important;pointer-events:none !important}
 html.sim-mobile .mega-wordmark .word{font-family:'Aspekta','Aeonik',var(--body) !important;font-weight:500 !important;font-size:clamp(64px,22vw,100px) !important;line-height:.85 !important;letter-spacing:-.04em !important;color:var(--purple) !important;white-space:nowrap !important;transform:none !important;display:block !important;width:100% !important;text-align:left !important}
+</style>
 </head>
 <body data-cc-id="cc-20">
+
+<!-- Mobile floating nav: appears on scroll past hero; opens fullscreen via hero burger -->
+<div class="mobile-float-nav-wrap" id="mobileFloatNav" aria-hidden="true">
+  <div class="mobile-float-nav">
+    <a class="heart-logo" href="#" aria-label="heartwork">
+      <img src="assets/heartwork-logo-white.svg" alt="heartwork">
+    </a>
+    <button class="mobile-float-toggle" type="button" aria-expanded="false" aria-controls="mobileFloatLinks" aria-label="Abrir menu">
+      <svg class="burger-icon" width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true">
+        <rect x="0" y="0" width="22" height="2" rx="1" fill="currentColor"/>
+        <rect x="0" y="7" width="22" height="2" rx="1" fill="currentColor"/>
+        <rect x="0" y="14" width="22" height="2" rx="1" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
+  <div class="mobile-float-links" id="mobileFloatLinks">
+    <nav class="mobile-float-main-links" aria-label="Menu principal">
+      <a href="#sobre">SOBRE</a>
+      <a href="#programas">PROGRAMAS</a>
+      <a href="#shows">SHOWS &amp; EVENTOS</a>
+    </nav>
+    <a class="nav-pill" href="#contato">FALE CONOSCO</a>
+  </div>
+</div>
 
 <style id="mobile-float-overrides">
 @media (max-width:640px){
@@ -1262,7 +1287,7 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
         <a class="nav-pill" href="#contato" style="background:#000;color:#fff;margin:4.92578px;letter-spacing:0.4px;gap:0px;padding:10.496px 24.0052px 10.496px 26.6029px">FALE CONOSCO</a>
       </nav>
 
-      <button class="nav-pill nav-toggle" onclick="document.getElementById('heroNav').classList.toggle('open')" aria-label="Abrir menu" style="display:none">
+      <button class="nav-pill nav-toggle" type="button" aria-expanded="false" aria-controls="mobileFloatNav" aria-label="Abrir menu" style="display:none">
         <svg class="burger-icon" width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true"><rect x="0" y="0" width="22" height="2" rx="1" fill="currentColor"/><rect x="0" y="7" width="22" height="2" rx="1" fill="currentColor"/><rect x="0" y="14" width="22" height="2" rx="1" fill="currentColor"/></svg>
       </button>
     </div>
@@ -1910,6 +1935,88 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
   window.addEventListener('resize', updateStatus);
   apply();
   updateStatus();
+})();
+</script>
+
+<script id="mobile-float-nav-script">
+(function(){
+  var floatNav = document.getElementById('mobileFloatNav');
+  if(!floatNav) return;
+  var floatToggle = floatNav.querySelector('.mobile-float-toggle');
+  var heroToggle = document.querySelector('.hero-top .nav-toggle');
+  var heroWrap = document.querySelector('.hero-wrap');
+  var floatLinks = floatNav.querySelectorAll('.mobile-float-main-links a, .mobile-float-links .nav-pill');
+
+  function isMobile(){
+    return window.matchMedia('(max-width:640px)').matches || document.documentElement.classList.contains('sim-mobile');
+  }
+
+  function setExpanded(expanded){
+    if(floatToggle) floatToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    if(heroToggle) heroToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    floatNav.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+  }
+
+  function openMenu(fullscreen){
+    floatNav.classList.add('visible');
+    floatNav.classList.add('open');
+    if(fullscreen) floatNav.classList.add('initial-open');
+    setExpanded(true);
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu(){
+    floatNav.classList.remove('open');
+    floatNav.classList.remove('initial-open');
+    setExpanded(false);
+    document.body.style.overflow = '';
+  }
+
+  function toggleMenu(){
+    if(floatNav.classList.contains('open')) closeMenu();
+    else openMenu(false);
+  }
+
+  if(floatToggle) floatToggle.addEventListener('click', function(e){ e.preventDefault(); toggleMenu(); });
+
+  if(heroToggle){
+    heroToggle.addEventListener('click', function(e){
+      e.preventDefault();
+      if(isMobile()) openMenu(true);
+    });
+  }
+
+  floatLinks.forEach(function(link){
+    link.addEventListener('click', function(){ closeMenu(); });
+  });
+
+  function updateVisibility(){
+    if(!heroWrap) return;
+    if(!isMobile()){
+      floatNav.classList.remove('visible','open','initial-open');
+      setExpanded(false);
+      document.body.style.overflow = '';
+      return;
+    }
+    var rect = heroWrap.getBoundingClientRect();
+    var heroMostlyOffscreen = rect.bottom < 60;
+    if(heroMostlyOffscreen){
+      if(!floatNav.classList.contains('visible')) floatNav.classList.add('visible');
+    } else {
+      if(!floatNav.classList.contains('initial-open')){
+        floatNav.classList.remove('visible');
+        if(floatNav.classList.contains('open')) closeMenu();
+      }
+    }
+  }
+
+  window.addEventListener('scroll', updateVisibility, { passive:true });
+  window.addEventListener('resize', updateVisibility);
+  updateVisibility();
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && floatNav.classList.contains('open')) closeMenu();
+  });
 })();
 </script>
 
