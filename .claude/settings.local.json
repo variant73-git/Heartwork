@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Skill(firecrawl)",
-      "Skill(firecrawl:*)"
+      "Skill(firecrawl:*)",
+      "mcp__plugin_vercel_vercel__deploy_to_vercel"
     ]
   }
 }
