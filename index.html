@@ -1202,14 +1202,12 @@ html.sim-mobile .mega-wordmark .word{font-family:'Aspekta','Aeonik',var(--body) 
 /* Default stage height (desktop) */
 .hero-stage{ height:300vh; }
 
-/* Mobile — shorter scroll range so it's not sluggish on small screens */
-@media (max-width:640px){
-  .hero-stage{ height:220vh; }
-  .hero-stage > .hero-wrap{ height:100svh; min-height:100svh !important; max-height:100svh }
-}
-
-/* Respect user preference — disable the scroll animation */
-@media (prefers-reduced-motion: reduce){
+/* Mobile + sim-mobile + reduced-motion: revert to the original static hero.
+   Mobile already has its own purpose-built layout (one viewport, .hero-shapes
+   uses a background-image). The morphing inline SVG would duplicate that shape,
+   so we hide it and unstick the wrap. */
+@media (max-width:640px),
+       (prefers-reduced-motion: reduce){
   .hero-stage{ height:auto !important; }
   .hero-stage > .hero-wrap{
     position:static !important;
@@ -1217,7 +1215,15 @@ html.sim-mobile .mega-wordmark .word{font-family:'Aspekta','Aeonik',var(--body) 
     min-height:min(92vh,980px) !important;
     max-height:none !important;
   }
+  .hero-stage .hero-shape-svg{ display:none !important; }
 }
+html.sim-mobile .hero-stage{ height:auto !important; }
+html.sim-mobile .hero-stage > .hero-wrap{
+  position:static !important;
+  height:auto !important;
+  max-height:none !important;
+}
+html.sim-mobile .hero-stage .hero-shape-svg{ display:none !important; }
 </style>
 </head>
 <body data-cc-id="cc-20">
