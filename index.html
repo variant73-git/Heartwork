@@ -2258,18 +2258,12 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
   }
 
   // Time-based animation triggered by the scroll event. Durations are
-  // device-adaptive because desktop and mobile have very different
-  // snap-scroll speeds:
-  //  - Desktop: a fast wheel flick lands on brands in ~300-400ms. If
-  //    the animation runs longer than that, most of the morph plays
-  //    on the off-screen hero-stage and the user perceives the jump
-  //    as "animation skipped". 500ms forward keeps the morph in sync
-  //    with a typical wheel-snap.
-  //  - Mobile: the snap is slower and the user appreciates the longer
-  //    morph — 800ms / 600ms reads well.
+  // device-adaptive — desktop wheel-flick snaps are fast, so shorter
+  // forward duration keeps the morph visible on-screen; mobile gets a
+  // longer, more readable morph.
   var IS_MOBILE_VP = window.matchMedia('(max-width: 640px)').matches;
-  var FWD_MS = IS_MOBILE_VP ? 800 : 500;
-  var REV_MS = IS_MOBILE_VP ? 600 : 400;
+  var FWD_MS = IS_MOBILE_VP ? 800 : 700;
+  var REV_MS = IS_MOBILE_VP ? 600 : 550;
   var currentP = 0;
   var animActive = false;
   var animStart = 0;
@@ -2278,8 +2272,12 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
   var animDuration = FWD_MS;
   var raf = 0;
 
-  function easeInOutCubic(t){
-    return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+  // Quart gives a softer landing than cubic: more anticipation at the
+  // start (things ramp in gently), a fast middle sweep, and a clear
+  // deceleration into the final frame. Matches "slow-in, slow-out"
+  // character requested.
+  function easeInOutQuart(t){
+    return t < 0.5 ? 8*t*t*t*t : 1 - Math.pow(-2*t + 2, 4) / 2;
   }
 
   function applyP(p){
@@ -2307,7 +2305,7 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
     if(!animActive) return;
     var elapsed = performance.now() - animStart;
     var t = Math.min(1, elapsed / animDuration);
-    var eased = easeInOutCubic(t);
+    var eased = easeInOutQuart(t);
     var p = animFromP + (animToP - animFromP) * eased;
     applyP(p);
     if (t < 1) raf = requestAnimationFrame(tick);
