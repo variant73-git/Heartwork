@@ -2248,15 +2248,18 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
     return 'rgb(' + r + ',' + g + ',' + b + ')';
   }
 
-  // Time-based animation. Previously p was read from scroll position, which
-  // meant the morph played as fast or slow as the browser's snap-scroll —
-  // with mandatory snap that's usually ~300-500ms, too fast for the
-  // animation to read. Now p is driven by elapsed time from a fixed
-  // duration, triggered by an IntersectionObserver on the hero-wrap.
-  // One scroll input → smooth-scroll to brands + full animation, each on
-  // their own timeline.
-  var FWD_MS = 1400;
-  var REV_MS = 900;
+  // Time-based animation triggered by the scroll event itself (not
+  // IntersectionObserver, which was firing too late in the snap-scroll
+  // — the hero-wrap only leaves the observer's root in the final 15%
+  // of the scroll distance, so the animation would only start as the
+  // hero was already receding off-screen).
+  //
+  // Scroll event fires at the first pixel of movement, so the animation
+  // starts in lockstep with the browser's smooth-scroll. Durations are
+  // tuned to the mandatory-snap-scroll duration (~500-700ms) so the
+  // morph is still playing while the hero-wrap is visually on-screen.
+  var FWD_MS = 800;
+  var REV_MS = 600;
   var currentP = 0;
   var animActive = false;
   var animStart = 0;
@@ -2313,26 +2316,25 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
   }
 
   // Initial render
-  applyP(0);
+  applyP(window.scrollY > 10 ? 1 : 0);
   if (prefersReduce) return;
 
-  // Drive the animation by hero visibility, not by scroll position.
-  // When the hero leaves view (user scrolled to brands), play forward.
-  // When it returns, play reverse.
-  if ('IntersectionObserver' in window) {
-    var firstFire = true;
-    new IntersectionObserver(function(entries){
-      var heroInView = entries[0].isIntersecting;
-      if (firstFire) {
-        firstFire = false;
-        // If the page loaded scrolled past hero (e.g. refresh), land at p=1.
-        if (!heroInView) applyP(1);
-        return;
-      }
-      if (heroInView) animateTo(0, REV_MS);
-      else animateTo(1, FWD_MS);
-    }, { rootMargin: '-30% 0px 0px 0px', threshold: 0 }).observe(wrap);
+  // Direction state tracks whether we've committed to "past hero" or
+  // "at hero". Each edge transition triggers the corresponding animation
+  // exactly once — avoids multiple animateTo calls during a single
+  // smooth-scroll.
+  var direction = window.scrollY > 10 ? 'away' : 'hero';
+  function checkScroll(){
+    var y = window.scrollY;
+    if (direction === 'hero' && y > 10) {
+      direction = 'away';
+      animateTo(1, FWD_MS);
+    } else if (direction === 'away' && y < 10) {
+      direction = 'hero';
+      animateTo(0, REV_MS);
+    }
   }
+  window.addEventListener('scroll', checkScroll, { passive: true });
 })();
 </script>
 
