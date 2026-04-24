@@ -53,6 +53,11 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:var(--black);color:var(--white);font-family:var(--body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   body{overflow-x:hidden}
+  /* Chrome mobile fights mandatory snap during URL-bar animation, causing
+     scroll chaining that drags the fixed float-nav across viewport edges.
+     overscroll-behavior:none stops the chaining so the snap and URL-bar
+     animations don't interleave. */
+  html,body{overscroll-behavior-y:none}
 
   /* ───────────────────── SCROLL SNAP (one section = one viewport) ─────────────────────
      Mandatory snap — every scroll input lands on the next section.
@@ -242,9 +247,10 @@
   /* ───────────────────── ORANGE MARQUEE SECTION ───────────────────── */
   .brands-section{
     background:var(--orange);color:#000;
-    /* generous top padding — enough to clear the mobile-float-nav AND
-       the browser URL bar reveal on mobile Chrome; bottom stays small */
-    padding:clamp(120px,16vh,160px) 0 clamp(40px,6vw,90px);
+    /* Top padding scales with dynamic viewport height — ensures the
+       title clears the mobile-float-nav on any screen size, without
+       reserving an absolute gap that wastes space on tall displays. */
+    padding:max(14dvh, 120px) 0 clamp(40px,6vw,90px);
     overflow:hidden;
   }
   .brands-section .eyebrow{
@@ -1721,8 +1727,8 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
   }
   if (heroWrap && 'IntersectionObserver' in window) {
     new IntersectionObserver(function(entries){
-      apply(entries[0].isIntersecting && entries[0].intersectionRatio > 0.3);
-    }, { threshold: [0, 0.3, 0.6, 1] }).observe(heroWrap);
+      apply(entries[0].isIntersecting);
+    }, { rootMargin: '-40% 0px 0px 0px', threshold: 0 }).observe(heroWrap);
   } else if (heroStageEl) {
     // Fallback for old browsers — scroll threshold at half of stage
     const onScroll = () => apply(window.scrollY <= heroStageEl.offsetHeight * 0.5);
@@ -1762,10 +1768,13 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
     if (!shouldShow) closeMobileNav();
   }
   if (heroWrap && 'IntersectionObserver' in window) {
+    // rootMargin shrinks the observation area from the top so we only
+    // toggle visibility when hero is decisively out of view — avoids
+    // oscillating around a ratio threshold while the URL bar animates.
     new IntersectionObserver(function(entries){
-      heroInView = entries[0].isIntersecting && entries[0].intersectionRatio > 0.3;
+      heroInView = entries[0].isIntersecting;
       applyVisibility();
-    }, { threshold: [0, 0.3, 0.6, 1] }).observe(heroWrap);
+    }, { rootMargin: '-40% 0px 0px 0px', threshold: 0 }).observe(heroWrap);
   }
 
   mobileToggle.addEventListener('click', function(){
@@ -1803,6 +1812,48 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
 
   window.addEventListener('resize', applyVisibility);
   applyVisibility();
+})();
+</script>
+
+<script>
+(function(){
+  // Explicit scroll-to-top for every .heart-logo anchor. Without this,
+  // href="#" combined with mandatory scroll-snap causes Chrome mobile
+  // to scroll up and then snap back to the section the user came from.
+  // Doing the scroll ourselves and clearing the hash keeps it reliable.
+  document.querySelectorAll('a.heart-logo[href="#"]').forEach(function(logo){
+    logo.addEventListener('click', function(event){
+      event.preventDefault();
+      if (window.history && window.history.replaceState) {
+        try { window.history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) {}
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Re-pin the mobile-float-nav to the live visual viewport. Chrome
+  // mobile re-renders position:fixed elements a frame behind the URL-bar
+  // animation, which is what made the widget look "cut" between
+  // viewports during scroll. VisualViewport reports the actual visible
+  // rect in real time so we can override top with the authoritative
+  // value and defeat the stale fixed-position repaint.
+  var nav = document.getElementById('mobileFloatNav');
+  if (nav && window.visualViewport) {
+    var vv = window.visualViewport;
+    function syncNav(){
+      // The CSS rule is `top: var(--mobile-float-top) !important`, so
+      // we must override via the CSS variable. Updating it on every
+      // visualViewport resize/scroll forces Chrome to re-layout the
+      // fixed nav in sync with the URL-bar animation, instead of
+      // leaving a stale frame behind as it auto-translates.
+      var base = 'max(12px, calc(env(safe-area-inset-top, 0px) + 8px))';
+      nav.style.setProperty('--mobile-float-top', 'calc(' + vv.offsetTop + 'px + ' + base + ')');
+    }
+    vv.addEventListener('resize', syncNav);
+    vv.addEventListener('scroll', syncNav);
+    window.addEventListener('orientationchange', syncNav);
+    syncNav();
+  }
 })();
 </script>
 
