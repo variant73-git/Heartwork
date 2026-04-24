@@ -2257,18 +2257,19 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
     return 'rgb(' + r + ',' + g + ',' + b + ')';
   }
 
-  // Time-based animation triggered by the scroll event itself (not
-  // IntersectionObserver, which was firing too late in the snap-scroll
-  // — the hero-wrap only leaves the observer's root in the final 15%
-  // of the scroll distance, so the animation would only start as the
-  // hero was already receding off-screen).
-  //
-  // Scroll event fires at the first pixel of movement, so the animation
-  // starts in lockstep with the browser's smooth-scroll. Durations are
-  // tuned to the mandatory-snap-scroll duration (~500-700ms) so the
-  // morph is still playing while the hero-wrap is visually on-screen.
-  var FWD_MS = 800;
-  var REV_MS = 600;
+  // Time-based animation triggered by the scroll event. Durations are
+  // device-adaptive because desktop and mobile have very different
+  // snap-scroll speeds:
+  //  - Desktop: a fast wheel flick lands on brands in ~300-400ms. If
+  //    the animation runs longer than that, most of the morph plays
+  //    on the off-screen hero-stage and the user perceives the jump
+  //    as "animation skipped". 500ms forward keeps the morph in sync
+  //    with a typical wheel-snap.
+  //  - Mobile: the snap is slower and the user appreciates the longer
+  //    morph — 800ms / 600ms reads well.
+  var IS_MOBILE_VP = window.matchMedia('(max-width: 640px)').matches;
+  var FWD_MS = IS_MOBILE_VP ? 800 : 500;
+  var REV_MS = IS_MOBILE_VP ? 600 : 400;
   var currentP = 0;
   var animActive = false;
   var animStart = 0;
