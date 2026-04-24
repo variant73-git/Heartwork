@@ -2248,53 +2248,91 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
     return 'rgb(' + r + ',' + g + ',' + b + ')';
   }
 
+  // Time-based animation. Previously p was read from scroll position, which
+  // meant the morph played as fast or slow as the browser's snap-scroll —
+  // with mandatory snap that's usually ~300-500ms, too fast for the
+  // animation to read. Now p is driven by elapsed time from a fixed
+  // duration, triggered by an IntersectionObserver on the hero-wrap.
+  // One scroll input → smooth-scroll to brands + full animation, each on
+  // their own timeline.
+  var FWD_MS = 1400;
+  var REV_MS = 900;
+  var currentP = 0;
+  var animActive = false;
+  var animStart = 0;
+  var animFromP = 0;
+  var animToP = 0;
+  var animDuration = FWD_MS;
   var raf = 0;
-  function update(){
-    raf = 0;
 
-    // Initial path is always set — even before first scroll, so the shape renders at t=0
-    if(prefersReduce){
-      shapePath.setAttribute('d', toPath(KF1));
-      return;
-    }
+  function easeInOutCubic(t){
+    return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+  }
 
-    var rect = stage.getBoundingClientRect();
-    var stageH = stage.offsetHeight;
-    var vh = window.innerHeight;
-    var totalScroll = stageH - vh;
-    var p = totalScroll > 0 ? Math.max(0, Math.min(1, -rect.top / totalScroll)) : 0;
+  function applyP(p){
+    currentP = p;
 
-    // Path morph: 0→0.5 = KF1→KF2, 0.5→1 = KF2→KF3
     var kf = p <= 0.5 ? interp(KF1, KF2, p * 2) : interp(KF2, KF3, (p - 0.5) * 2);
     shapePath.setAttribute('d', toPath(kf));
 
-    // Scale: 1x until 50%, then eases up.
-    // Desktop peaks at 10x. Mobile capped at 4x — mobile GPUs choke on
-    // the massive composite layer (svg * 10 = thousands of px square)
-    // and it manifests as a flash/cropped repaint when scrolling back.
+    // Mobile caps at 4x (GPU-friendly); desktop peaks at 10x.
     var isMobileVp = window.matchMedia('(max-width: 640px)').matches;
     var maxScale = isMobileVp ? 4 : 10;
     var scale = p <= 0.5 ? 1 : 1 + easeOutQuad((p - 0.5) * 2) * (maxScale - 1);
     shapeSvg.style.transform = 'translateZ(0) scale(' + scale.toFixed(3) + ')';
 
-    // Hero content + guitarist fade from 0% → 60% of scroll
     var fade = Math.max(0, 1 - (p / 0.6));
     if(heroContent) heroContent.style.opacity = fade.toFixed(3);
     if(heroArtist) heroArtist.style.opacity = fade.toFixed(3);
 
-    // Background transitions purple → orange in last 20%, filling corners at max scale
     var bgT = Math.max(0, Math.min(1, (p - 0.8) / 0.2));
     wrap.style.backgroundColor = lerpBg(bgT);
   }
 
-  function schedule(){
-    if(raf) return;
-    raf = requestAnimationFrame(update);
+  function tick(){
+    raf = 0;
+    if(!animActive) return;
+    var elapsed = performance.now() - animStart;
+    var t = Math.min(1, elapsed / animDuration);
+    var eased = easeInOutCubic(t);
+    var p = animFromP + (animToP - animFromP) * eased;
+    applyP(p);
+    if (t < 1) raf = requestAnimationFrame(tick);
+    else animActive = false;
   }
 
-  window.addEventListener('scroll', schedule, { passive:true });
-  window.addEventListener('resize', schedule);
-  update();
+  function animateTo(targetP, duration){
+    // Smoothly interpolate from current progress to target over duration.
+    // Handles interruption: if called mid-animation, starts from current p.
+    animFromP = currentP;
+    animToP = targetP;
+    animDuration = Math.max(1, duration);
+    animStart = performance.now();
+    animActive = true;
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+
+  // Initial render
+  applyP(0);
+  if (prefersReduce) return;
+
+  // Drive the animation by hero visibility, not by scroll position.
+  // When the hero leaves view (user scrolled to brands), play forward.
+  // When it returns, play reverse.
+  if ('IntersectionObserver' in window) {
+    var firstFire = true;
+    new IntersectionObserver(function(entries){
+      var heroInView = entries[0].isIntersecting;
+      if (firstFire) {
+        firstFire = false;
+        // If the page loaded scrolled past hero (e.g. refresh), land at p=1.
+        if (!heroInView) applyP(1);
+        return;
+      }
+      if (heroInView) animateTo(0, REV_MS);
+      else animateTo(1, FWD_MS);
+    }, { rootMargin: '-30% 0px 0px 0px', threshold: 0 }).observe(wrap);
+  }
 })();
 </script>
 
