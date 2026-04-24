@@ -1817,17 +1817,26 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
 
 <script>
 (function(){
-  // Explicit scroll-to-top for every .heart-logo anchor. Without this,
-  // href="#" combined with mandatory scroll-snap causes Chrome mobile
-  // to scroll up and then snap back to the section the user came from.
+  // Intercept every internal anchor link (including the heart-logo's
+  // href="#"). Without this, mandatory scroll-snap fights the browser's
+  // default hash navigation — after the scroll, the snap algorithm
+  // re-evaluates and drags the user back to the section they left from.
   // Doing the scroll ourselves and clearing the hash keeps it reliable.
-  document.querySelectorAll('a.heart-logo[href="#"]').forEach(function(logo){
-    logo.addEventListener('click', function(event){
+  document.querySelectorAll('a[href^="#"]').forEach(function(link){
+    var href = link.getAttribute('href');
+    // Skip mailto, empty, or non-section anchors
+    if (!href || href === '#!' || href.length < 1) return;
+    link.addEventListener('click', function(event){
       event.preventDefault();
+      var target = href === '#' ? null : document.getElementById(href.slice(1));
       if (window.history && window.history.replaceState) {
         try { window.history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) {}
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   });
 
