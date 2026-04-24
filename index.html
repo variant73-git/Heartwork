@@ -147,7 +147,7 @@
   .hero-artist{
     position:absolute;
     left:50%;bottom:0;top:12%;
-    transform:translateX(-50%);
+    transform:translate(-50%,30%);
     width:clamp(360px, 50vw, 820px);
     background:url("assets/hero-guitarist.webp") no-repeat center bottom;
     background-size:contain;
@@ -576,7 +576,7 @@
     position:absolute !important; z-index:2 !important;
     left:50% !important; right:auto !important;
     top:auto !important; bottom:0 !important;
-    transform:translateX(-50%) !important;
+    transform:translate(-50%,30%) !important;
     width:clamp(360px, 108vw, 480px) !important;
     height:clamp(460px, 140vw, 620px) !important;
     background-image:url('assets/hero-guitarist.webp') !important;
@@ -1080,7 +1080,7 @@ html.sim-mobile .sticky-nav-wrap{display:none !important}
 html.sim-mobile .hero-wrap{min-height:100vh !important;min-height:100svh !important;display:flex !important;flex-direction:column !important}
 html.sim-mobile .hero{padding:22px 25px 0 !important;height:auto !important;min-height:0 !important;flex:1 1 auto !important;display:flex !important;flex-direction:column !important;overflow:visible !important;background:transparent !important}
 html.sim-mobile .hero-shapes{display:block !important;top:auto !important;bottom:200px !important;left:50% !important;width:100% !important;height:430px !important;transform:translateX(-50%) !important;background:url('assets/hub-shapes-inline.svg') no-repeat center / cover !important;opacity:1 !important;mix-blend-mode:normal !important;z-index:0 !important}
-html.sim-mobile .hero-artist{position:absolute !important;z-index:2 !important;left:50% !important;right:auto !important;top:auto !important;bottom:0 !important;transform:translateX(-50%) !important;width:clamp(360px,108vw,480px) !important;height:clamp(460px,140vw,620px) !important;background-image:url('assets/hero-guitarist.webp') !important;background-size:contain !important;background-position:center bottom !important;background-repeat:no-repeat !important;filter:none !important}
+html.sim-mobile .hero-artist{position:absolute !important;z-index:2 !important;left:50% !important;right:auto !important;top:auto !important;bottom:0 !important;transform:translate(-50%,30%) !important;width:clamp(360px,108vw,480px) !important;height:clamp(460px,140vw,620px) !important;background-image:url('assets/hero-guitarist.webp') !important;background-size:contain !important;background-position:center bottom !important;background-repeat:no-repeat !important;filter:none !important}
 html.sim-mobile .hero-top{position:relative !important;z-index:5 !important;display:flex !important;flex-direction:row !important;justify-content:space-between !important;align-items:center !important;background:transparent !important;border-radius:0 !important;padding:0 !important;gap:16px !important;height:auto !important;min-height:40px !important;flex:0 0 auto !important;flex-wrap:nowrap !important;width:100% !important;align-self:stretch !important}
 html.sim-mobile .hero-top .heart-logo{display:inline-flex !important;align-items:center !important}
 html.sim-mobile .hero-top .heart-logo img{height:28px !important;width:auto !important;filter:none !important}
@@ -1194,9 +1194,16 @@ html.sim-mobile .mega-wordmark .word{font-family:'Aspekta','Aeonik',var(--body) 
 .hero-stage .hero-shape-path{
   will-change:d;
 }
-.hero-stage .hero-artist,
-.hero-stage .hero{
+.hero-stage .hero-artist{
   will-change:opacity;
+}
+/* Keep .hero above the artist. Without this, .hero-artist (z:1 desktop /
+   z:2 mobile) would paint over the in-flow hero content (CTA, title).
+   The old rule put will-change:opacity on .hero too — that created a
+   stacking context that trapped the CTA below the artist's z-index. */
+.hero-stage .hero{
+  position:relative;
+  z-index:3;
 }
 
 /* Default stage height (desktop) */
