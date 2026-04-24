@@ -1187,6 +1187,9 @@ html.sim-mobile .mega-wordmark .word{font-family:'Aspekta','Aeonik',var(--body) 
   min-height:100vh !important;
   max-height:100vh;
   will-change:background-color;
+  /* Contain paints so the scaled/morphing SVG can't leak out and
+     trigger full-page repaints during the snap-scroll reverse. */
+  contain:paint;
 }
 .hero-stage .hero-shape-svg{
   width:100%;
@@ -1194,6 +1197,10 @@ html.sim-mobile .mega-wordmark .word{font-family:'Aspekta','Aeonik',var(--body) 
   display:block;
   transform-origin:50% 52%;
   will-change:transform;
+  /* Force a dedicated compositor layer so mobile GPUs don't flicker
+     when the layer resizes during scale animation. */
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
 }
 .hero-stage .hero-shape-path{
   will-change:d;
@@ -1694,20 +1701,27 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
 </section>
 
 <script>
-  // Sticky nav visible once the user has scrolled past ~half of the
-  // hero-stage. Using a fraction of stage height (rather than full
-  // stage-bottom minus viewport) makes the trigger robust across
-  // viewport heights and avoids races with mandatory-snap transitions.
+  // Sticky nav visibility driven by IntersectionObserver on the hero-wrap.
+  // This is reliable across scroll-snap transitions where scroll events
+  // can be throttled or suppressed (notably iOS Safari smooth-scroll).
   const stickyWrap = document.querySelector('.sticky-nav-wrap');
   const heroStageEl = document.getElementById('heroStage');
-  const onScroll = () => {
-    const threshold = heroStageEl ? heroStageEl.offsetHeight * 0.5 : 40;
-    if (window.scrollY > threshold) stickyWrap.classList.add('visible');
-    else stickyWrap.classList.remove('visible');
-  };
-  window.addEventListener('scroll', onScroll, {passive:true});
-  window.addEventListener('resize', onScroll, {passive:true});
-  onScroll();
+  const heroWrap = heroStageEl && heroStageEl.querySelector('.hero-wrap');
+  function apply(heroInView){
+    if (!stickyWrap) return;
+    stickyWrap.classList.toggle('visible', !heroInView);
+  }
+  if (heroWrap && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function(entries){
+      apply(entries[0].isIntersecting && entries[0].intersectionRatio > 0.3);
+    }, { threshold: [0, 0.3, 0.6, 1] }).observe(heroWrap);
+  } else if (heroStageEl) {
+    // Fallback for old browsers — scroll threshold at half of stage
+    const onScroll = () => apply(window.scrollY <= heroStageEl.offsetHeight * 0.5);
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll, {passive:true});
+    onScroll();
+  }
 </script>
 <script>
 (function(){
@@ -1721,22 +1735,29 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
     return window.matchMedia('(max-width: 640px)').matches || document.documentElement.classList.contains('sim-mobile');
   }
   const heroStageEl = document.getElementById('heroStage');
-  function heroThreshold(){
-    return heroStageEl ? heroStageEl.offsetHeight * 0.5 : window.innerHeight;
-  }
-  function isInitialViewport(){
-    return window.scrollY < heroThreshold();
-  }
+  const heroWrap = heroStageEl && heroStageEl.querySelector('.hero-wrap');
+
+  // IntersectionObserver on the hero-wrap is the source of truth for
+  // "is the user looking at the hero". Scroll events are unreliable on
+  // iOS Safari during scroll-snap smooth-scroll transitions.
+  let heroInView = true;
+  function isInitialViewport(){ return heroInView; }
   function closeMobileNav(){
     mobileNav.classList.remove('open');
     mobileNav.classList.remove('initial-open');
     mobileToggle.setAttribute('aria-expanded', 'false');
     if (heroToggle) heroToggle.setAttribute('aria-expanded', 'false');
   }
-  function updateMobileNavVisibility(){
-    const shouldShow = isMobileMode() && (window.scrollY > heroThreshold() || mobileNav.classList.contains('open'));
+  function applyVisibility(){
+    const shouldShow = isMobileMode() && (!heroInView || mobileNav.classList.contains('open'));
     mobileNav.classList.toggle('visible', shouldShow);
     if (!shouldShow) closeMobileNav();
+  }
+  if (heroWrap && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function(entries){
+      heroInView = entries[0].isIntersecting && entries[0].intersectionRatio > 0.3;
+      applyVisibility();
+    }, { threshold: [0, 0.3, 0.6, 1] }).observe(heroWrap);
   }
 
   mobileToggle.addEventListener('click', function(){
@@ -1745,7 +1766,7 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
     mobileNav.classList.toggle('initial-open', shouldOpen && isInitialViewport());
     mobileToggle.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
     if (heroToggle) heroToggle.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
-    updateMobileNavVisibility();
+    applyVisibility();
   });
 
   mobileLinks.querySelectorAll('a').forEach(function(link){
@@ -1772,9 +1793,8 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
     if (!mobileNav.contains(event.target) && (!heroToggle || !heroToggle.contains(event.target))) closeMobileNav();
   });
 
-  window.addEventListener('scroll', updateMobileNavVisibility, {passive:true});
-  window.addEventListener('resize', updateMobileNavVisibility);
-  updateMobileNavVisibility();
+  window.addEventListener('resize', applyVisibility);
+  applyVisibility();
 })();
 </script>
 
@@ -2189,9 +2209,14 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
     var kf = p <= 0.5 ? interp(KF1, KF2, p * 2) : interp(KF2, KF3, (p - 0.5) * 2);
     shapePath.setAttribute('d', toPath(kf));
 
-    // Scale: 1x until 50%, then eases up to 10x by 100%
-    var scale = p <= 0.5 ? 1 : 1 + easeOutQuad((p - 0.5) * 2) * 9;
-    shapeSvg.style.transform = 'scale(' + scale.toFixed(3) + ')';
+    // Scale: 1x until 50%, then eases up.
+    // Desktop peaks at 10x. Mobile capped at 4x — mobile GPUs choke on
+    // the massive composite layer (svg * 10 = thousands of px square)
+    // and it manifests as a flash/cropped repaint when scrolling back.
+    var isMobileVp = window.matchMedia('(max-width: 640px)').matches;
+    var maxScale = isMobileVp ? 4 : 10;
+    var scale = p <= 0.5 ? 1 : 1 + easeOutQuad((p - 0.5) * 2) * (maxScale - 1);
+    shapeSvg.style.transform = 'translateZ(0) scale(' + scale.toFixed(3) + ')';
 
     // Hero content + guitarist fade from 0% → 60% of scroll
     var fade = Math.max(0, 1 - (p / 0.6));
