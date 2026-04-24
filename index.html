@@ -2328,19 +2328,71 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
   applyP(window.scrollY > 10 ? 1 : 0);
   if (prefersReduce) return;
 
-  // Direction state tracks whether we've committed to "past hero" or
-  // "at hero". Each edge transition triggers the corresponding animation
-  // exactly once — avoids multiple animateTo calls during a single
-  // smooth-scroll.
+  // Take full control of the hero↔brands transition so animation and
+  // scroll are perfectly synchronized — regardless of how fast or
+  // slow the user scrolled. During the transition we disable
+  // scroll-snap, run a raf loop that animates both p AND scrollY over
+  // the same duration, then re-enable snap.
   var direction = window.scrollY > 10 ? 'away' : 'hero';
+  var locked = false;
+  var scrollRaf = 0;
+
+  function blockScroll(e){ e.preventDefault(); }
+
+  function lock(){
+    locked = true;
+    // Disable snap so our manual scroll isn't fighting the snap engine
+    document.documentElement.style.scrollSnapType = 'none';
+    // Prevent user from scrolling during the transition
+    window.addEventListener('wheel', blockScroll, { passive: false });
+    window.addEventListener('touchmove', blockScroll, { passive: false });
+  }
+  function unlock(){
+    document.documentElement.style.scrollSnapType = '';
+    window.removeEventListener('wheel', blockScroll, { passive: false });
+    window.removeEventListener('touchmove', blockScroll, { passive: false });
+    locked = false;
+  }
+
+  function runTransition(targetP, targetY, duration){
+    var startP = currentP;
+    var startY = window.scrollY;
+    var startTime = performance.now();
+    animFromP = startP;
+    animToP = targetP;
+    animDuration = duration;
+    animStart = startTime;
+    animActive = true;
+
+    function step(){
+      scrollRaf = 0;
+      var t = Math.min(1, (performance.now() - startTime) / duration);
+      var eased = easeInOutCubic(t);
+      applyP(startP + (targetP - startP) * eased);
+      window.scrollTo(0, Math.round(startY + (targetY - startY) * eased));
+      if (t < 1) scrollRaf = requestAnimationFrame(step);
+      else {
+        animActive = false;
+        unlock();
+      }
+    }
+    lock();
+    scrollRaf = requestAnimationFrame(step);
+  }
+
   function checkScroll(){
+    if (locked) return;
     var y = window.scrollY;
+    var brands = document.querySelector('.brands-section');
+    if (!brands) return;
+    var brandsTop = brands.offsetTop;
+
     if (direction === 'hero' && y > 10) {
       direction = 'away';
-      animateTo(1, FWD_MS);
-    } else if (direction === 'away' && y < 10) {
+      runTransition(1, brandsTop, FWD_MS);
+    } else if (direction === 'away' && y < brandsTop - 40) {
       direction = 'hero';
-      animateTo(0, REV_MS);
+      runTransition(0, 0, REV_MS);
     }
   }
   window.addEventListener('scroll', checkScroll, { passive: true });
