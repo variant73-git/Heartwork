@@ -56,13 +56,13 @@
 
   /* ───────────────────── SCROLL SNAP (one section = one viewport) ─────────────────────
      Mandatory snap — every scroll input lands on the next section.
-     hero-stage is short enough (150vh / 130vh) that its animation runs during
-     one scroll, then snap takes over.
-     scroll-padding-top reserves space at the top for the sticky nav so section
-     content doesn't render behind it when snapped. */
+     NOTE: no scroll-padding-top here. Reserving space at the top for the
+     sticky nav would put the previous section's content in that reserved
+     space (visible "bleed" of orange brands-section above fullstack-dark,
+     etc.). Instead, each snap section has its own internal padding-top
+     sized to clear the nav. */
   html{
     scroll-snap-type:y mandatory;
-    scroll-padding-top:clamp(72px, 8vh, 96px);
     scroll-behavior:smooth;
   }
   .hero-stage,
@@ -239,7 +239,9 @@
   /* ───────────────────── ORANGE MARQUEE SECTION ───────────────────── */
   .brands-section{
     background:var(--orange);color:#000;
-    padding:clamp(40px,6vw,90px) 0;
+    /* top padding clears the mobile-float-nav (~72px) and desktop sticky
+       nav (~96px); bottom stays small to keep content fitting in 100vh */
+    padding:clamp(88px,11vh,120px) 0 clamp(40px,6vw,90px);
     overflow:hidden;
   }
   .brands-section .eyebrow{
@@ -409,7 +411,7 @@
   }
 
   /* ───────────────────── SERVICES ───────────────────── */
-  .services{background:#000;padding:clamp(30px,4vw,60px) 0}
+  .services{background:#000;padding:clamp(88px,11vh,120px) 0 clamp(30px,4vw,60px)}
   .service{
     display:grid;
     grid-template-columns:clamp(40px,4vw,90px) 1fr;
