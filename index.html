@@ -2344,12 +2344,57 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
   if (prefersReduce) return;
 
   // Direction state tracks whether we've committed to "past hero" or
-  // "at hero". Each edge transition triggers the corresponding animation
-  // exactly once — avoids multiple animateTo calls during a single
-  // smooth-scroll.
+  // "at hero".
   var direction = window.scrollY > 10 ? 'away' : 'hero';
+  var wheelLocked = false;
 
+  function brandsTop(){
+    var b = document.querySelector('.brands-section');
+    return b ? b.offsetTop : 0;
+  }
+
+  // Desktop: intercept the wheel event BEFORE the browser starts its
+  // snap-scroll. A brusque wheel flick otherwise races the animation
+  // — the viewport jumps to brands in ~200ms while the 700ms morph
+  // finishes off-screen. By preventDefault'ing here, the browser
+  // never scrolls during the animation; we scrollIntoView brands
+  // only after the morph completes. One consistent motion, always.
+  function onWheel(e){
+    if (wheelLocked) { e.preventDefault(); return; }
+    var y = window.scrollY;
+    if (direction === 'hero' && e.deltaY > 0 && y < 10) {
+      e.preventDefault();
+      wheelLocked = true;
+      direction = 'away';
+      animateTo(1, FWD_MS);
+      setTimeout(function(){
+        var b = document.querySelector('.brands-section');
+        if (b) b.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(function(){ wheelLocked = false; }, 600);
+      }, FWD_MS);
+    } else if (direction === 'away' && e.deltaY < 0 && y <= brandsTop() + 20) {
+      e.preventDefault();
+      wheelLocked = true;
+      direction = 'hero';
+      animateTo(0, REV_MS);
+      setTimeout(function(){
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(function(){ wheelLocked = false; }, 600);
+      }, REV_MS);
+    }
+  }
+  // Only register the wheel interceptor on non-touch (desktop) —
+  // mobile touch-swipes already read well via the scroll-event path
+  // below, and intercepting touchmove would stop the page from
+  // scrolling at all for users.
+  if (!IS_MOBILE_VP) {
+    window.addEventListener('wheel', onWheel, { passive: false });
+  }
+
+  // Mobile (and keyboard/non-wheel desktop) fallback: scroll event
+  // triggers the morph and tick() nudges the scroll at animation end.
   function checkScroll(){
+    if (wheelLocked) return;
     var y = window.scrollY;
     if (direction === 'hero' && y > 10) {
       direction = 'away';
