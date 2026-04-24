@@ -1832,11 +1832,21 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
       if (window.history && window.history.replaceState) {
         try { window.history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) {}
       }
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Mark a programmatic scroll so the hero-morph checkScroll
+      // handler doesn't mistake this for a user scroll and fire an
+      // animation. Also re-issue the scrollIntoView after the mobile
+      // URL-bar / menu close layout settles, in case dvh-tracked
+      // section heights shifted during the initial smooth-scroll and
+      // the user landed in the wrong spot (which mandatory snap would
+      // then "correct" back to the origin — the glitch we're fixing).
+      window.__hwNavScrolling = true;
+      function scrollToTarget(){
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
       }
+      scrollToTarget();
+      setTimeout(scrollToTarget, 400);
+      setTimeout(function(){ window.__hwNavScrolling = false; }, 900);
     });
   });
 
@@ -2395,6 +2405,12 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
   // triggers the morph and tick() nudges the scroll at animation end.
   function checkScroll(){
     if (wheelLocked) return;
+    // Ignore programmatic scrolls triggered by anchor-link clicks.
+    // Otherwise navigating between sections via the menu can briefly
+    // dip scrollY past a trigger threshold and fire the morph (or its
+    // onAnimEnd scrollIntoView nudge), pulling the viewport back to
+    // the section the user came from.
+    if (window.__hwNavScrolling) return;
     var y = window.scrollY;
     if (direction === 'hero' && y > 10) {
       direction = 'away';
