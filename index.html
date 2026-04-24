@@ -1833,20 +1833,20 @@ html.sim-mobile .mega-wordmark .word{display:inline-block !important;width:max-c
         try { window.history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) {}
       }
       // Mark a programmatic scroll so the hero-morph checkScroll
-      // handler doesn't mistake this for a user scroll and fire an
-      // animation. Also re-issue the scrollIntoView after the mobile
-      // URL-bar / menu close layout settles, in case dvh-tracked
-      // section heights shifted during the initial smooth-scroll and
-      // the user landed in the wrong spot (which mandatory snap would
-      // then "correct" back to the origin — the glitch we're fixing).
+      // handler doesn't fire an animation, and disable mandatory
+      // snap during the smooth-scroll. Otherwise mobile Chrome races
+      // the scrollIntoView against snap re-alignment and the viewport
+      // ping-pongs between the origin and the target.
       window.__hwNavScrolling = true;
-      function scrollToTarget(){
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        else window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-      scrollToTarget();
-      setTimeout(scrollToTarget, 400);
-      setTimeout(function(){ window.__hwNavScrolling = false; }, 900);
+      var htmlEl = document.documentElement;
+      var prevSnap = htmlEl.style.scrollSnapType;
+      htmlEl.style.scrollSnapType = 'none';
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(function(){
+        htmlEl.style.scrollSnapType = prevSnap;
+        window.__hwNavScrolling = false;
+      }, 900);
     });
   });
 
