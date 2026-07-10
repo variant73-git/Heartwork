@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seizi Samurai 2026 — À Procura do Novo Samurai</title>
+<meta name="description" content="O maior reality show de guitarristas do Brasil. Das audições regionais à grande final. Uma temporada. Um novo samurai.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+html{scroll-behavior:auto}
+body{margin:0;background:#0a0808;color:#f2ece6;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:#f2ece6;text-decoration:none}
+a:hover{color:#ec1425}
+::selection{background:#ec1425;color:#0a0808}
+@media (max-width:1500px){.ss-tagline{font-size:9px !important;letter-spacing:0.28em !important}}
+@media (max-width:1140px){.ss-tagline{display:none !important}}
+</style>
+</head>
+<body>
+
+<!-- ===================== PERSISTENT EDGE CHROME ===================== -->
+<div style="position:fixed;inset:0;pointer-events:none;z-index:60">
+
+  <!-- top-left: kanji seal + project title -->
+  <div style="position:absolute;top:26px;left:30px;display:flex;align-items:center;gap:14px;pointer-events:auto">
+    <div data-kanji style="width:44px;height:44px;border:1px solid #f2ece6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;letter-spacing:0">将軍</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.45em;text-transform:uppercase">Seizi&nbsp;Samurai&nbsp;2026</div>
+  </div>
+
+  <!-- top-center: tagline highlighted -->
+  <div class="ss-tagline" style="position:absolute;top:34px;left:50%;transform:translateX(-50%);font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.45em;text-transform:uppercase;color:#f2ece6;white-space:nowrap">O&nbsp;Maior&nbsp;Reality&nbsp;Show&nbsp;de&nbsp;Guitarristas&nbsp;do&nbsp;Brasil</div>
+
+  <!-- top-right: studio -->
+  <div style="position:absolute;top:34px;right:34px;text-align:right;font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.45em;text-transform:uppercase">Heartwork&nbsp;Studios</div>
+
+  <!-- left rail: vertical breadcrumb -->
+  <nav data-crumbs style="position:absolute;left:30px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:22px;pointer-events:auto">
+    <a href="#s1" data-crumb="01" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">01</span></a>
+    <a href="#s2" data-crumb="02" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">02</span></a>
+    <a href="#s3" data-crumb="03" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">03</span></a>
+    <a href="#s4" data-crumb="04" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">04</span></a>
+    <a href="#s5" data-crumb="05" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">05</span></a>
+    <a href="#s6" data-crumb="06" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">06</span></a>
+  </nav>
+
+  <!-- right rail: rotated current-section title -->
+  <div style="position:absolute;right:12px;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:center">
+    <div data-rail-title style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.6em;text-transform:uppercase;white-space:nowrap">Abertura</div>
+  </div>
+
+  <!-- bottom-left -->
+  <div style="position:absolute;bottom:28px;left:30px;font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase">O&nbsp;Maior&nbsp;Reality&nbsp;de&nbsp;Guitarristas&nbsp;do&nbsp;Brasil</div>
+
+  <!-- bottom-right -->
+  <div style="position:absolute;bottom:28px;right:34px;display:flex;align-items:center;gap:16px">
+    <span data-progress-num style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.35em">01&nbsp;/&nbsp;06</span>
+    <span style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase">©2026&nbsp;Todos&nbsp;os&nbsp;Direitos&nbsp;Reservados</span>
+  </div>
+
+  <!-- scroll progress hairline -->
+  <div style="position:absolute;top:0;left:0;right:0;height:2px;background:rgba(242,236,230,0.12)"><div data-progressbar style="height:100%;width:100%;background:#ec1425;transform:scaleX(0);transform-origin:left"></div></div>
+</div>
+
+<!-- ===================== 01 · HERO ===================== -->
+<section id="s1" data-section data-num="01" data-title="Abertura" style="position:relative;min-height:100vh;overflow:hidden;background:#ec1425;display:flex;align-items:center;justify-content:center">
+  <div style="position:absolute;inset:-6%">
+    <img data-parallax src="assets/img/hero.webp" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center">
+  </div>
+
+  <div data-swap-main="s1" style="position:relative;z-index:2;width:100%;padding:11vh 7vw 9vh;display:flex;flex-direction:column;align-items:center;text-align:center;color:#0a0808">
+    <img data-hero-logo src="assets/seizi_samurai_logo.svg" alt="Seizi — À Procura do Novo Samurai" style="width:auto;height:min(50.6vw,61.6vh);max-width:90vw;object-fit:contain;display:block">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;width:100%;margin-top:6vh;flex-wrap:wrap;gap:20px">
+      <p data-fade style="margin:0;max-width:300px;font-size:11px;line-height:1.7;letter-spacing:0.14em;text-transform:uppercase;color:#0a0808;text-align:left">Das audições regionais à grande final. Uma temporada. Um novo samurai.</p>
+      <div data-fade style="border:1px solid #0a0808;padding:12px 22px;font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:#0a0808">Role&nbsp;para&nbsp;Começar&nbsp;↓</div>
+    </div>
+  </div>
+  <h2 data-swap-alt="s1" style="margin:0;position:absolute;left:7vw;top:50%;transform:translateY(-50%);z-index:2;font-family:Anton,sans-serif;font-weight:400;line-height:0.9;text-transform:uppercase;color:#000000;opacity:0;pointer-events:none;text-align:left">
+    <div style="font-size:8vw;white-space:nowrap">Das&nbsp;audições&nbsp;regionais</div>
+    <div style="font-size:8vw;white-space:nowrap;margin-left:14vw">à&nbsp;grande&nbsp;final.</div>
+    <div style="font-size:8vw;white-space:nowrap;margin-left:5vw">Uma&nbsp;temporada.</div>
+    <div style="font-size:8vw;white-space:nowrap;margin-left:22vw">Um&nbsp;novo&nbsp;samurai.</div>
+  </h2>
+</section>
+
+<!-- ===================== 02 · A TESE (solid black) ===================== -->
+<section id="s2" data-section data-num="02" data-title="A Tese" style="position:relative;min-height:100vh;background:#0a0808;display:flex;align-items:center;overflow:hidden">
+  <div style="position:relative;width:100%;padding:18vh 9vw">
+    <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.55em;text-transform:uppercase;color:#ec1425;margin-bottom:5vh">02&nbsp;—&nbsp;A&nbsp;Tese</div>
+    <h2 style="margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.9;text-transform:uppercase;letter-spacing:0;color:#ec1425">
+      <div data-split style="overflow:hidden;font-size:8.5vw">Não&nbsp;é&nbsp;um</div>
+      <div data-split style="overflow:hidden;font-size:8.5vw;margin-left:18vw">Concurso.</div>
+      <div data-split style="overflow:hidden;font-size:8.5vw;margin-left:6vw">É&nbsp;um&nbsp;ativo</div>
+      <div data-split style="overflow:hidden;font-size:8.5vw;margin-left:26vw">De&nbsp;marca.</div>
+    </h2>
+    <p data-fade style="margin:6vh 0 0;max-width:520px;font-size:12px;line-height:1.9;letter-spacing:0.14em;text-transform:uppercase;color:#ec1425">A Seizi migra de fabricante de instrumentos para dona de uma plataforma de mídia, comunidade e talentos — um território que nenhuma marca ocupa no Brasil.</p>
+    <div style="display:flex;gap:0;margin-top:8vh;flex-wrap:wrap">
+      <div data-draw style="flex:1;min-width:200px;border:1px solid rgba(236,20,37,0.55);padding:26px 24px">
+        <div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;background:#ec1425;color:#0a0808;padding:3px 6px 2px 10px">IP&nbsp;Proprietário</span></div>
+        <p style="margin:0;font-size:11px;line-height:1.8;letter-spacing:0.12em;text-transform:uppercase;color:#ec1425">Formato replicável ano a ano, com valorização a cada temporada.</p>
+      </div>
+      <div data-draw style="flex:1;min-width:200px;border:1px solid rgba(236,20,37,0.55);border-left:none;padding:26px 24px">
+        <div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;background:#ec1425;color:#0a0808;padding:3px 6px 2px 10px">Motor&nbsp;de&nbsp;Conteúdo</span></div>
+        <p style="margin:0;font-size:11px;line-height:1.8;letter-spacing:0.12em;text-transform:uppercase;color:#ec1425">6+ meses de produção contínua alimentando todos os canais da marca.</p>
+      </div>
+      <div data-draw style="flex:1;min-width:200px;border:1px solid rgba(236,20,37,0.55);border-left:none;padding:26px 24px">
+        <div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;background:#ec1425;color:#0a0808;padding:3px 6px 2px 10px">Funil&nbsp;de&nbsp;Talentos</span></div>
+        <p style="margin:0;font-size:11px;line-height:1.8;letter-spacing:0.12em;text-transform:uppercase;color:#ec1425">O próximo artista oficial da Seizi, com storytelling construído em público.</p>
+      </div>
+      <div data-draw style="flex:1;min-width:200px;border:1px solid rgba(236,20,37,0.55);border-left:none;padding:26px 24px">
+        <div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;background:#ec1425;color:#0a0808;padding:3px 6px 2px 10px">Monetização&nbsp;Própria</span></div>
+        <p style="margin:0;font-size:11px;line-height:1.8;letter-spacing:0.12em;text-transform:uppercase;color:#ec1425">Inscrições, bilheteria, patrocínio e mídia compensando o capex do projeto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 03 · O FORMATO ===================== -->
+<section id="s3" data-section data-num="03" data-title="O Formato" style="position:relative;min-height:100vh;overflow:hidden;background:#0a0808;display:flex;align-items:flex-end">
+  <div style="position:absolute;inset:-6%">
+    <img data-parallax src="assets/img/formato.webp" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
+  </div>
+  <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,8,8,0.7) 0%,rgba(10,8,8,0) 45%)"></div>
+  <div style="position:relative;z-index:2;width:100%;padding:0 9vw 14vh;display:flex;justify-content:flex-end">
+    <div style="max-width:70vw;text-align:right;position:relative">
+      <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.55em;text-transform:uppercase;margin-bottom:3vh">03&nbsp;—&nbsp;O&nbsp;Formato</div>
+      <h2 data-formato-title style="margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.86;text-transform:uppercase">
+        <div data-split style="overflow:hidden;font-size:7vw;white-space:nowrap">Das&nbsp;audições</div>
+        <div data-split style="overflow:hidden;font-size:7vw;white-space:nowrap">à&nbsp;grande&nbsp;final.</div>
+      </h2>
+      <h2 data-formato-alt style="margin:0;position:absolute;right:0;bottom:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.92;text-transform:uppercase;opacity:0;pointer-events:none">
+        <div style="font-size:4.2vw;white-space:nowrap">Reality&nbsp;nacional.&nbsp;9&nbsp;praças.</div>
+        <div style="font-size:4.2vw;white-space:nowrap">16&nbsp;finalistas&nbsp;em&nbsp;mata-mata.</div>
+        <div style="font-size:4.2vw;white-space:nowrap">O&nbsp;público&nbsp;escolhe.</div>
+      </h2>
+      <p data-formato-sub style="margin:3.5vh 0 0 auto;max-width:35vw;font-size:12px;line-height:1.8;letter-spacing:0.14em;text-transform:uppercase">Reality nacional. 9 praças. 16 finalistas em mata-mata até a final em São Paulo — e o público participa da escolha: engajamento vira mecânica do produto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 04 · ARQUITETURA (red, guitar) ===================== -->
+<section id="s4" data-section data-num="04" data-title="Arquitetura" style="position:relative;min-height:110vh;overflow:hidden;background:#0a0808;display:flex;align-items:center">
+  <div style="position:absolute;inset:-6%">
+    <img data-parallax src="assets/img/arquitetura.webp" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.9">
+  </div>
+  <div style="position:relative;z-index:2;width:100%;padding:16vh 9vw">
+    <div data-swap-main="s4">
+    <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.55em;text-transform:uppercase;margin-bottom:3vh">04&nbsp;—&nbsp;Arquitetura&nbsp;do&nbsp;Projeto</div>
+    <h2 style="margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.86;text-transform:uppercase">
+      <div data-split style="overflow:hidden;font-size:10vw">Funil&nbsp;em&nbsp;4&nbsp;fases.</div>
+      <div data-split style="overflow:hidden;font-size:10vw;margin-left:10vw">Mais&nbsp;a&nbsp;final.</div>
+    </h2>
+    <p data-fade style="margin:3.5vh 0 0;font-size:12px;line-height:1.8;letter-spacing:0.14em;text-transform:uppercase;white-space:nowrap">Cada fase gera receita, conteúdo e audiência própria.</p>
+
+    <div style="display:flex;flex-direction:column;gap:0;margin-top:9vh;max-width:560px">
+      <div data-draw style="border:1px solid rgba(242,236,230,0.75);padding:18px 22px;display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+        <span style="font-family:Anton,sans-serif;font-size:19px;text-transform:uppercase;letter-spacing:0.02em">Inscrições&nbsp;—&nbsp;100%&nbsp;digital</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.2em;white-space:nowrap">R$&nbsp;50&nbsp;·&nbsp;kit&nbsp;oficial</span>
+      </div>
+      <div data-draw style="border:1px solid rgba(242,236,230,0.75);border-top:none;padding:18px 22px;display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+        <span style="font-family:Anton,sans-serif;font-size:19px;text-transform:uppercase;letter-spacing:0.02em">Turnê&nbsp;de&nbsp;audições</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.2em;white-space:nowrap">9&nbsp;praças</span>
+      </div>
+      <div data-draw style="border:1px solid rgba(242,236,230,0.75);border-top:none;padding:18px 22px;display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+        <span style="font-family:Anton,sans-serif;font-size:19px;text-transform:uppercase;letter-spacing:0.02em">Seletiva&nbsp;online</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.2em;white-space:nowrap">YouTube&nbsp;+&nbsp;votação&nbsp;popular</span>
+      </div>
+      <div data-draw style="border:1px solid rgba(242,236,230,0.75);border-top:none;padding:18px 22px;display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+        <span style="font-family:Anton,sans-serif;font-size:19px;text-transform:uppercase;letter-spacing:0.02em">Reality&nbsp;em&nbsp;São&nbsp;Paulo</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.2em;white-space:nowrap">Imersão&nbsp;de&nbsp;1–2&nbsp;semanas</span>
+      </div>
+      <div data-draw style="background:#ec1425;padding:19px 22px;display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+        <span style="font-family:Anton,sans-serif;font-size:19px;text-transform:uppercase;letter-spacing:0.02em;color:#0a0808">Grande&nbsp;final</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.2em;white-space:nowrap;color:#0a0808">Evento&nbsp;+&nbsp;streaming&nbsp;·&nbsp;lotes&nbsp;R$&nbsp;80&nbsp;/&nbsp;100&nbsp;/&nbsp;120</span>
+      </div>
+    </div>
+
+    <p data-fade style="margin:8vh 0 0;max-width:400px;font-size:11px;line-height:1.9;letter-spacing:0.14em;text-transform:uppercase">Mata-mata com 16 finalistas: oitavas, quartas, semifinal e grande final — tensão narrativa episódio a episódio.</p>
+    </div>
+    <h2 data-swap-alt="s4" style="margin:0;position:absolute;left:9vw;top:50%;transform:translateY(-50%);font-family:Anton,sans-serif;font-weight:400;line-height:0.92;text-transform:uppercase;opacity:0;pointer-events:none">
+      <div style="font-size:5vw;white-space:nowrap">Mata-mata&nbsp;com&nbsp;16&nbsp;finalistas.</div>
+      <div style="font-size:5vw;white-space:nowrap">Oitavas.&nbsp;Quartas.&nbsp;Semifinal.</div>
+      <div style="font-size:5vw;white-space:nowrap">Tensão&nbsp;episódio&nbsp;a&nbsp;episódio.</div>
+    </h2>
+  </div>
+</section>
+
+<!-- ===================== 05 · O PRÊMIO (halftone + marquee) ===================== -->
+<section id="s5" data-section data-num="05" data-title="O Novo Samurai" style="position:relative;min-height:100vh;overflow:hidden;background:#0a0808;display:flex;flex-direction:column;justify-content:center">
+  <div style="position:absolute;inset:-6%">
+    <img data-parallax src="assets/img/premio.webp" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.85">
+  </div>
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,8,8,0.75) 0%,rgba(10,8,8,0.1) 70%)"></div>
+
+  <div style="position:relative;z-index:2;padding:0 9vw">
+    <div data-swap-main="s5">
+    <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.55em;text-transform:uppercase;margin-bottom:3vh">05&nbsp;—&nbsp;O&nbsp;Prêmio</div>
+    <h2 style="margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.86;text-transform:uppercase">
+      <div data-split style="overflow:hidden;font-size:11vw">O&nbsp;novo</div>
+      <div data-split style="overflow:hidden;font-size:11vw;margin-left:12vw;color:#ec1425">Samurai.</div>
+    </h2>
+    <p data-fade style="margin:3.5vh 0 0;max-width:420px;font-size:12px;line-height:1.8;letter-spacing:0.14em;text-transform:uppercase">Endorse oficial Seizi. Guitarra exclusiva. Single completo. Videoclipe. Campanha publicitária. Cada real da premiação retorna como ativo de comunicação da marca.</p>
+    </div>
+    <h2 data-swap-alt="s5" style="margin:0;position:absolute;left:9vw;top:50%;transform:translateY(-50%);font-family:Anton,sans-serif;font-weight:400;line-height:0.92;text-transform:uppercase;opacity:0;pointer-events:none">
+      <div style="font-size:4.6vw;white-space:nowrap">Endorse.&nbsp;Guitarra&nbsp;exclusiva.</div>
+      <div style="font-size:4.6vw;white-space:nowrap">Single.&nbsp;Videoclipe.&nbsp;Campanha.</div>
+      <div style="font-size:4.6vw;white-space:nowrap;color:#ec1425">Premiação&nbsp;vira&nbsp;ativo&nbsp;de&nbsp;marca.</div>
+    </h2>
+  </div>
+
+  <!-- scroll-scrubbed marquee -->
+  <div style="position:relative;z-index:2;margin-top:9vh;border-top:1px solid rgba(242,236,230,0.35);border-bottom:1px solid rgba(242,236,230,0.35);padding:14px 0;overflow:hidden">
+    <div data-marquee style="display:flex;gap:60px;white-space:nowrap;font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:0.6em;text-transform:uppercase;will-change:transform">
+      <span>À procura do novo Samurai&nbsp;·&nbsp;将軍&nbsp;·&nbsp;Seizi Samurai 2026&nbsp;·&nbsp;Heartwork Studios&nbsp;·&nbsp;À procura do novo Samurai&nbsp;·&nbsp;将軍&nbsp;·&nbsp;Seizi Samurai 2026&nbsp;·&nbsp;Heartwork Studios&nbsp;·&nbsp;À procura do novo Samurai&nbsp;·&nbsp;将軍&nbsp;·&nbsp;Seizi Samurai 2026&nbsp;·&nbsp;Heartwork Studios&nbsp;·</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 06 · ENCERRAMENTO ===================== -->
+<section id="s6" data-section data-num="06" data-title="First Mover" style="position:relative;min-height:100vh;overflow:hidden;background:#ec1425;display:flex;align-items:flex-end">
+  <div style="position:absolute;inset:-6%">
+    <img data-parallax src="assets/img/final.webp" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 15%">
+  </div>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,8,8,0) 50%,rgba(10,8,8,0.65) 100%)"></div>
+
+  <div style="position:relative;z-index:2;width:100%;padding:0 7vw 10vh">
+    <h2 style="margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.84;text-transform:uppercase;display:flex;align-items:flex-start;gap:1.5vw">
+      <div data-split style="overflow:hidden;font-size:18vw">Seizi</div>
+      <span style="font-size:2.2vw;margin-top:2.5vw">™</span>
+    </h2>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-top:4vh">
+      <div>
+        <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.5em;text-transform:uppercase;margin-bottom:16px">A&nbsp;Janela&nbsp;está&nbsp;Aberta</div>
+        <p data-fade style="margin:0;max-width:380px;font-size:11px;line-height:1.9;letter-spacing:0.14em;text-transform:uppercase">A pergunta não é se alguém vai criar o maior reality de guitarra do Brasil — é se será a Seizi.</p>
+      </div>
+      <div data-fade style="text-align:right;font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;line-height:2.2">Seizi&nbsp;Samurai&nbsp;2026<br>Heartwork&nbsp;Studios<br>Apresentação&nbsp;Executiva&nbsp;—&nbsp;Diretoria&nbsp;Seizi</div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  function initGsap() {
+    const gsap = window.gsap, ST = window.ScrollTrigger;
+    gsap.registerPlugin(ST);
+
+    // --- split titles into char spans ---
+    document.querySelectorAll('[data-split]').forEach(line => {
+      const text = line.textContent;
+      line.textContent = '';
+      const inner = document.createElement('div');
+      inner.style.display = 'block';
+      text.split('').forEach(ch => {
+        const s = document.createElement('span');
+        s.textContent = ch === ' ' ? ' ' : ch;
+        s.style.display = 'inline-block';
+        s.className = 'ss-ch';
+        inner.appendChild(s);
+      });
+      line.appendChild(inner);
+    });
+
+    // char reveal per line
+    document.querySelectorAll('[data-split]').forEach(line => {
+      gsap.from(line.querySelectorAll('.ss-ch'), {
+        yPercent: 115,
+        rotate: 4,
+        stagger: 0.028,
+        duration: 0.9,
+        ease: 'power4.out',
+        scrollTrigger: { trigger: line, start: 'top 88%', once: true }
+      });
+    });
+
+    // hero logo reveal
+    gsap.from('[data-hero-logo]', { opacity: 0, y: 40, scale: 0.96, duration: 1.2, ease: 'power4.out', delay: 0.15 });
+
+    // fades
+    document.querySelectorAll('[data-fade]').forEach(el => {
+      gsap.from(el, {
+        y: 30, opacity: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 92%', once: true }
+      });
+    });
+
+    // outlined boxes draw in
+    document.querySelectorAll('[data-draw]').forEach((el, i) => {
+      gsap.from(el, {
+        scaleX: 0, transformOrigin: 'left center', duration: 0.9, delay: (i % 4) * 0.12, ease: 'power3.inOut',
+        scrollTrigger: { trigger: el, start: 'top 90%', once: true }
+      });
+      gsap.from(el.children, {
+        opacity: 0, duration: 0.6, delay: 0.7 + (i % 4) * 0.12, ease: 'none',
+        scrollTrigger: { trigger: el, start: 'top 90%', once: true }
+      });
+    });
+
+    // background parallax scrub
+    document.querySelectorAll('[data-parallax]').forEach(img => {
+      gsap.fromTo(img,
+        { yPercent: -4, scale: 1.14 },
+        { yPercent: 4, scale: 1.05, ease: 'none',
+          scrollTrigger: { trigger: img.closest('section'), start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
+
+    // O Formato: pin section and swap title -> big subtitle on scroll
+    const fmTitle = document.querySelector('[data-formato-title]');
+    const fmAlt = document.querySelector('[data-formato-alt]');
+    const fmSub = document.querySelector('[data-formato-sub]');
+    const pins = [];
+    if (fmTitle && fmAlt) {
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: '#s3', start: 'top top', end: '+=90%', pin: true, scrub: 0.4, refreshPriority: 3 }
+      })
+      .to(fmTitle, { yPercent: -18, opacity: 0, ease: 'power2.in', duration: 0.42 }, 0.05)
+      .to(fmSub, { opacity: 0, ease: 'power2.in', duration: 0.3 }, 0.35)
+      .fromTo(fmAlt, { opacity: 0, yPercent: 16 }, { opacity: 1, yPercent: 0, ease: 'power2.out', duration: 0.45 }, 0.55);
+      pins.push(tl.scrollTrigger);
+    }
+
+    // Hero + Arquitetura + O Prêmio: pin and swap content -> big statement on scroll
+    ['s1', 's4', 's5'].forEach(id => {
+      const main = document.querySelector('[data-swap-main="' + id + '"]');
+      const alt = document.querySelector('[data-swap-alt="' + id + '"]');
+      if (!main || !alt) return;
+      const prio = { s1: 4, s4: 2, s5: 1 }[id];
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: '#' + id, start: 'bottom bottom', end: '+=90%', pin: true, scrub: 0.4, refreshPriority: prio }
+      })
+      .to(main, { yPercent: -10, opacity: 0, ease: 'power2.in', duration: 0.42 }, 0.05)
+      .fromTo(alt, { opacity: 0, yPercent: 12 }, { opacity: 1, yPercent: 0, ease: 'power2.out', duration: 0.45 }, 0.5);
+      pins.push(tl.scrollTrigger);
+    });
+
+    // marquee scrubbed by scroll
+    const mq = document.querySelector('[data-marquee]');
+    if (mq) {
+      gsap.fromTo(mq, { x: 0 }, { x: () => -(mq.scrollWidth * 0.35), ease: 'none',
+        scrollTrigger: { trigger: '#s5', start: 'top bottom', end: 'bottom top', scrub: 0.5 } });
+    }
+
+    // kanji seal slow rotation over full page
+    gsap.to('[data-kanji]', {
+      rotate: 360, ease: 'none',
+      scrollTrigger: { trigger: document.body, start: 'top top', end: 'max', scrub: true }
+    });
+
+    // progress hairline
+    gsap.to('[data-progressbar]', {
+      scaleX: 1, ease: 'none',
+      scrollTrigger: { trigger: document.body, start: 'top top', end: 'max', scrub: true }
+    });
+
+    // section tracking: breadcrumb + right rail title + counter
+    const railTitle = document.querySelector('[data-rail-title]');
+    const counter = document.querySelector('[data-progress-num]');
+    const redSections = { '01': true, '04': true, '06': true };
+    const setActive = (num, title) => {
+      const activeColor = redSections[num] ? '#0a0808' : '#ec1425';
+      document.querySelectorAll('[data-crumb]').forEach(a => {
+        const on = a.getAttribute('data-crumb') === num;
+        const tick = a.children[0], label = a.children[1];
+        tick.style.background = on ? activeColor : '#f2ece6';
+        tick.style.width = on ? '44px' : '26px';
+        label.style.color = on ? activeColor : '#f2ece6';
+      });
+      if (railTitle && railTitle.textContent !== title) {
+        gsap.fromTo(railTitle, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.5 });
+        railTitle.textContent = title;
+      }
+      if (counter) counter.innerHTML = num + '&nbsp;/&nbsp;06';
+    };
+    document.querySelectorAll('[data-section]').forEach(sec => {
+      ST.create({
+        trigger: sec, start: 'top center', end: 'bottom center',
+        onToggle: self => { if (self.isActive) setActive(sec.getAttribute('data-num'), sec.getAttribute('data-title')); }
+      });
+    });
+
+    // snap: each section frames the viewport instead of free scroll
+    const measures = [];
+    document.querySelectorAll('[data-section]').forEach(sec => {
+      measures.push(ST.create({ trigger: sec, start: 'top top', end: 'top top' }));
+    });
+    ST.create({
+      trigger: document.documentElement, start: 0, end: 'max',
+      snap: {
+        snapTo: value => {
+          // Never snap while a pinned swap is playing — otherwise the snap
+          // fights the pin and yanks the page back into the previous section.
+          if (pins.some(t => t && t.isActive)) return value;
+          const max = ST.maxScroll(window);
+          if (!max) return value;
+          // Snap only to section tops (not pin-ends), so points never sit
+          // close together and oscillate.
+          const pts = measures.map(t => t.start / max).concat([0, 1]);
+          return pts.reduce((a, b) => Math.abs(b - value) < Math.abs(a - value) ? b : a);
+        },
+        duration: { min: 0.3, max: 0.7 }, delay: 0.1, ease: 'power1.inOut'
+      }
+    });
+
+    ST.refresh();
+  }
+
+  function boot() {
+    if (!window.gsap || !window.ScrollTrigger) { setTimeout(boot, 60); return; }
+    document.fonts.ready.then(initGsap);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+</body>
+</html>
