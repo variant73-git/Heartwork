@@ -18,6 +18,62 @@ a:hover{color:#ec1425}
 ::selection{background:#ec1425;color:#0a0808}
 @media (max-width:1500px){.ss-tagline{font-size:9px !important;letter-spacing:0.28em !important}}
 @media (max-width:1140px){.ss-tagline{display:none !important}}
+
+/* ===================== MOBILE ===================== */
+@media (max-width:768px){
+  /* width:100% + side padding must not exceed the viewport */
+  section>div{box-sizing:border-box !important}
+  /* --- edge chrome: keep only seal + title (top) and counter + hairline (bottom) --- */
+  [data-crumbs]{display:none !important}
+  .ss-rail{display:none !important}
+  .ss-top-right{display:none !important}
+  .ss-bottom-left{display:none !important}
+  .ss-copyright{display:none !important}
+
+  /* --- desktop-only pinned swap overlays --- */
+  [data-swap-alt]{display:none !important}
+  [data-formato-alt]{display:none !important}
+
+  /* --- readable body text: bigger, less tracking, never clipped --- */
+  section p{font-size:13px !important;line-height:1.75 !important;letter-spacing:0.08em !important;max-width:100% !important;white-space:normal !important}
+
+  /* --- section kickers (02 — A Tese etc.) --- */
+  section div[data-fade][style*="0.55em"]{font-size:10px !important;letter-spacing:0.3em !important}
+
+  /* --- titles: full width, no stagger indents, no clipping --- */
+  [data-split]{margin-left:0 !important;white-space:normal !important}
+  #s2 h2 [data-split]{font-size:15vw !important}
+  #s3 [data-formato-title] [data-split]{font-size:12.5vw !important}
+  #s4 h2 [data-split]{font-size:13vw !important}
+  #s5 h2 [data-split]{font-size:16vw !important}
+  #s6 h2 [data-split]{font-size:32vw !important}
+  #s6 h2 > span{font-size:6vw !important;margin-top:5vw !important}
+
+  /* --- 01 · hero --- */
+  [data-hero-logo]{width:88vw !important;height:auto !important}
+  #s1 [data-swap-main]>div{flex-direction:column !important;align-items:center !important;gap:26px !important}
+  #s1 [data-swap-main] p{text-align:center !important;max-width:320px !important;font-size:12px !important}
+
+  /* --- 02 · a tese: cards stack full-width --- */
+  #s2 [data-draw]{flex:1 1 100% !important;border:1px solid rgba(236,20,37,0.55) !important;border-top:none !important}
+  #s2 [data-draw]:first-child{border-top:1px solid rgba(236,20,37,0.55) !important}
+
+  /* --- 03 · o formato: left-aligned, full width --- */
+  .ss-s3-wrap{max-width:100% !important;text-align:left !important}
+  #s3 [data-formato-sub]{margin-left:0 !important;text-align:left !important}
+
+  /* --- 04 · arquitetura: phase rows stack label over value --- */
+  #s4 [data-draw]{flex-direction:column !important;align-items:flex-start !important;gap:6px !important}
+  #s4 [data-draw] span{white-space:normal !important}
+  #s4 h2+p{white-space:normal !important}
+
+  /* --- 05 · marquee --- */
+  [data-marquee]{font-size:11px !important;letter-spacing:0.4em !important}
+
+  /* --- 06 · encerramento: footer stacks, credits left --- */
+  .ss-s6-foot{flex-direction:column !important;align-items:flex-start !important;gap:28px !important}
+  .ss-s6-credits{text-align:left !important;letter-spacing:0.2em !important;font-size:9px !important}
+}
 </style>
 </head>
 <body>
@@ -35,7 +91,7 @@ a:hover{color:#ec1425}
   <div class="ss-tagline" style="position:absolute;top:34px;left:50%;transform:translateX(-50%);font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.45em;text-transform:uppercase;color:#f2ece6;white-space:nowrap">O&nbsp;Maior&nbsp;Reality&nbsp;Show&nbsp;de&nbsp;Guitarristas&nbsp;do&nbsp;Brasil</div>
 
   <!-- top-right: studio -->
-  <div style="position:absolute;top:34px;right:34px;text-align:right;font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.45em;text-transform:uppercase">Heartwork&nbsp;Studios</div>
+  <div class="ss-top-right" style="position:absolute;top:34px;right:34px;text-align:right;font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.45em;text-transform:uppercase">Heartwork&nbsp;Studios</div>
 
   <!-- left rail: vertical breadcrumb -->
   <nav data-crumbs style="position:absolute;left:30px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:22px;pointer-events:auto">
@@ -48,17 +104,17 @@ a:hover{color:#ec1425}
   </nav>
 
   <!-- right rail: rotated current-section title -->
-  <div style="position:absolute;right:12px;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:center">
+  <div class="ss-rail" style="position:absolute;right:12px;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:center">
     <div data-rail-title style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.6em;text-transform:uppercase;white-space:nowrap">Abertura</div>
   </div>
 
   <!-- bottom-left -->
-  <div style="position:absolute;bottom:28px;left:30px;font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase">O&nbsp;Maior&nbsp;Reality&nbsp;de&nbsp;Guitarristas&nbsp;do&nbsp;Brasil</div>
+  <div class="ss-bottom-left" style="position:absolute;bottom:28px;left:30px;font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase">O&nbsp;Maior&nbsp;Reality&nbsp;de&nbsp;Guitarristas&nbsp;do&nbsp;Brasil</div>
 
   <!-- bottom-right -->
   <div style="position:absolute;bottom:28px;right:34px;display:flex;align-items:center;gap:16px">
     <span data-progress-num style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.35em">01&nbsp;/&nbsp;06</span>
-    <span style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase">©2026&nbsp;Todos&nbsp;os&nbsp;Direitos&nbsp;Reservados</span>
+    <span class="ss-copyright" style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase">©2026&nbsp;Todos&nbsp;os&nbsp;Direitos&nbsp;Reservados</span>
   </div>
 
   <!-- scroll progress hairline -->
@@ -125,7 +181,7 @@ a:hover{color:#ec1425}
   </div>
   <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,8,8,0.7) 0%,rgba(10,8,8,0) 45%)"></div>
   <div style="position:relative;z-index:2;width:100%;padding:0 9vw 14vh;display:flex;justify-content:flex-end">
-    <div style="max-width:70vw;text-align:right;position:relative">
+    <div class="ss-s3-wrap" style="max-width:70vw;text-align:right;position:relative">
       <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.55em;text-transform:uppercase;margin-bottom:3vh">03&nbsp;—&nbsp;O&nbsp;Formato</div>
       <h2 data-formato-title style="margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.86;text-transform:uppercase">
         <div data-split style="overflow:hidden;font-size:7vw;white-space:nowrap">Das&nbsp;audições</div>
@@ -231,12 +287,12 @@ a:hover{color:#ec1425}
       <div data-split style="overflow:hidden;font-size:18vw">Seizi</div>
       <span style="font-size:2.2vw;margin-top:2.5vw">™</span>
     </h2>
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-top:4vh">
+    <div class="ss-s6-foot" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-top:4vh">
       <div>
         <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.5em;text-transform:uppercase;margin-bottom:16px">A&nbsp;Janela&nbsp;está&nbsp;Aberta</div>
         <p data-fade style="margin:0;max-width:380px;font-size:11px;line-height:1.9;letter-spacing:0.14em;text-transform:uppercase">A pergunta não é se alguém vai criar o maior reality de guitarra do Brasil — é se será a Seizi.</p>
       </div>
-      <div data-fade style="text-align:right;font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;line-height:2.2">Seizi&nbsp;Samurai&nbsp;2026<br>Heartwork&nbsp;Studios<br>Apresentação&nbsp;Executiva&nbsp;—&nbsp;Diretoria&nbsp;Seizi</div>
+      <div data-fade class="ss-s6-credits" style="text-align:right;font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;line-height:2.2">Seizi&nbsp;Samurai&nbsp;2026<br>Heartwork&nbsp;Studios<br>Apresentação&nbsp;Executiva&nbsp;—&nbsp;Diretoria&nbsp;Seizi</div>
     </div>
   </div>
 </section>
@@ -246,6 +302,9 @@ a:hover{color:#ec1425}
   function initGsap() {
     const gsap = window.gsap, ST = window.ScrollTrigger;
     gsap.registerPlugin(ST);
+    // pinned swaps and scroll-snap assume a desktop viewport; on mobile the
+    // alt overlays are display:none and free scroll reads better
+    const isDesktop = window.matchMedia('(min-width: 769px)').matches;
 
     // --- split titles into char spans ---
     document.querySelectorAll('[data-split]').forEach(line => {
@@ -311,7 +370,7 @@ a:hover{color:#ec1425}
     const fmAlt = document.querySelector('[data-formato-alt]');
     const fmSub = document.querySelector('[data-formato-sub]');
     const pins = [];
-    if (fmTitle && fmAlt) {
+    if (isDesktop && fmTitle && fmAlt) {
       const tl = gsap.timeline({
         scrollTrigger: { trigger: '#s3', start: 'top top', end: '+=90%', pin: true, scrub: 0.4, refreshPriority: 3 }
       })
@@ -322,7 +381,7 @@ a:hover{color:#ec1425}
     }
 
     // Hero + Arquitetura + O Prêmio: pin and swap content -> big statement on scroll
-    ['s1', 's4', 's5'].forEach(id => {
+    (isDesktop ? ['s1', 's4', 's5'] : []).forEach(id => {
       const main = document.querySelector('[data-swap-main="' + id + '"]');
       const alt = document.querySelector('[data-swap-alt="' + id + '"]');
       if (!main || !alt) return;
@@ -380,8 +439,9 @@ a:hover{color:#ec1425}
       });
     });
 
-    // snap: each section frames the viewport instead of free scroll
+    // snap: each section frames the viewport instead of free scroll (desktop only)
     const measures = [];
+    if (isDesktop) {
     document.querySelectorAll('[data-section]').forEach(sec => {
       measures.push(ST.create({ trigger: sec, start: 'top top', end: 'top top' }));
     });
@@ -402,6 +462,7 @@ a:hover{color:#ec1425}
         duration: { min: 0.3, max: 0.7 }, delay: 0.1, ease: 'power1.inOut'
       }
     });
+    }
 
     ST.refresh();
   }
