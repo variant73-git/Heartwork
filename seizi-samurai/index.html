@@ -15,6 +15,7 @@ html{scroll-behavior:auto}
 body{margin:0;background:#0a0808;color:#f2ece6;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:#f2ece6;text-decoration:none}
 a:hover{color:#ec1425}
+picture{display:block;width:100%;height:100%}
 ::selection{background:#ec1425;color:#0a0808}
 @media (max-width:1500px){.ss-tagline{font-size:9px !important;letter-spacing:0.28em !important}}
 @media (max-width:1140px){.ss-tagline{display:none !important}}
@@ -84,7 +85,7 @@ a:hover{color:#ec1425}
 <div style="position:fixed;top:0;right:0;bottom:0;left:0;pointer-events:none;z-index:60">
 
   <!-- top-left: kanji seal + project title -->
-  <div style="position:absolute;top:26px;left:30px;display:flex;align-items:center;gap:14px;pointer-events:auto">
+  <div class="ss-top-left" style="position:absolute;top:26px;left:30px;display:flex;align-items:center;gap:14px;pointer-events:auto">
     <div data-kanji style="width:44px;height:44px;border:1px solid #f2ece6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;line-height:1;letter-spacing:0">将軍</div>
     <div style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.45em;text-transform:uppercase">Seizi&nbsp;Samurai&nbsp;2026</div>
   </div>
@@ -126,7 +127,7 @@ a:hover{color:#ec1425}
 <!-- ===================== 01 · HERO ===================== -->
 <section id="s1" data-section data-num="01" data-title="Abertura" style="position:relative;min-height:100vh;overflow:hidden;background:#ec1425;display:flex;align-items:center;justify-content:center">
   <div style="position:absolute;top:-6%;right:-6%;bottom:-6%;left:-6%">
-    <picture><source srcset="assets/img/hero.webp" type="image/webp"><img data-parallax src="assets/img/hero.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center"></picture>
+    <picture><source media="(max-width:768px)" srcset="assets/img/hero-m.webp" type="image/webp"><source media="(max-width:768px)" srcset="assets/img/hero-m.jpg" type="image/jpeg"><source srcset="assets/img/hero.webp" type="image/webp"><img data-parallax src="assets/img/hero.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center"></picture>
   </div>
 
   <div data-swap-main="s1" style="position:relative;z-index:2;width:100%;padding:11vh 7vw 9vh;display:flex;flex-direction:column;align-items:center;text-align:center;color:#0a0808">
@@ -179,7 +180,7 @@ a:hover{color:#ec1425}
 <!-- ===================== 03 · O FORMATO ===================== -->
 <section id="s3" data-section data-num="03" data-title="O Formato" style="position:relative;min-height:100vh;overflow:hidden;background:#0a0808;display:flex;align-items:flex-end">
   <div style="position:absolute;top:-6%;right:-6%;bottom:-6%;left:-6%">
-    <picture><source srcset="assets/img/formato.webp" type="image/webp"><img data-parallax src="assets/img/formato.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 30%"></picture>
+    <picture><source media="(max-width:768px)" srcset="assets/img/formato-m.webp" type="image/webp"><source media="(max-width:768px)" srcset="assets/img/formato-m.jpg" type="image/jpeg"><source srcset="assets/img/formato.webp" type="image/webp"><img data-parallax src="assets/img/formato.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 30%"></picture>
   </div>
   <div style="position:absolute;top:0;right:0;bottom:0;left:0;background:linear-gradient(0deg,rgba(10,8,8,0.7) 0%,rgba(10,8,8,0) 45%)"></div>
   <div style="position:relative;z-index:2;width:100%;padding:0 9vw 14vh;display:flex;justify-content:flex-end">
@@ -202,7 +203,7 @@ a:hover{color:#ec1425}
 <!-- ===================== 04 · ARQUITETURA (red, guitar) ===================== -->
 <section id="s4" data-section data-num="04" data-title="Arquitetura" style="position:relative;min-height:110vh;overflow:hidden;background:#0a0808;display:flex;align-items:center">
   <div style="position:absolute;top:-6%;right:-6%;bottom:-6%;left:-6%">
-    <picture><source srcset="assets/img/arquitetura.webp" type="image/webp"><img data-parallax src="assets/img/arquitetura.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.9"></picture>
+    <picture><source media="(max-width:768px)" srcset="assets/img/arquitetura-m.webp" type="image/webp"><source media="(max-width:768px)" srcset="assets/img/arquitetura-m.jpg" type="image/jpeg"><source srcset="assets/img/arquitetura.webp" type="image/webp"><img data-parallax src="assets/img/arquitetura.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.9"></picture>
   </div>
   <div style="position:relative;z-index:2;width:100%;padding:16vh 9vw">
     <div data-swap-main="s4">
@@ -249,7 +250,7 @@ a:hover{color:#ec1425}
 <!-- ===================== 05 · O PRÊMIO (halftone + marquee) ===================== -->
 <section id="s5" data-section data-num="05" data-title="O Novo Samurai" style="position:relative;min-height:100vh;overflow:hidden;background:#0a0808;display:flex;flex-direction:column;justify-content:center">
   <div style="position:absolute;top:-6%;right:-6%;bottom:-6%;left:-6%">
-    <picture><source srcset="assets/img/premio.webp" type="image/webp"><img data-parallax src="assets/img/premio.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.85"></picture>
+    <picture><source media="(max-width:768px)" srcset="assets/img/premio-m.webp" type="image/webp"><source media="(max-width:768px)" srcset="assets/img/premio-m.jpg" type="image/jpeg"><source srcset="assets/img/premio.webp" type="image/webp"><img data-parallax src="assets/img/premio.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.85"></picture>
   </div>
   <div style="position:absolute;top:0;right:0;bottom:0;left:0;background:linear-gradient(90deg,rgba(10,8,8,0.75) 0%,rgba(10,8,8,0.1) 70%)"></div>
 
@@ -280,7 +281,7 @@ a:hover{color:#ec1425}
 <!-- ===================== 06 · ENCERRAMENTO ===================== -->
 <section id="s6" data-section data-num="06" data-title="First Mover" style="position:relative;min-height:100vh;overflow:hidden;background:#ec1425;display:flex;align-items:flex-end">
   <div style="position:absolute;top:-6%;right:-6%;bottom:-6%;left:-6%">
-    <picture><source srcset="assets/img/final.webp" type="image/webp"><img data-parallax src="assets/img/final.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 15%"></picture>
+    <picture><source media="(max-width:768px)" srcset="assets/img/final-m.webp" type="image/webp"><source media="(max-width:768px)" srcset="assets/img/final-m.jpg" type="image/jpeg"><source srcset="assets/img/final.webp" type="image/webp"><img data-parallax src="assets/img/final.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 15%"></picture>
   </div>
   <div style="position:absolute;top:0;right:0;bottom:0;left:0;background:linear-gradient(180deg,rgba(10,8,8,0) 50%,rgba(10,8,8,0.65) 100%)"></div>
 
