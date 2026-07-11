@@ -20,48 +20,66 @@ picture{display:block;width:100%;height:100%}
 @media (max-width:1500px){.ss-tagline{font-size:9px !important;letter-spacing:0.28em !important}}
 @media (max-width:1140px){.ss-tagline{display:none !important}}
 
-/* ===================== MOBILE ===================== */
+/* ===================== MOBILE (desktop composition, redistributed) ===================== */
 @media (max-width:768px){
-  /* width:100% + side padding must not exceed the viewport */
   section>div{box-sizing:border-box !important}
-  /* --- edge chrome: keep only seal + title (top) and counter + hairline (bottom) --- */
+
+  /* --- edge chrome: keep the desktop set, scaled down --- */
   [data-crumbs]{display:none !important}
   .ss-rail{display:none !important}
-  .ss-top-right{display:none !important}
   .ss-bottom-left{display:none !important}
   .ss-copyright{display:none !important}
+  .ss-top-left{top:18px !important;left:16px !important;gap:9px !important}
+  .ss-top-left [data-kanji]{width:32px !important;height:32px !important;font-size:9px !important}
+  .ss-top-left>div:nth-child(2){font-size:8px !important;letter-spacing:0.24em !important}
+  .ss-top-right{top:24px !important;right:16px !important;font-size:8px !important;letter-spacing:0.24em !important}
 
   /* --- desktop-only pinned swap overlays --- */
   [data-swap-alt]{display:none !important}
   [data-formato-alt]{display:none !important}
 
-  /* --- readable body text: bigger, less tracking, never clipped --- */
-  section p{font-size:13px !important;line-height:1.75 !important;letter-spacing:0.08em !important;max-width:100% !important;white-space:normal !important}
+  /* --- sections flow from the top: eyebrow anchors at the top edge --- */
+  #s2{align-items:flex-start !important}
+  #s2>div{padding:92px 6vw 56px !important}
+  #s3{align-items:flex-start !important}
+  #s3>div:last-child{justify-content:flex-start !important;padding:92px 6vw 56px !important}
+  #s4{align-items:flex-start !important}
+  #s4>div:nth-of-type(2){padding:92px 6vw 56px !important}
+  #s5{justify-content:flex-start !important}
+  #s5>div:nth-of-type(3){padding:92px 6vw 0 !important}
+  #s5>div:last-child{margin-top:auto !important;margin-bottom:28px !important}
 
-  /* --- section kickers (02 — A Tese etc.) --- */
-  section div[data-fade][style*="0.55em"]{font-size:10px !important;letter-spacing:0.3em !important}
+  /* --- eyebrows / kickers --- */
+  section div[data-fade][style*="0.55em"]{font-size:10px !important;letter-spacing:0.32em !important;margin-bottom:26px !important}
 
-  /* --- titles: full width, no stagger indents, no clipping --- */
+  /* --- readable text, generous sizes, never clipped --- */
+  section p{font-size:14px !important;line-height:1.75 !important;letter-spacing:0.08em !important;max-width:100% !important;white-space:normal !important}
+
+  /* --- titles: big, full-width, word wrap --- */
   [data-split]{margin-left:0 !important;white-space:normal !important}
-  #s2 h2 [data-split]{font-size:15vw !important}
+  #s2 h2 [data-split]{font-size:14.5vw !important}
+  #s2 h2+p{margin-top:28px !important}
   #s3 [data-formato-title]{line-height:1.02 !important}
-  #s3 [data-formato-title] [data-split]{font-size:12.5vw !important}
+  #s3 [data-formato-title] [data-split]{font-size:13vw !important}
   #s4 h2{line-height:1.02 !important}
-  #s4 h2 [data-split]{font-size:13vw !important}
-  #s5 h2 [data-split]{font-size:16vw !important}
-  #s6 h2 [data-split]{font-size:32vw !important}
+  #s4 h2 [data-split]{font-size:13.5vw !important}
+  #s5 h2 [data-split]{font-size:17vw !important}
+  #s6 h2 [data-split]{font-size:30vw !important}
   #s6 h2 > span{font-size:6vw !important;margin-top:5vw !important}
 
   /* --- 01 · hero --- */
-  [data-hero-logo]{width:88vw !important;height:auto !important}
-  #s1 [data-swap-main]>div{flex-direction:column !important;align-items:center !important;gap:26px !important}
-  #s1 [data-swap-main] p{text-align:center !important;max-width:320px !important;font-size:12px !important}
+  [data-hero-logo]{width:90vw !important;height:auto !important}
+  #s1 [data-swap-main]>div{flex-direction:column !important;align-items:center !important;gap:28px !important}
+  #s1 [data-swap-main] p{text-align:center !important;max-width:330px !important;font-size:12px !important}
 
-  /* --- 02 · a tese: cards stack full-width --- */
-  #s2 [data-draw]{flex:1 1 100% !important;border:1px solid rgba(236,20,37,0.55) !important;border-top:none !important}
-  #s2 [data-draw]:first-child{border-top:1px solid rgba(236,20,37,0.55) !important}
+  /* --- 02 · a tese: cards in a 2x2 grid --- */
+  #s2 h2~div{display:grid !important;grid-template-columns:1fr 1fr !important;margin-top:44px !important;border-top:1px solid rgba(236,20,37,0.55);border-left:1px solid rgba(236,20,37,0.55)}
+  #s2 [data-draw]{border:none !important;border-right:1px solid rgba(236,20,37,0.55) !important;border-bottom:1px solid rgba(236,20,37,0.55) !important;min-width:0 !important;padding:18px 14px !important}
+  #s2 [data-draw]>div{margin-bottom:12px !important}
+  #s2 [data-draw] span{font-size:9px !important;letter-spacing:0.26em !important}
+  #s2 [data-draw] p{font-size:11px !important;line-height:1.65 !important}
 
-  /* --- 03 · o formato: left-aligned, full width --- */
+  /* --- 03 · o formato: left aligned, full width --- */
   .ss-s3-wrap{max-width:100% !important;text-align:left !important}
   #s3 [data-formato-sub]{margin-left:0 !important;text-align:left !important}
 
@@ -69,11 +87,12 @@ picture{display:block;width:100%;height:100%}
   #s4 [data-draw]{flex-direction:column !important;align-items:flex-start !important;gap:6px !important}
   #s4 [data-draw] span{white-space:normal !important}
   #s4 h2+p{white-space:normal !important}
+  #s4 [data-swap-main] div[style*="max-width:560px"]{margin-top:40px !important}
 
-  /* --- 05 · marquee --- */
+  /* --- 05 · marquee sits at the bottom edge --- */
   [data-marquee]{font-size:11px !important;letter-spacing:0.4em !important}
 
-  /* --- 06 · encerramento: footer stacks, credits left --- */
+  /* --- 06 · encerramento --- */
   .ss-s6-foot{flex-direction:column !important;align-items:flex-start !important;gap:28px !important}
   .ss-s6-credits{text-align:left !important;letter-spacing:0.2em !important;font-size:9px !important}
 }

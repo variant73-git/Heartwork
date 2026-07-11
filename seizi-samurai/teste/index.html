@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seizi — Teste de Imagens</title>
+<style>
+body{margin:0;padding:16px;background:#111;color:#fff;font-family:-apple-system,Helvetica,Arial,sans-serif;font-size:14px}
+h1{font-size:16px}
+.t{margin:14px 0;padding:10px;border:1px solid #444;border-radius:6px}
+.t img{width:100%;max-width:320px;height:auto;display:block;background:#333;min-height:40px}
+.lbl{margin:0 0 6px;font-weight:600}
+.st{margin:6px 0 0;font-size:13px}
+.ok{color:#4ade80}.err{color:#f87171}
+#ua{margin-top:20px;font-size:11px;color:#999;word-break:break-all}
+</style>
+</head>
+<body>
+<h1>Teste de carregamento de imagens — Seizi Samurai</h1>
+<p>Abra esta página no celular e envie um print da tela inteira.</p>
+
+<div class="t"><p class="lbl">1 · Logo SVG</p><img id="i1" src="../assets/seizi_samurai_logo.svg" style="background:#ec1425"><p class="st" id="s1x">carregando…</p></div>
+<div class="t"><p class="lbl">2 · Hero WebP (grande)</p><img id="i2" src="../assets/img/hero.webp"><p class="st" id="s2x">carregando…</p></div>
+<div class="t"><p class="lbl">3 · Hero JPG (grande)</p><img id="i3" src="../assets/img/hero.jpg"><p class="st" id="s3x">carregando…</p></div>
+<div class="t"><p class="lbl">4 · Hero WebP mobile (-m)</p><img id="i4" src="../assets/img/hero-m.webp"><p class="st" id="s4x">carregando…</p></div>
+<div class="t"><p class="lbl">5 · Hero JPG mobile (-m)</p><img id="i5" src="../assets/img/hero-m.jpg"><p class="st" id="s5x">carregando…</p></div>
+<div class="t"><p class="lbl">6 · Formato PDF-res JPG</p><img id="i6" src="../assets/img/formato-pdf.jpg"><p class="st" id="s6x">carregando…</p></div>
+<div class="t"><p class="lbl">7 · Via &lt;picture&gt; (como no site)</p>
+<picture><source media="(max-width:768px)" srcset="../assets/img/final-m.webp" type="image/webp"><source media="(max-width:768px)" srcset="../assets/img/final-m.jpg" type="image/jpeg"><source srcset="../assets/img/final.webp" type="image/webp"><img id="i7" src="../assets/img/final.jpg" alt=""></picture>
+<p class="st" id="s7x">carregando…</p></div>
+
+<div id="ua"></div>
+<script>
+for (var n = 1; n <= 7; n++) (function(n){
+  var img = document.getElementById('i' + n);
+  var st = document.getElementById('s' + n + 'x');
+  function ok(){ st.innerHTML = '<span class="ok">OK</span> — ' + img.naturalWidth + '×' + img.naturalHeight + 'px'; }
+  function err(){ st.innerHTML = '<span class="err">FALHOU</span> — a imagem não carregou'; }
+  if (img.complete && img.naturalWidth > 0) ok();
+  else { img.onload = ok; img.onerror = err; }
+  setTimeout(function(){ if (!(img.complete && img.naturalWidth > 0)) err(); }, 15000);
+})(n);
+document.getElementById('ua').textContent = 'Navegador: ' + navigator.userAgent + ' · Tela: ' + window.innerWidth + '×' + window.innerHeight;
+</script>
+</body>
+</html>
