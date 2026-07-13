@@ -62,7 +62,7 @@ picture{display:block;width:100%;height:100%}
   #s3 [data-formato-title]{line-height:1.02 !important}
   #s3 [data-formato-title] [data-split]{font-size:13vw !important}
   #s4 h2{line-height:1.02 !important}
-  #s4 h2 [data-split]{font-size:13.5vw !important}
+  #s4 h2 [data-split]{font-size:10.5vw !important}
   #s5 h2 [data-split]{font-size:17vw !important}
   #s6 h2 [data-split]{font-size:30vw !important}
   #s6 h2 > span{font-size:6vw !important;margin-top:5vw !important}
@@ -78,6 +78,17 @@ picture{display:block;width:100%;height:100%}
   #s2 [data-draw]>div{margin-bottom:12px !important}
   #s2 [data-draw] span{font-size:9px !important;letter-spacing:0.26em !important}
   #s2 [data-draw] p{font-size:11px !important;line-height:1.65 !important}
+
+  /* --- 02b · jurados --- */
+  #s3b{align-items:flex-start !important}
+  #s3b>div:last-child{padding:92px 6vw 56px !important}
+  #s3b h2{line-height:1.02 !important}
+  #s3b h2 [data-split]{font-size:10vw !important}
+
+  /* --- formato stats --- */
+  .ss-stats{justify-content:flex-start !important;gap:34px !important;margin-top:38px !important;row-gap:26px !important}
+  .ss-stats>div{text-align:left !important}
+  .ss-stat-n{font-size:12vw !important}
 
   /* --- 03 · o formato: left aligned, full width --- */
   .ss-s3-wrap{max-width:100% !important;text-align:left !important}
@@ -118,8 +129,8 @@ picture{display:block;width:100%;height:100%}
   <!-- left rail: vertical breadcrumb -->
   <nav data-crumbs style="position:absolute;left:30px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:22px;pointer-events:auto">
     <a href="#s1" data-crumb="01" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">01</span></a>
-    <a href="#s2" data-crumb="02" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">02</span></a>
-    <a href="#s3" data-crumb="03" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">03</span></a>
+    <a href="#s3" data-crumb="02" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">02</span></a>
+    <a href="#s2" data-crumb="03" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">03</span></a>
     <a href="#s4" data-crumb="04" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">04</span></a>
     <a href="#s5" data-crumb="05" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">05</span></a>
     <a href="#s6" data-crumb="06" style="display:flex;align-items:center;gap:10px"><span style="display:block;width:26px;height:1px;background:#f2ece6;transform-origin:left;transition:all .5s"></span><span style="font-size:9px;letter-spacing:0.3em;font-family:'Cormorant Garamond',serif">06</span></a>
@@ -153,25 +164,73 @@ picture{display:block;width:100%;height:100%}
     <img data-hero-logo src="/seizi-samurai/assets/seizi_samurai_logo.svg" alt="Seizi — À Procura do Novo Samurai" style="width:auto;height:min(50.6vw,61.6vh);max-width:90vw;object-fit:contain;display:block">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;width:100%;margin-top:6vh;flex-wrap:wrap;gap:20px">
       <p data-fade style="margin:0;max-width:300px;font-size:11px;line-height:1.7;letter-spacing:0.14em;text-transform:uppercase;color:#0a0808;text-align:left">Das audições regionais à grande final. Uma temporada. Um novo samurai.</p>
+      
       <div data-fade style="border:1px solid #0a0808;padding:12px 22px;font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:#0a0808">Role&nbsp;para&nbsp;Começar&nbsp;↓</div>
     </div>
   </div>
-  <h2 data-swap-alt="s1" style="margin:0;position:absolute;left:7vw;top:50%;transform:translateY(-50%);z-index:2;font-family:Anton,sans-serif;font-weight:400;line-height:0.9;text-transform:uppercase;color:#000000;opacity:0;pointer-events:none;text-align:left">
-    <div style="font-size:8vw;white-space:nowrap">Das&nbsp;audições&nbsp;regionais</div>
-    <div style="font-size:8vw;white-space:nowrap;margin-left:14vw">à&nbsp;grande&nbsp;final.</div>
-    <div style="font-size:8vw;white-space:nowrap;margin-left:5vw">Uma&nbsp;temporada.</div>
-    <div style="font-size:8vw;white-space:nowrap;margin-left:22vw">Um&nbsp;novo&nbsp;samurai.</div>
-  </h2>
+  <div data-swap-alt="s1" style="position:absolute;left:7vw;top:50%;transform:translateY(-50%);z-index:2;color:#f2ece6;opacity:0;pointer-events:none;text-align:left;max-width:80vw">
+    <h2 style="margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.92;text-transform:uppercase">
+      <div style="font-size:6.6vw;white-space:nowrap">O&nbsp;maior&nbsp;concurso</div>
+      <div style="font-size:6.6vw;white-space:nowrap;margin-left:6vw">de&nbsp;guitarra&nbsp;do&nbsp;Brasil.</div>
+    </h2>
+    <p style="margin:4.5vh 0 0;max-width:600px;font-size:17px;line-height:1.75;letter-spacing:0.02em">Um reality show nos moldes de The Voice e American Idol, a Seizi sai em busca do samurai da guitarra em um evento ao vivo transmitido no YouTube.</p>
+  </div>
+</section>
+
+<!-- ===================== 03 · O FORMATO ===================== -->
+<section id="s3" data-section data-num="02" data-title="O Formato" style="position:relative;min-height:100vh;overflow:hidden;background:#0a0808;display:flex;align-items:flex-end">
+  <div style="position:absolute;top:-6%;right:-6%;bottom:-6%;left:-6%">
+    <picture><source media="(max-width:768px)" srcset="/seizi-samurai/assets/img/formato-m.webp" type="image/webp"><source media="(max-width:768px)" srcset="/seizi-samurai/assets/img/formato-m.jpg" type="image/jpeg"><source srcset="/seizi-samurai/assets/img/formato.webp" type="image/webp"><img data-parallax src="/seizi-samurai/assets/img/formato.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 30%"></picture>
+  </div>
+  <div style="position:absolute;top:0;right:0;bottom:0;left:0;background:linear-gradient(0deg,rgba(10,8,8,0.7) 0%,rgba(10,8,8,0) 45%)"></div>
+  <div style="position:relative;z-index:2;width:100%;padding:0 9vw 14vh;display:flex;justify-content:flex-end">
+    <div class="ss-s3-wrap" style="max-width:70vw;text-align:right;position:relative">
+      <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.55em;text-transform:uppercase;margin-bottom:3vh">02&nbsp;—&nbsp;O&nbsp;Formato</div>
+      <h2 data-formato-title style="margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.86;text-transform:uppercase">
+        <div data-split style="overflow:hidden;font-size:7vw;white-space:nowrap">Das&nbsp;audições</div>
+        <div data-split style="overflow:hidden;font-size:7vw;white-space:nowrap">à&nbsp;grande&nbsp;final.</div>
+      </h2>
+      <h2 data-formato-alt style="margin:0;position:absolute;right:0;bottom:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.92;text-transform:uppercase;opacity:0;pointer-events:none">
+        <div style="font-size:4.2vw;white-space:nowrap">Reality&nbsp;nacional.</div>
+        <div style="font-size:4.2vw;white-space:nowrap">16&nbsp;finalistas&nbsp;em&nbsp;mata-mata.</div>
+        <div style="font-size:4.2vw;white-space:nowrap">O&nbsp;público&nbsp;escolhe.</div>
+      </h2>
+      <p data-formato-sub style="margin:3.5vh 0 0 auto;max-width:35vw;font-size:12px;line-height:1.8;letter-spacing:0.14em;text-transform:uppercase">Reality nacional com 16 finalistas em mata-mata até a final em São Paulo — e o público participa da escolha: engajamento vira mecânica do produto.</p>
+      <div data-formato-stats data-fade class="ss-stats" style="display:flex;justify-content:flex-end;gap:4vw;margin-top:6vh;flex-wrap:wrap">
+        <div style="text-align:right"><div class="ss-stat-n" style="font-family:Anton,sans-serif;font-size:3.6vw;line-height:1">9</div><div style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;margin-top:10px">Praças</div></div>
+        <div style="text-align:right"><div class="ss-stat-n" style="font-family:Anton,sans-serif;font-size:3.6vw;line-height:1">6</div><div style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;margin-top:10px">Jurados</div></div>
+        <div style="text-align:right"><div class="ss-stat-n" style="font-family:Anton,sans-serif;font-size:3.6vw;line-height:1">12</div><div style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;margin-top:10px">Eventos</div></div>
+        <div style="text-align:right"><div class="ss-stat-n" style="font-family:Anton,sans-serif;font-size:3.6vw;line-height:1">10</div><div style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;margin-top:10px">Episódios</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== 02b · OS JURADOS ===================== -->
+<section id="s3b" data-section data-num="02" data-title="Os Jurados" style="position:relative;min-height:100vh;overflow:hidden;background:#0a0808;display:flex;align-items:flex-end">
+  <div style="position:absolute;top:-6%;right:-6%;bottom:-6%;left:-6%">
+    <picture><source media="(max-width:768px)" srcset="/seizi-samurai/assets/img/jurados-m.webp" type="image/webp"><source media="(max-width:768px)" srcset="/seizi-samurai/assets/img/jurados-m.jpg" type="image/jpeg"><source srcset="/seizi-samurai/assets/img/jurados.webp" type="image/webp"><img data-parallax src="/seizi-samurai/assets/img/jurados.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 30%"></picture>
+  </div>
+  <div style="position:absolute;top:0;right:0;bottom:0;left:0;background:linear-gradient(180deg,rgba(10,8,8,0) 42%,rgba(10,8,8,0.78) 100%)"></div>
+  <div style="position:relative;z-index:2;width:100%;padding:0 9vw 12vh">
+    <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.55em;text-transform:uppercase;margin-bottom:3vh">02&nbsp;—&nbsp;Os&nbsp;Jurados</div>
+    <h2 style="margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.9;text-transform:uppercase">
+      <div data-split style="overflow:hidden;font-size:6.4vw;white-space:nowrap">Mais&nbsp;que&nbsp;shows&nbsp;ao&nbsp;vivo,</div>
+      <div data-split style="overflow:hidden;font-size:6.4vw;white-space:nowrap;margin-left:8vw">lutas&nbsp;e&nbsp;desafios.</div>
+    </h2>
+    <p data-fade style="margin:3.5vh 0 0;max-width:520px;font-size:12px;line-height:1.8;letter-spacing:0.14em;text-transform:uppercase">6 jurados de peso avaliarão centenas de guitarristas que se apresentarão em um evento sem precedentes, desafiados ao vivo em provas de performance musical.</p>
+  </div>
 </section>
 
 <!-- ===================== 02 · A TESE (solid black) ===================== -->
-<section id="s2" data-section data-num="02" data-title="A Tese" style="position:relative;min-height:100vh;background:#0a0808;display:flex;align-items:center;overflow:hidden">
+<section id="s2" data-section data-num="03" data-title="A Tese" style="position:relative;min-height:100vh;background:#0a0808;display:flex;align-items:center;overflow:hidden">
   <div style="position:relative;width:100%;padding:18vh 9vw">
-    <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.55em;text-transform:uppercase;color:#ec1425;margin-bottom:5vh">02&nbsp;—&nbsp;A&nbsp;Tese</div>
+    <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.55em;text-transform:uppercase;color:#ec1425;margin-bottom:5vh">03&nbsp;—&nbsp;A&nbsp;Tese</div>
     <h2 style="margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.9;text-transform:uppercase;letter-spacing:0;color:#ec1425">
-      <div data-split style="overflow:hidden;font-size:8.5vw">Não&nbsp;é&nbsp;um</div>
-      <div data-split style="overflow:hidden;font-size:8.5vw;margin-left:18vw">Concurso.</div>
-      <div data-split style="overflow:hidden;font-size:8.5vw;margin-left:6vw">É&nbsp;um&nbsp;ativo</div>
+      <div data-split style="overflow:hidden;font-size:8.5vw">Mais&nbsp;que&nbsp;um</div>
+      <div data-split style="overflow:hidden;font-size:8.5vw;margin-left:18vw">Concurso,</div>
+      <div data-split style="overflow:hidden;font-size:8.5vw;margin-left:6vw">Um&nbsp;ativo</div>
       <div data-split style="overflow:hidden;font-size:8.5vw;margin-left:26vw">De&nbsp;marca.</div>
     </h2>
     <p data-fade style="margin:6vh 0 0;max-width:520px;font-size:12px;line-height:1.9;letter-spacing:0.14em;text-transform:uppercase;color:#ec1425">A Seizi migra de fabricante de instrumentos para dona de uma plataforma de mídia, comunidade e talentos — um território que nenhuma marca ocupa no Brasil.</p>
@@ -196,29 +255,6 @@ picture{display:block;width:100%;height:100%}
   </div>
 </section>
 
-<!-- ===================== 03 · O FORMATO ===================== -->
-<section id="s3" data-section data-num="03" data-title="O Formato" style="position:relative;min-height:100vh;overflow:hidden;background:#0a0808;display:flex;align-items:flex-end">
-  <div style="position:absolute;top:-6%;right:-6%;bottom:-6%;left:-6%">
-    <picture><source media="(max-width:768px)" srcset="/seizi-samurai/assets/img/formato-m.webp" type="image/webp"><source media="(max-width:768px)" srcset="/seizi-samurai/assets/img/formato-m.jpg" type="image/jpeg"><source srcset="/seizi-samurai/assets/img/formato.webp" type="image/webp"><img data-parallax src="/seizi-samurai/assets/img/formato.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 30%"></picture>
-  </div>
-  <div style="position:absolute;top:0;right:0;bottom:0;left:0;background:linear-gradient(0deg,rgba(10,8,8,0.7) 0%,rgba(10,8,8,0) 45%)"></div>
-  <div style="position:relative;z-index:2;width:100%;padding:0 9vw 14vh;display:flex;justify-content:flex-end">
-    <div class="ss-s3-wrap" style="max-width:70vw;text-align:right;position:relative">
-      <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.55em;text-transform:uppercase;margin-bottom:3vh">03&nbsp;—&nbsp;O&nbsp;Formato</div>
-      <h2 data-formato-title style="margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.86;text-transform:uppercase">
-        <div data-split style="overflow:hidden;font-size:7vw;white-space:nowrap">Das&nbsp;audições</div>
-        <div data-split style="overflow:hidden;font-size:7vw;white-space:nowrap">à&nbsp;grande&nbsp;final.</div>
-      </h2>
-      <h2 data-formato-alt style="margin:0;position:absolute;right:0;bottom:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.92;text-transform:uppercase;opacity:0;pointer-events:none">
-        <div style="font-size:4.2vw;white-space:nowrap">Reality&nbsp;nacional.&nbsp;9&nbsp;praças.</div>
-        <div style="font-size:4.2vw;white-space:nowrap">16&nbsp;finalistas&nbsp;em&nbsp;mata-mata.</div>
-        <div style="font-size:4.2vw;white-space:nowrap">O&nbsp;público&nbsp;escolhe.</div>
-      </h2>
-      <p data-formato-sub style="margin:3.5vh 0 0 auto;max-width:35vw;font-size:12px;line-height:1.8;letter-spacing:0.14em;text-transform:uppercase">Reality nacional. 9 praças. 16 finalistas em mata-mata até a final em São Paulo — e o público participa da escolha: engajamento vira mecânica do produto.</p>
-    </div>
-  </div>
-</section>
-
 <!-- ===================== 04 · ARQUITETURA (red, guitar) ===================== -->
 <section id="s4" data-section data-num="04" data-title="Arquitetura" style="position:relative;min-height:110vh;overflow:hidden;background:#0a0808;display:flex;align-items:center">
   <div style="position:absolute;top:-6%;right:-6%;bottom:-6%;left:-6%">
@@ -228,10 +264,11 @@ picture{display:block;width:100%;height:100%}
     <div data-swap-main="s4">
     <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.55em;text-transform:uppercase;margin-bottom:3vh">04&nbsp;—&nbsp;Arquitetura&nbsp;do&nbsp;Projeto</div>
     <h2 style="margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.86;text-transform:uppercase">
-      <div data-split style="overflow:hidden;font-size:10vw">Funil&nbsp;em&nbsp;4&nbsp;fases.</div>
-      <div data-split style="overflow:hidden;font-size:10vw;margin-left:10vw">Mais&nbsp;a&nbsp;final.</div>
+      <div data-split style="overflow:hidden;font-size:7vw;white-space:nowrap">Formato que gera receita,</div>
+      <div data-split style="overflow:hidden;font-size:7vw;white-space:nowrap;margin-left:9vw">conteúdo e audiência</div>
+      <div data-split style="overflow:hidden;font-size:7vw;white-space:nowrap;margin-left:4vw">própria.</div>
     </h2>
-    <p data-fade style="margin:3.5vh 0 0;font-size:12px;line-height:1.8;letter-spacing:0.14em;text-transform:uppercase;white-space:nowrap">Cada fase gera receita, conteúdo e audiência própria.</p>
+    <p data-fade style="margin:3.5vh 0 0;font-size:12px;line-height:1.8;letter-spacing:0.14em;text-transform:uppercase;white-space:nowrap">Funil em 4 fases. Mais a final.</p>
 
     <div style="display:flex;flex-direction:column;gap:0;margin-top:9vh;max-width:560px">
       <div data-draw style="border:1px solid rgba(242,236,230,0.75);padding:18px 22px;display:flex;justify-content:space-between;align-items:baseline;gap:16px">
@@ -278,14 +315,14 @@ picture{display:block;width:100%;height:100%}
     <div data-fade style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.55em;text-transform:uppercase;margin-bottom:3vh">05&nbsp;—&nbsp;O&nbsp;Prêmio</div>
     <h2 style="margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:0.86;text-transform:uppercase">
       <div data-split style="overflow:hidden;font-size:11vw">O&nbsp;novo</div>
-      <div data-split style="overflow:hidden;font-size:11vw;margin-left:12vw;color:#ec1425">Samurai.</div>
+      <div data-split style="overflow:hidden;font-size:11vw;margin-left:12vw">Samurai.</div>
     </h2>
     <p data-fade style="margin:3.5vh 0 0;max-width:420px;font-size:12px;line-height:1.8;letter-spacing:0.14em;text-transform:uppercase">Endorse oficial Seizi. Guitarra exclusiva. Single completo. Videoclipe. Campanha publicitária. Cada real da premiação retorna como ativo de comunicação da marca.</p>
     </div>
     <h2 data-swap-alt="s5" style="margin:0;position:absolute;left:9vw;top:50%;transform:translateY(-50%);font-family:Anton,sans-serif;font-weight:400;line-height:0.92;text-transform:uppercase;opacity:0;pointer-events:none">
       <div style="font-size:4.6vw;white-space:nowrap">Endorse.&nbsp;Guitarra&nbsp;exclusiva.</div>
       <div style="font-size:4.6vw;white-space:nowrap">Single.&nbsp;Videoclipe.&nbsp;Campanha.</div>
-      <div style="font-size:4.6vw;white-space:nowrap;color:#ec1425">Premiação&nbsp;vira&nbsp;ativo&nbsp;de&nbsp;marca.</div>
+      <div style="font-size:4.6vw;white-space:nowrap">Premiação&nbsp;vira&nbsp;ativo&nbsp;de&nbsp;marca.</div>
     </h2>
   </div>
 
@@ -400,13 +437,14 @@ picture{display:block;width:100%;height:100%}
     const fmTitle = document.querySelector('[data-formato-title]');
     const fmAlt = document.querySelector('[data-formato-alt]');
     const fmSub = document.querySelector('[data-formato-sub]');
+    const fmStats = document.querySelector('[data-formato-stats]');
     const pins = [];
     if (isDesktop && fmTitle && fmAlt) {
       const tl = gsap.timeline({
         scrollTrigger: { trigger: '#s3', start: 'top top', end: '+=90%', pin: true, scrub: 0.4, refreshPriority: 3 }
       })
       .to(fmTitle, { yPercent: -18, opacity: 0, ease: 'power2.in', duration: 0.42 }, 0.05)
-      .to(fmSub, { opacity: 0, ease: 'power2.in', duration: 0.3 }, 0.35)
+      .to([fmSub, fmStats].filter(Boolean), { opacity: 0, ease: 'power2.in', duration: 0.3 }, 0.35)
       .fromTo(fmAlt, { opacity: 0, yPercent: 16 }, { opacity: 1, yPercent: 0, ease: 'power2.out', duration: 0.45 }, 0.55);
       pins.push(tl.scrollTrigger);
     }
